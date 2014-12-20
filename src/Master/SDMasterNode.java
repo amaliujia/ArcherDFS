@@ -1,5 +1,7 @@
 package Master;
 
+import Util.SDUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,7 +21,7 @@ public class SDMasterNode {
     }
 
     public void startService(){
-        ListenerService listener = new ListenerService(16440);
+        ListenerService listener = new ListenerService(SDUtil.masterLinstenerPort);
         listener.start();
     }
 
