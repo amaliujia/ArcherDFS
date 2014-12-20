@@ -22,8 +22,9 @@ public class SDMasterHeartbeats implements Runnable{
     private HashMap<Integer, Boolean> responderList;
 
     /**
-     * Constructor for SDMaterHearbeats
+     * Constructor for SDMaterHeartbeats
      * @param list
+     *          reference of slave list, used to track slaves
      */
     public SDMasterHeartbeats(ArrayList<SDSlave> list){
         slaveList = list;
@@ -34,6 +35,13 @@ public class SDMasterHeartbeats implements Runnable{
 
     }
 
+    /**
+     * create a UDP listener and receive heart beats replies.
+     * @param currentTime
+     *          heart beats triggering time
+     * @throws IOException
+     *          throws when UDP socket receive data wrongly.
+     */
     private void startListening(long currentTime) throws IOException {
         try {
             listener = new DatagramSocket(SDUtil.heatbeatsPort);
@@ -72,6 +80,11 @@ public class SDMasterHeartbeats implements Runnable{
         }
     }
 
+    /**
+     * get time in million seconds from 1-1-1970
+     * @return
+     *      current time in million seconds
+     */
     private long getCurrentTimeInMillionSeconds(){
          Date currentData = new Date();
          return currentData.getTime();
