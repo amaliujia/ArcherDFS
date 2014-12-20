@@ -1,4 +1,5 @@
-import javax.rmi.CORBA.Util;
+package Master;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

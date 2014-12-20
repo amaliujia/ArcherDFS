@@ -1,3 +1,5 @@
+import Master.SDMasterNode;
+
 /**
  * Created by amaliujia on 14-12-20.
  */
