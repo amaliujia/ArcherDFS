@@ -15,13 +15,17 @@ import java.util.HashMap;
 /**
  * Created by amaliujia on 14-12-20.
  */
-public class SDMaterHeartbeats implements Runnable{
+public class SDMasterHeartbeats implements Runnable{
 
     private ArrayList<SDSlave> slaveList;
     private DatagramSocket listener;
     private HashMap<Integer, Boolean> responderList;
 
-    public SDMaterHeartbeats(ArrayList<SDSlave> list){
+    /**
+     * Constructor for SDMaterHearbeats
+     * @param list
+     */
+    public SDMasterHeartbeats(ArrayList<SDSlave> list){
         slaveList = list;
         responderList = new HashMap<Integer, Boolean>();
     }
