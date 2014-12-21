@@ -1,4 +1,5 @@
 import Master.SDMasterNode;
+import Slave.HKSlaveNode;
 import Util.SDUtil;
 
 /**
@@ -12,9 +13,9 @@ public class SDArcherMain {
             master.startService(SDUtil.masterLinstenerPort);
         }else if(args.length == 2){
             //start salve
-//            SDSlaveNode slave = new SDSlaveNode(args[0], Integer.parseInt(args[1]));
-//            slave.connect();
-//            slave.slaveService();
+            HKSlaveNode slave = new HKSlaveNode(args[0], Integer.parseInt(args[1]));
+            slave.connect();
+            slave.startService();
         }else{
             System.out.println("Arguments wrong");
         }

@@ -8,15 +8,12 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by amaliujia on 14-12-20.
  */
-public class SDMasterHeartbeats implements Runnable{
+public class SDMasterHeartbeats extends TimerTask implements Runnable{
 
     //private ArrayList<SDSlave> slaveList;
     private HashMap<Integer, SDSlave> slaveList;
@@ -47,7 +44,25 @@ public class SDMasterHeartbeats implements Runnable{
     }
 
     public void run() {
+        query();
+        Timer timer = new Timer();
+        timer.schedule(new SDMasterHeartbeats(slaveList), 1000, 2000);
+        try {
+            startListening(System.currentTimeMillis());
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
+        maintain();
+    }
 
+
+
+    private void query(){
+        for (SDSlave node : slaveList){
+            node.out.write("Alive?\n");
+            node.out.flush();
+        }
     }
 
     /**
@@ -79,7 +94,6 @@ public class SDMasterHeartbeats implements Runnable{
                 if(timeout <= 0){
                     break;
                 }
-
                 //start listening
                 try {
                     listener.setSoTimeout(timeout);
@@ -108,5 +122,19 @@ public class SDMasterHeartbeats implements Runnable{
     private long getCurrentTimeInMillionSeconds(){
          Date currentData = new Date();
          return currentData.getTime();
+    }
+
+    private void maintain(){
+        ArrayList<String> shutDown = new ArrayList<String>();
+        for (String addr : slaveMap.keySet()){
+            if (!responderList.containsKey(slaveMap.get(addr))){
+                shutDown.add(addr);
+            }
+        }
+        //print
+        for (String addr : shutDown){
+            System.out.println(slaveMap.get(addr));
+            slaveMap.remove(addr);
+        }
     }
 }
