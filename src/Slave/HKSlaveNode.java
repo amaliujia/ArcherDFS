@@ -45,6 +45,10 @@ public class HKSlaveNode implements Runnable{
         System.out.println("disConnection success");
     }
 
+    /**
+     * basic services
+     * @throws IOException
+     */
     public void startService() throws IOException{
         String command = bs.readLine();
         if (command == "Alive?"){
@@ -52,7 +56,9 @@ public class HKSlaveNode implements Runnable{
         }
     }
 
-
+    /**
+     *  keep working
+     */
     @Override
     public void run() {
         while(true){

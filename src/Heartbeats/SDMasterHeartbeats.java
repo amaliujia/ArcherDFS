@@ -57,7 +57,9 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     }
 
 
-
+    /**
+     * take turns to send hearbeat command
+     */
     private void query(){
         for (Integer ID : slaveList.keySet()){
             SDSlave slaveNode = slaveList.get(ID);
@@ -125,6 +127,9 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
          return currentData.getTime();
     }
 
+    /**
+     * check whether there are some slave node breaking down
+     */
     private void maintain(){
         ArrayList<String> shutDown = new ArrayList<String>();
         for (String addr : slaveMap.keySet()){
