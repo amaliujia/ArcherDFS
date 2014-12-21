@@ -1,9 +1,7 @@
 package Heartbeats;
 
-import Master.SDMasterNode;
 import Master.SDSlave;
 import Util.SDUtil;
-import sun.tools.tree.SynchronizedStatement;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -37,6 +35,8 @@ public class SDMasterHeartbeats extends TimerTask{
     }
 
     public void run() {
+
+        buildSlaveIDMapping();
 
         if (!this.slaveMap.isEmpty()) {
             query();
@@ -127,17 +127,16 @@ public class SDMasterHeartbeats extends TimerTask{
      * check whether there are some slave node breaking down
      */
     private void maintain(){
-        ArrayList<String> shutDown = new ArrayList<String>();
+        ArrayList<Integer> shutDown = new ArrayList<Integer>();
         for (String addr : slaveMap.keySet()){
             if (!responderList.containsKey(slaveMap.get(addr))){
-                shutDown.add(addr);
+                shutDown.add(slaveMap.get(addr));
             }
         }
         //print
-        for (String addr : shutDown){
-            System.out.println(slaveMap.get(addr));
+        for (Integer id : shutDown){
             synchronized (slaveList) {
-                slaveList.remove(addr);
+                slaveList.remove(id);
             }
         }
     }
