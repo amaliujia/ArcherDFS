@@ -1,5 +1,6 @@
 package Master;
 
+import Heartbeats.SDMasterHeartbeats;
 import Util.SDUtil;
 
 import java.io.BufferedReader;
@@ -24,6 +25,7 @@ public class SDMasterNode {
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
+        new Thread(new SDMasterHeartbeats(this.slaveHashMap)).start();
     }
 
     public void startService(){
@@ -112,6 +114,7 @@ public class SDMasterNode {
                     synchronized (slaveHashMap){
                         slaveHashMap.put(key, aSlave);
                     }
+
                 }catch (IOException e){
                     System.err.println("fail to establish a socket with a slave node");
                     e.printStackTrace();

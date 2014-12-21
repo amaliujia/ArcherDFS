@@ -15,6 +15,7 @@ public class HKSlaveHeartbeats implements Runnable {
     private DatagramSocket ds;
     private InetAddress heartBeatAddress;
     private int tcpPort;
+    private int count = 0;
     public HKSlaveHeartbeats(int tcpPort){
         try {
             heartBeatAddress = InetAddress.getByName(SDUtil.masterAddress);
@@ -28,7 +29,12 @@ public class HKSlaveHeartbeats implements Runnable {
 
     public void run(){
         heartBeatsResponse();
+        System.out.println(++count);
     }
+
+    /**
+     *  heartbeat response
+     */
     public void heartBeatsResponse() {
         String ack = "" + this.tcpPort;
         try {
