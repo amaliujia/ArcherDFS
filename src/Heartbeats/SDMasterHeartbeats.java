@@ -150,7 +150,7 @@ public class SDMasterHeartbeats extends TimerTask{
         //print
         for (String addr : shutDown){
             System.out.println(slaveMap.get(addr));
-            slaveMap.remove(addr);
+            slaveList.remove(addr);
         }
     }
 }
