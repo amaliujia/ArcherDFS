@@ -1,5 +1,6 @@
 package Heartbeats;
 
+import Master.SDMasterNode;
 import Master.SDSlave;
 import Util.SDUtil;
 
@@ -44,16 +45,20 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     }
 
     public void run() {
+
         query();
         Timer timer = new Timer();
         timer.schedule(new SDMasterHeartbeats(slaveList), 1000, 2000);
-        try {
-            startListening(System.currentTimeMillis());
-        } catch (IOException e) {
-            System.out.println("IOException");
-            e.printStackTrace();
+
+        if (!this.slaveList.isEmpty()) {
+            try {
+                startListening(System.currentTimeMillis());
+            } catch (IOException e) {
+                System.out.println("IOException");
+                e.printStackTrace();
+            }
+            maintain();
         }
-        maintain();
     }
 
 
@@ -61,10 +66,12 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
      * take turns to send hearbeat command
      */
     private void query(){
-        for (Integer ID : slaveList.keySet()){
-            SDSlave slaveNode = slaveList.get(ID);
-            slaveNode.out.write("Alive?\n");
-            slaveNode.out.flush();
+        synchronized (slaveList) {
+            for (Integer ID : slaveList.keySet()) {
+                SDSlave slaveNode = slaveList.get(ID);
+                slaveNode.out.write("Alive?\n");
+                slaveNode.out.flush();
+            }
         }
     }
 
