@@ -79,6 +79,7 @@ public class SDMasterHeartbeats extends TimerTask{
      *          throws when UDP socket receive data wrongly.
      */
     private void startListening(long currentTime) throws IOException {
+        System.out.println("Start UDP listening");
         try {
             listener = new DatagramSocket(SDUtil.heatbeatsPort);
         } catch (SocketException e) {
@@ -97,6 +98,7 @@ public class SDMasterHeartbeats extends TimerTask{
                 //next timeout computation
                 long interval = getCurrentTimeInMillionSeconds() - currentTime;
                 int timeout = (int) (SDUtil.heartbeatsIntervalMillionSeconds - interval);
+                System.err.println("still have " + timeout);
                 if(timeout <= 0){
                     break;
                 }
@@ -106,6 +108,7 @@ public class SDMasterHeartbeats extends TimerTask{
                     listener.receive(packet);
                     //TODO: what should I do now?
                     String receiveBuf = new String(packet.getData(), 0, packet.getLength());
+                    System.out.println("This time I get " + packet.getAddress().getHostAddress() + " " + receiveBuf);
                     String key = packet.getAddress().getHostAddress() + receiveBuf;
                     if(slaveMap.containsKey(key)){
                         responderList.put(slaveMap.get(key), true);
