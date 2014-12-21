@@ -32,6 +32,7 @@ public class SDMasterHeartbeats implements Runnable{
         slaveMap = new HashMap<String, Integer>();
 
         synchronized (list){
+            slaveList = list;
             for(int i = 0; i < list.size(); i++){
                 SDSlave slave = list.get(i);
                 slaveMap.put(slave.getAddress() + slave.getPortString(), i);
