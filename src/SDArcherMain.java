@@ -15,7 +15,7 @@ public class SDArcherMain {
             //start salve
             HKSlaveNode slave = new HKSlaveNode(args[0], Integer.parseInt(args[1]));
             slave.connect();
-            slave.startService();
+            new Thread(slave).start();
         }else{
             System.out.println("Arguments wrong");
         }

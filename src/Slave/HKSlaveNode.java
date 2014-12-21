@@ -51,8 +51,13 @@ public class HKSlaveNode implements Runnable{
      */
     public void startService() throws IOException{
         String command = bs.readLine();
-        if (command == "Alive?"){
+        if (command == null){
+            System.out.println("Interrupt!");
+            System.exit(1);
+        }
+        if (command.equals("Alive?")){
             new Thread(this.heartBeat).start();
+            System.out.println("heartBeat");
         }
     }
 

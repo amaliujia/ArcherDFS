@@ -48,8 +48,8 @@ public class SDMasterHeartbeats extends TimerTask{
     }
 
     public void run() {
-        query();
         if (!this.slaveMap.isEmpty()) {
+            query();
             try {
                 startListening(System.currentTimeMillis());
             } catch (IOException e) {
