@@ -15,10 +15,13 @@ public class SDSlave {
     private int slaveID;
 
     /**
-     *
+     * Constructor for slave node
      * @param id
+     *          slave identifier
      * @param address
+     *          slave IP adress
      * @param port
+     *          slave socket port
      */
     public SDSlave(int id, InetAddress address, int port){
         this.slaveID = id;
@@ -27,9 +30,11 @@ public class SDSlave {
     }
 
     /**
-     *
+     * Constructor for slave node
      * @param address
+     *          slave identifier
      * @param port
+     *          slave socket port
      */
     public SDSlave(InetAddress address, int port){
         this.address = address;
@@ -37,24 +42,27 @@ public class SDSlave {
     }
 
     /**
-     *
+     * set buffered reader for slave
      * @param reader
+     *          buffered reader reference
      */
     public void setReader(BufferedReader reader){
         this.in = reader;
     }
 
     /**
-     *
+     * set print writer for slave
      * @param writer
+     *          print writer reference
      */
     public void setWriter(PrintWriter writer){
         this.out = writer;
     }
 
     /**
-     *
+     * print a string which summary
      * @return
+     *      return informational string
      */
     public String toString(){
         return "INetAddress:\t" + address + " \tport:\t" + port;
