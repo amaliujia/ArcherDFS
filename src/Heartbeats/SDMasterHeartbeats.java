@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * Created by amaliujia on 14-12-20.
  */
-public class SDMasterHeartbeats extends TimerTask implements Runnable{
+public class SDMasterHeartbeats extends TimerTask{
 
     //private ArrayList<SDSlave> slaveList;
     private HashMap<Integer, SDSlave> slaveList;
@@ -45,11 +45,7 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     }
 
     public void run() {
-
         query();
-        Timer timer = new Timer();
-        timer.schedule(new SDMasterHeartbeats(slaveList), 1000, 2000);
-
         if (!this.slaveList.isEmpty()) {
             try {
                 startListening(System.currentTimeMillis());
