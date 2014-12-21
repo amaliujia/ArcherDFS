@@ -15,25 +15,30 @@ import java.util.*;
  */
 public class SDMasterHeartbeats extends TimerTask implements Runnable{
 
-    private ArrayList<SDSlave> slaveList;
+    //private ArrayList<SDSlave> slaveList;
+    private HashMap<Integer, SDSlave> slaveList;
     private DatagramSocket listener;
     private HashMap<Integer, Boolean> responderList;
     private HashMap<String, Integer> slaveMap;
 
     /**
      * Constructor for SDMaterHeartbeats
-     * @param list
+     * @param map
      *          reference of slave list, used to track slaves
      */
-    public SDMasterHeartbeats(ArrayList<SDSlave> list){
+    public SDMasterHeartbeats(HashMap<Integer, SDSlave> map){
         responderList = new HashMap<Integer, Boolean>();
         slaveMap = new HashMap<String, Integer>();
+        slaveList = new HashMap<Integer, SDSlave>();
 
-        synchronized (list){
-            slaveList = list;
-            for(int i = 0; i < list.size(); i++){
-                SDSlave slave = list.get(i);
-                slaveMap.put(slave.getAddress() + slave.getPortString(), i);
+        synchronized (map){
+            slaveList = map;
+            Iterator iter = map.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                Object key = entry.getKey();
+                SDSlave value = (SDSlave)entry.getValue();
+                slaveMap.put(value.getAddress() + value.getPortString(), (Integer)key);
             }
         }
     }
