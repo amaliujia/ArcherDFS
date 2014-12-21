@@ -8,14 +8,12 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by amaliujia on 14-12-20.
  */
-public class SDMasterHeartbeats implements Runnable{
+public class SDMasterHeartbeats extends TimerTask implements Runnable{
 
     private ArrayList<SDSlave> slaveList;
     private DatagramSocket listener;
@@ -32,6 +30,14 @@ public class SDMasterHeartbeats implements Runnable{
     }
 
     public void run() {
+        Timer timer = new Timer();
+        timer.schedule(new SDMasterHeartbeats(slaveList), 1000, 2000);
+        try {
+            startListening(System.currentTimeMillis());
+        } catch (IOException e) {
+            System.out.println("IOException");
+            e.printStackTrace();
+        }
 
     }
 
@@ -64,7 +70,6 @@ public class SDMasterHeartbeats implements Runnable{
                 if(timeout <= 0){
                     break;
                 }
-
                 //start listening
                 try {
                     listener.setSoTimeout(timeout);
