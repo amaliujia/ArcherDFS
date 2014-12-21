@@ -28,26 +28,15 @@ public class SDMasterHeartbeats extends TimerTask{
      *          reference of slave list, used to track slaves
      */
     public SDMasterHeartbeats(HashMap<Integer, SDSlave> map){
-        System.err.println("SDMasterHeartbeats Constructor");
-
         responderList = new HashMap<Integer, Boolean>();
         slaveMap = new HashMap<String, Integer>();
-        slaveList = new HashMap<Integer, SDSlave>();
+        slaveList = map;
 
-        synchronized (map){
-            slaveList = map;
-            Iterator iter = map.entrySet().iterator();
-            while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                Object key = entry.getKey();
-                SDSlave value = (SDSlave)entry.getValue();
-                System.out.println("created key " + value.getAddress() + value.getPortString());
-                slaveMap.put(value.getAddress() + value.getPortString(), (Integer)key);
-            }
-        }
+
     }
 
     public void run() {
+
         if (!this.slaveMap.isEmpty()) {
             query();
             try {
@@ -90,7 +79,6 @@ public class SDMasterHeartbeats extends TimerTask{
         }
 
         //if UDP socket creates successfully
-        responderList.clear();
         if(listener != null){
 
             //prepare buffer
@@ -101,7 +89,6 @@ public class SDMasterHeartbeats extends TimerTask{
                 //next timeout computation
                 long interval = getCurrentTimeInMillionSeconds() - currentTime;
                 int timeout = (int) (SDUtil.heartbeatsIntervalMillionSeconds - interval);
-                System.err.println("still have " + timeout);
                 if(timeout <= 0){
                     break;
                 }
@@ -109,11 +96,9 @@ public class SDMasterHeartbeats extends TimerTask{
                 try {
                     listener.setSoTimeout(timeout);
                     listener.receive(packet);
-                    //TODO: what should I do now?
+
                     String receiveBuf = new String(packet.getData(), 0, packet.getLength());
-                    System.out.println("This time I get " + packet.getAddress().getHostAddress() + " " + receiveBuf);
                     String key = packet.getAddress().getHostAddress() + receiveBuf;
-                    System.out.println("Get key " + key );
                     if(slaveMap.containsKey(key)){
                         responderList.put(slaveMap.get(key), true);
                     }else{
@@ -153,4 +138,23 @@ public class SDMasterHeartbeats extends TimerTask{
             slaveMap.remove(addr);
         }
     }
+
+    /**
+     *
+     */
+    private void buildSlaveIDMapping(){
+        responderList.clear();
+        slaveMap.clear();
+
+        synchronized (slaveList){
+            Iterator iter = slaveList.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                Object key = entry.getKey();
+                SDSlave value = (SDSlave)entry.getValue();
+                slaveMap.put(value.getAddress() + value.getPortString(), (Integer)key);
+            }
+        }
+    }
+
 }
