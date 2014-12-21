@@ -16,10 +16,11 @@ public class HKSlaveNode implements Runnable{
     private String masterAddress;
     private int masterPort;
     private Socket socket;
+    HKSlaveHeartbeats heartBeat;
     public HKSlaveNode(String masterAddress, int masterPort){
         this.masterAddress = masterAddress;
         this.masterPort = masterPort;
-        HKSlaveHeartbeats heartBeat = new HKSlaveHeartbeats();
+        this.heartBeat = new HKSlaveHeartbeats();
     }
     public void connect(){
         try{
@@ -46,13 +47,24 @@ public class HKSlaveNode implements Runnable{
         System.out.println("disConnection success");
     }
 
-    public void start_Service(){
-
+    public void startService() throws IOException{
+        String command = bs.readLine();
+        if (command == "Alive?"){
+            this.heartBeat.heartBeatsResponse();
+        }
     }
 
 
     @Override
     public void run() {
+        while(true){
+            try {
+                this.startService();
+            } catch (IOException e) {
+                System.out.println("socket connection error");
+                e.printStackTrace();
+            }
 
+        }
     }
 }

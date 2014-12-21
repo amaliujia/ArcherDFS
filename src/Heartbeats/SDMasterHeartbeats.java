@@ -39,6 +39,7 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     }
 
     public void run() {
+        query();
         Timer timer = new Timer();
         timer.schedule(new SDMasterHeartbeats(slaveList), 1000, 2000);
         try {
@@ -47,7 +48,16 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
             System.out.println("IOException");
             e.printStackTrace();
         }
+        maintain();
+    }
 
+
+
+    private void query(){
+        for (SDSlave node : slaveList){
+            node.out.write("Alive?\n");
+            node.out.flush();
+        }
     }
 
     /**
@@ -107,5 +117,19 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     private long getCurrentTimeInMillionSeconds(){
          Date currentData = new Date();
          return currentData.getTime();
+    }
+
+    private void maintain(){
+        ArrayList<String> shutDown = new ArrayList<String>();
+        for (String addr : slaveMap.keySet()){
+            if (!responderList.containsKey(slaveMap.get(addr))){
+                shutDown.add(addr);
+            }
+        }
+        //print
+        for (String addr : shutDown){
+            System.out.println(slaveMap.get(addr));
+            slaveMap.remove(addr);
+        }
     }
 }
