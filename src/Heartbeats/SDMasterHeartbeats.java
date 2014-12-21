@@ -18,6 +18,7 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
     private ArrayList<SDSlave> slaveList;
     private DatagramSocket listener;
     private HashMap<Integer, Boolean> responderList;
+    private HashMap<String, Integer> slaveMap;
 
     /**
      * Constructor for SDMaterHeartbeats
@@ -25,8 +26,15 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
      *          reference of slave list, used to track slaves
      */
     public SDMasterHeartbeats(ArrayList<SDSlave> list){
-        slaveList = list;
         responderList = new HashMap<Integer, Boolean>();
+        slaveMap = new HashMap<String, Integer>();
+
+        synchronized (list){
+            for(int i = 0; i < list.size(); i++){
+                SDSlave slave = list.get(i);
+                slaveMap.put(slave.getAddress() + slave.getPortString(), i);
+            }
+        }
     }
 
     public void run() {
@@ -75,8 +83,13 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
                     listener.setSoTimeout(timeout);
                     listener.receive(packet);
                     //TODO: what should I do now?
-                    String receive = new String(packet.getData(), 0, packet.getLength());
-                    String[] args = receive.split(" ");
+                    String receiveBuf = new String(packet.getData(), 0, packet.getLength());
+                    String key = packet.getAddress().getHostAddress() + receiveBuf;
+                    if(slaveMap.containsKey(key)){
+                        responderList.put(slaveMap.get(key), true);
+                    }else{
+                        SDUtil.fatalError("Wrong slave key!!!!");
+                    }
                 } catch (SocketTimeoutException e){
                     System.err.println("UDP socket time out");
                 }

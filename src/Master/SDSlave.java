@@ -64,4 +64,13 @@ public class SDSlave {
         return out;
     }
 
+    public String getAddress(){
+        return this.address.getHostAddress();
+    }
+
+    public String getPortString(){
+        return "" + this.port;
+    }
+
+
 }
