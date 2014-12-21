@@ -106,11 +106,9 @@ public class SDMasterNode {
                     SDSlave aSlave = new SDSlave(sock.getInetAddress(), sock.getPort());
                     aSlave.setReader(new BufferedReader(new InputStreamReader(sock.getInputStream())));
                     aSlave.setWriter(new PrintWriter(sock.getOutputStream()));
-//                    synchronized (slaveList){
-//                        slaveList.add(aSlave);
-//                    }
                     int key = (int)(getCurrentTimeInMillionSeconds() % 1000000);
                     synchronized (slaveHashMap){
+                        //TODO: write a robust slave id assignment function
                         slaveHashMap.put(key, aSlave);
                         System.err.println("new slave add: key = " + key + "  value = " + aSlave.getAddress() + aSlave.getPortString());
                     }
