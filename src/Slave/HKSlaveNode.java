@@ -4,8 +4,6 @@ package Slave;
 import Heartbeats.HKSlaveHeartbeats;
 
 import java.io.*;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
 import java.net.Socket;
 /**
  * Created by kanghuang on 12/20/14.

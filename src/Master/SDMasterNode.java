@@ -9,15 +9,21 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by amaliujia on 14-12-20.
  */
 public class SDMasterNode {
+
     public static ArrayList<SDSlave> slaveList;
+
+    public static HashMap<Integer, SDSlave> slaveHashMap;
 
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
+        slaveHashMap = new HashMap<Integer, SDSlave>();
     }
 
     public void startService(){
@@ -99,14 +105,23 @@ public class SDMasterNode {
                     SDSlave aSlave = new SDSlave(sock.getInetAddress(), sock.getPort());
                     aSlave.setReader(new BufferedReader(new InputStreamReader(sock.getInputStream())));
                     aSlave.setWriter(new PrintWriter(sock.getOutputStream()));
-                    synchronized (slaveList){
-                        slaveList.add(aSlave);
+//                    synchronized (slaveList){
+//                        slaveList.add(aSlave);
+//                    }
+                    int key = (int)(getCurrentTimeInMillionSeconds() % 1000000);
+                    synchronized (slaveHashMap){
+                        slaveHashMap.put(key, aSlave);
                     }
                 }catch (IOException e){
                     System.err.println("fail to establish a socket with a slave node");
                     e.printStackTrace();
                 }
             }
+        }
+
+        private long getCurrentTimeInMillionSeconds(){
+            Date currentData = new Date();
+            return currentData.getTime();
         }
 
     }
