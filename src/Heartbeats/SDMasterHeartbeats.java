@@ -3,6 +3,7 @@ package Heartbeats;
 import Master.SDMasterNode;
 import Master.SDSlave;
 import Util.SDUtil;
+import sun.tools.tree.SynchronizedStatement;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -135,7 +136,9 @@ public class SDMasterHeartbeats extends TimerTask{
         //print
         for (String addr : shutDown){
             System.out.println(slaveMap.get(addr));
-            slaveList.remove(addr);
+            synchronized (slaveList) {
+                slaveList.remove(addr);
+            }
         }
     }
 
