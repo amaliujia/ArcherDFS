@@ -20,13 +20,13 @@ public class HKSlaveNode implements Runnable{
     public HKSlaveNode(String masterAddress, int masterPort){
         this.masterAddress = masterAddress;
         this.masterPort = masterPort;
-        this.heartBeat = new HKSlaveHeartbeats();
     }
     public void connect(){
         try{
             socket = new Socket(masterAddress, masterPort);
             bs = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.heartBeat = new HKSlaveHeartbeats(socket.getLocalPort());
         }
         catch(IOException ex) {
             System.out.println("MasterAddress or MasterPort is wrong");
@@ -50,7 +50,7 @@ public class HKSlaveNode implements Runnable{
     public void startService() throws IOException{
         String command = bs.readLine();
         if (command == "Alive?"){
-            this.heartBeat.heartBeatsResponse();
+            new Thread(this.heartBeat).start();
         }
     }
 
