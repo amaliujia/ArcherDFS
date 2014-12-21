@@ -59,9 +59,10 @@ public class SDMasterHeartbeats extends TimerTask implements Runnable{
 
 
     private void query(){
-        for (SDSlave node : slaveList){
-            node.out.write("Alive?\n");
-            node.out.flush();
+        for (Integer ID : slaveList.keySet()){
+            SDSlave slaveNode = slaveList.get(ID);
+            slaveNode.out.write("Alive?\n");
+            slaveNode.out.flush();
         }
     }
 
