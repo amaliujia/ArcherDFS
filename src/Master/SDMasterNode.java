@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
 
 /**
  * Created by amaliujia on 14-12-20.
@@ -25,7 +26,8 @@ public class SDMasterNode {
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
-        new Thread(new SDMasterHeartbeats(this.slaveHashMap)).start();
+        Timer timer = new Timer();
+        timer.schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
     }
 
     public void startService(){
