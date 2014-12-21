@@ -9,7 +9,7 @@ public class SDUtil {
     public static final int masterLinstenerPort = 16640;
     public static final String masterAddress = "128.237.191.211";
     public static final int heatbeatsPort = 16641;
-    public static final long heartbeatsIntervalMillionSeconds = 10000000;
+    public static final long heartbeatsIntervalMillionSeconds = 3500;
 
     static public void fatalError (String message) {
         System.err.println (message);

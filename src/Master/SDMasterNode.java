@@ -73,9 +73,6 @@ public class SDMasterNode {
     private void promptPrinter(String message){
         if(message.equals("help")){
             System.out.println("Instruction: Please input your command based on following format");
-            System.out.println("              <processName> [arg1] [arg2]....[argN]");
-            System.out.println("              ps (prints a list of local running processes and their arguments)");
-            System.out.println("              quit (exits the ProcessManager)");
         }else if(message.equals("start")){
             System.out.println("Start Command: ");
             System.out.println("              ---- start slaveID someProcess inputFile outputFile");
@@ -115,6 +112,7 @@ public class SDMasterNode {
                     int key = (int)(getCurrentTimeInMillionSeconds() % 1000000);
                     synchronized (slaveHashMap){
                         slaveHashMap.put(key, aSlave);
+                        System.err.println("new slave add: key = " + key + "  value = " + aSlave.getAddress() + aSlave.getPortString());
                     }
 
                 }catch (IOException e){

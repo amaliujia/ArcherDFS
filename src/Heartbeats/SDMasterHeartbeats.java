@@ -28,6 +28,8 @@ public class SDMasterHeartbeats extends TimerTask{
      *          reference of slave list, used to track slaves
      */
     public SDMasterHeartbeats(HashMap<Integer, SDSlave> map){
+        System.err.println("SDMasterHeartbeats Constructor");
+
         responderList = new HashMap<Integer, Boolean>();
         slaveMap = new HashMap<String, Integer>();
         slaveList = new HashMap<Integer, SDSlave>();
@@ -39,6 +41,7 @@ public class SDMasterHeartbeats extends TimerTask{
                 Map.Entry entry = (Map.Entry) iter.next();
                 Object key = entry.getKey();
                 SDSlave value = (SDSlave)entry.getValue();
+                System.out.println("created key " + value.getAddress() + value.getPortString());
                 slaveMap.put(value.getAddress() + value.getPortString(), (Integer)key);
             }
         }
@@ -79,7 +82,7 @@ public class SDMasterHeartbeats extends TimerTask{
      *          throws when UDP socket receive data wrongly.
      */
     private void startListening(long currentTime) throws IOException {
-        System.out.println("Start UDP listening");
+        System.out.println("Start UDP listening and slave map size + " + slaveMap.size());
         try {
             listener = new DatagramSocket(SDUtil.heatbeatsPort);
         } catch (SocketException e) {
@@ -110,6 +113,7 @@ public class SDMasterHeartbeats extends TimerTask{
                     String receiveBuf = new String(packet.getData(), 0, packet.getLength());
                     System.out.println("This time I get " + packet.getAddress().getHostAddress() + " " + receiveBuf);
                     String key = packet.getAddress().getHostAddress() + receiveBuf;
+                    System.out.println("Get key " + key );
                     if(slaveMap.containsKey(key)){
                         responderList.put(slaveMap.get(key), true);
                     }else{
