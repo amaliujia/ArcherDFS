@@ -14,9 +14,11 @@ import java.net.UnknownHostException;
 public class HKSlaveHeartbeats implements Runnable {
     private DatagramSocket ds;
     private InetAddress heartBeatAddress;
-    public HKSlaveHeartbeats(){
+    private int tcpPort;
+    public HKSlaveHeartbeats(int tcpPort){
         try {
             heartBeatAddress = InetAddress.getByName(SDUtil.masterAddress);
+            this.tcpPort = tcpPort;
         }
         catch (UnknownHostException e) {
             System.out.println("UnknownHost");
@@ -25,10 +27,10 @@ public class HKSlaveHeartbeats implements Runnable {
     }
 
     public void run(){
-
+        heartBeatsResponse();
     }
     public void heartBeatsResponse() {
-        String ack = "alive\n";
+        String ack = "" + this.tcpPort;
         try {
             ds = new DatagramSocket();
             ds.connect(heartBeatAddress, SDUtil.heatbeatsPort);
