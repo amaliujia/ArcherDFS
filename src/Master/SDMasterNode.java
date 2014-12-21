@@ -110,9 +110,7 @@ public class SDMasterNode {
                     synchronized (slaveHashMap){
                         //TODO: write a robust slave id assignment function
                         slaveHashMap.put(key, aSlave);
-                        System.err.println("new slave add: key = " + key + "  value = " + aSlave.getAddress() + aSlave.getPortString());
                     }
-
                 }catch (IOException e){
                     System.err.println("fail to establish a socket with a slave node");
                     e.printStackTrace();
