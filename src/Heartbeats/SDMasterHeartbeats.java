@@ -15,7 +15,6 @@ import java.util.*;
  */
 public class SDMasterHeartbeats extends TimerTask{
 
-    //private ArrayList<SDSlave> slaveList;
     private HashMap<Integer, SDSlave> slaveList;
     private DatagramSocket listener;
     private HashMap<Integer, Boolean> responderList;
