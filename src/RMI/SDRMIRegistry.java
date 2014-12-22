@@ -36,7 +36,21 @@ public class SDRMIRegistry {
             Object inputObj = null;
             Class<?> c = null;
 
+            while(true){
+                sock = serverSocketsocket.accept();
+                input = new ObjectInputStream(sock.getInputStream());
+                inputObj = input.readObject();
+                c = inputObj.getClass();
+
+                // get a client lookup, then send back the ror
+                //TODO: deinfe RMI methods
+                if(c.equals(Class.forName("Dummy"))){
+
+                }
+            }
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
