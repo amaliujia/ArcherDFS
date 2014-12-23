@@ -25,7 +25,6 @@
 package org.slf4j.dummyExt;
 
 import junit.framework.TestCase;
-
 import org.slf4j.MDC;
 import org.slf4j.ext.MDCStrLookup;
 

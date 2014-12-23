@@ -24,10 +24,6 @@
  */
 package org.slf4j.migrator.line;
 
-import org.slf4j.migrator.line.JCLRuleSet;
-import org.slf4j.migrator.line.LineConverter;
-import org.slf4j.migrator.line.Log4jRuleSet;
-
 import junit.framework.TestCase;
 
 public class NoConversionTest extends TestCase {

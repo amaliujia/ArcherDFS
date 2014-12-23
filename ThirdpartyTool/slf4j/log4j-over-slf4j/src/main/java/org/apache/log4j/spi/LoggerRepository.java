@@ -16,7 +16,10 @@
 
 package org.apache.log4j.spi;
 
-import org.apache.log4j.*;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Category;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.util.Enumeration;
 

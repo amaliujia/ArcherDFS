@@ -24,13 +24,10 @@
  */
 package org.slf4j.migrator;
 
-import java.io.File;
-
-import org.slf4j.migrator.Constant;
-import org.slf4j.migrator.ProjectConverter;
+import junit.framework.TestCase;
 import org.slf4j.migrator.internal.NopProgressListener;
 
-import junit.framework.TestCase;
+import java.io.File;
 
 public class ProjectConverterTest extends TestCase {
 

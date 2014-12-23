@@ -24,12 +24,11 @@
  */
 package org.slf4j;
 
-import java.util.Random;
-
+import junit.framework.TestCase;
 import org.slf4j.helpers.BasicMarker;
 import org.slf4j.helpers.NOPLogger;
 
-import junit.framework.TestCase;
+import java.util.Random;
 
 public class NoBindingTest extends TestCase {
 

@@ -25,10 +25,10 @@
 
 package org.slf4j;
 
+import junit.framework.TestCase;
+
 import java.io.PrintStream;
 import java.util.Random;
-
-import junit.framework.TestCase;
 
 public class CompatibilityAssertionTest extends TestCase {
 

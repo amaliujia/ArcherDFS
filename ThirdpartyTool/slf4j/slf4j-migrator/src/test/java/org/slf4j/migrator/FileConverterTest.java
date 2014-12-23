@@ -24,14 +24,12 @@
  */
 package org.slf4j.migrator;
 
-import java.io.File;
-import java.io.IOException;
-
 import junit.framework.TestCase;
-
-import org.slf4j.migrator.InplaceFileConverter;
 import org.slf4j.migrator.internal.NopProgressListener;
 import org.slf4j.migrator.line.EmptyRuleSet;
+
+import java.io.File;
+import java.io.IOException;
 
 public class FileConverterTest extends TestCase {
 

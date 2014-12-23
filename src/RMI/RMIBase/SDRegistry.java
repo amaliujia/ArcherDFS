@@ -1,7 +1,6 @@
 package RMI.RMIBase;
 
 import RMI.Client.SDRemoteObjectReference;
-import RMI.RMIBase.SDRemote;
 
 /**
  * Created by amaliujia on 14-12-22.

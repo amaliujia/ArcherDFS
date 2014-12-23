@@ -24,17 +24,15 @@
  */
 package org.slf4j.cal10n_dummy;
 
-import java.util.Locale;
-
+import ch.qos.cal10n.IMessageConveyor;
+import ch.qos.cal10n.MessageConveyor;
 import junit.framework.TestCase;
-
 import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.cal10n.LocLogger;
 import org.slf4j.cal10n.LocLoggerFactory;
 import org.slf4j.dummyExt.ListAppender;
 
-import ch.qos.cal10n.IMessageConveyor;
-import ch.qos.cal10n.MessageConveyor;
+import java.util.Locale;
 
 public class LocLoggerTest extends TestCase {
 

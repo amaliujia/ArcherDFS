@@ -26,8 +26,10 @@ package org.slf4j.helpers;
 
 import org.slf4j.spi.MDCAdapter;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Basic MDC implementation, which can be used with logging systems that lack

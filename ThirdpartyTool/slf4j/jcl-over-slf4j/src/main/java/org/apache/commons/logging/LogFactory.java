@@ -16,9 +16,9 @@
 
 package org.apache.commons.logging;
 
-import java.util.Hashtable;
-
 import org.apache.commons.logging.impl.SLF4JLogFactory;
+
+import java.util.Hashtable;
 
 /**
  * <p>

@@ -24,11 +24,11 @@
  */
 package org.slf4j.helpers;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 import org.slf4j.IMarkerFactory;
 import org.slf4j.Marker;
+
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * An almost trivial implementation of the {@link IMarkerFactory}

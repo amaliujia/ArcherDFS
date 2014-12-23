@@ -24,11 +24,11 @@
  */
 package org.slf4j.dummyExt;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListAppender extends AppenderSkeleton {
 

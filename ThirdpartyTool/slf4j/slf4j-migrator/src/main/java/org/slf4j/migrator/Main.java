@@ -25,9 +25,9 @@
 
 package org.slf4j.migrator;
 
-import javax.swing.SwingUtilities;
-
 import org.slf4j.migrator.internal.MigratorFrame;
+
+import javax.swing.*;
 
 /**
  * Main entry point to the migrator.

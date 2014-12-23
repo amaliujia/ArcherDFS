@@ -24,9 +24,9 @@
  */
 package org.slf4j.migrator.internal;
 
-import java.io.File;
-
 import org.slf4j.migrator.ProjectConverter;
+
+import java.io.File;
 
 public class ConversionTask implements Runnable {
 

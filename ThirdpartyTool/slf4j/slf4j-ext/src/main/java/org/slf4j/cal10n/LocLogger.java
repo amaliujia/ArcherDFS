@@ -24,14 +24,13 @@
  */
 package org.slf4j.cal10n;
 
+import ch.qos.cal10n.IMessageConveyor;
+import ch.qos.cal10n.MessageParameterObj;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.slf4j.ext.LoggerWrapper;
 import org.slf4j.spi.LocationAwareLogger;
-
-import ch.qos.cal10n.IMessageConveyor;
-import ch.qos.cal10n.MessageParameterObj;
 
 /**
  * A logger specialized in localized logging. Localization is based in the <a

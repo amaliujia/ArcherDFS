@@ -24,12 +24,12 @@
  */
 package org.slf4j.impl;
 
-import java.util.Random;
-
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Random;
 
 public class RecursiveAppender extends AppenderSkeleton {
 

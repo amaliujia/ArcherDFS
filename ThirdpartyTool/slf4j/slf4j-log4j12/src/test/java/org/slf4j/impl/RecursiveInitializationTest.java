@@ -24,12 +24,11 @@
  */
 package org.slf4j.impl;
 
-import java.util.Random;
-
 import junit.framework.TestCase;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Random;
 
 public class RecursiveInitializationTest extends TestCase {
 

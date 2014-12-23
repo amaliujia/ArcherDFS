@@ -24,14 +24,13 @@
  */
 package org.slf4j.bridge;
 
+import junit.framework.TestCase;
+import org.apache.log4j.spi.LocationInfo;
+import org.apache.log4j.spi.LoggingEvent;
+
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
-
-import junit.framework.TestCase;
-
-import org.apache.log4j.spi.LocationInfo;
-import org.apache.log4j.spi.LoggingEvent;
 
 public class SLF4JBridgeHandlerTest extends TestCase {
 

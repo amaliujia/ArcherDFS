@@ -16,11 +16,11 @@
 
 package org.apache.log4j;
 
-import java.net.URL;
-import java.util.Properties;
-
 import org.apache.log4j.spi.Configurator;
 import org.apache.log4j.spi.LoggerRepository;
+
+import java.net.URL;
+import java.util.Properties;
 
 /**
  * An nop implementation of PropertyConfigurator.

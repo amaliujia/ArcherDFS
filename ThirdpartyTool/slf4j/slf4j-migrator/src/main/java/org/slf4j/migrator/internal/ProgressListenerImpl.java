@@ -24,10 +24,10 @@
  */
 package org.slf4j.migrator.internal;
 
+import org.slf4j.migrator.helper.Abbreviator;
+
 import java.io.File;
 import java.io.IOException;
-
-import org.slf4j.migrator.helper.Abbreviator;
 
 public class ProgressListenerImpl implements ProgressListener {
 

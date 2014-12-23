@@ -24,27 +24,15 @@
  */
 package org.slf4j.migrator.internal;
 
+import org.slf4j.migrator.Constant;
+import org.slf4j.migrator.helper.SpringLayoutHelper;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-import javax.swing.SpringLayout;
-import javax.swing.WindowConstants;
-
-import org.slf4j.migrator.Constant;
-import org.slf4j.migrator.helper.SpringLayoutHelper;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

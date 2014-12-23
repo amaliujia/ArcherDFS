@@ -24,9 +24,9 @@
  */
 package org.slf4j;
 
-import java.io.PrintStream;
-
 import junit.framework.TestCase;
+
+import java.io.PrintStream;
 
 
 /**

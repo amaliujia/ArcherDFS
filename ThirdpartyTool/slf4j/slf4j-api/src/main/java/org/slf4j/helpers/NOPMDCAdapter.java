@@ -24,9 +24,9 @@
  */
 package org.slf4j.helpers;
 
-import java.util.Map;
-
 import org.slf4j.spi.MDCAdapter;
+
+import java.util.Map;
 
 /**
  * This adapter is an empty implementation of the {@link MDCAdapter} interface.

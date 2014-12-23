@@ -25,7 +25,6 @@
 package org.slf4j.dummyExt;
 
 import junit.framework.TestCase;
-
 import org.apache.log4j.spi.LocationInfo;
 import org.apache.log4j.spi.LoggingEvent;
 import org.slf4j.ext.XLogger;

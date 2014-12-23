@@ -16,6 +16,9 @@
 
 package org.apache.commons.logging.impl;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogConfigurationException;
+
 import java.io.InputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -26,9 +29,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogConfigurationException;
 
 /**
  * <p>

@@ -24,9 +24,9 @@
  */
 package org.slf4j.test_osgi;
 
-import java.io.File;
-
 import junit.framework.TestCase;
+
+import java.io.File;
 
 public class BundleTest extends TestCase {
 

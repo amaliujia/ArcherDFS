@@ -24,8 +24,6 @@
  */
 package org.slf4j.impl;
 
-import java.io.Serializable;
-
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -33,6 +31,8 @@ import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
+
+import java.io.Serializable;
 
 /**
  * A wrapper over {@link org.apache.log4j.Logger org.apache.log4j.Logger} in

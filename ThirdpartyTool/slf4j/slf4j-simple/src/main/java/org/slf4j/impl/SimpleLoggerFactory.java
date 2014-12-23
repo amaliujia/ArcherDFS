@@ -24,11 +24,11 @@
  */
 package org.slf4j.impl;
 
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import org.slf4j.Logger;
-import org.slf4j.ILoggerFactory;
 
 /**
  * An implementation of {@link ILoggerFactory} which always returns

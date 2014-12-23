@@ -24,11 +24,10 @@
  */
 package org.slf4j;
 
-import java.util.Iterator;
-
 import junit.framework.TestCase;
-
 import org.slf4j.helpers.BasicMarkerFactory;
+
+import java.util.Iterator;
 
 /**
  * Unit test BasicMarker

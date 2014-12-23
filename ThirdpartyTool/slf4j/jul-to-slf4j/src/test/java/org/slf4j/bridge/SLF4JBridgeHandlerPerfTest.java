@@ -24,14 +24,13 @@
  */
 package org.slf4j.bridge;
 
-import java.util.logging.Handler;
-import java.util.logging.LogManager;
-
 import junit.framework.TestCase;
-
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.PatternLayout;
 import org.slf4j.LoggerFactory;
+
+import java.util.logging.Handler;
+import java.util.logging.LogManager;
 
 public class SLF4JBridgeHandlerPerfTest extends TestCase {
 

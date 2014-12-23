@@ -24,10 +24,10 @@
  */
 package org.slf4j.helpers;
 
+import junit.framework.TestCase;
+
 import java.util.Arrays;
 import java.util.Random;
-
-import junit.framework.TestCase;
 
 /**
  * Test that our BubbleSort algorithm is correctly implemented.

@@ -24,9 +24,10 @@
  */
 package org.slf4j;
 
+import junit.framework.TestCase;
+
 import java.io.Closeable;
 import java.io.IOException;
-import junit.framework.TestCase;
 
 
 /**

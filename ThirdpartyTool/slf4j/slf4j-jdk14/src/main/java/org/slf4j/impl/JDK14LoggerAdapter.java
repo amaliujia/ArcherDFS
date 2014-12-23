@@ -24,15 +24,15 @@
  */
 package org.slf4j.impl;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.FormattingTuple;
 import org.slf4j.helpers.MarkerIgnoringBase;
 import org.slf4j.helpers.MessageFormatter;
 import org.slf4j.spi.LocationAwareLogger;
+
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 /**
  * A wrapper over {@link java.util.logging.Logger java.util.logging.Logger} in

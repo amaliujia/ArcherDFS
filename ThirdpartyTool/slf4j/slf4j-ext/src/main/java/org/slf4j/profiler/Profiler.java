@@ -24,12 +24,12 @@
  */
 package org.slf4j.profiler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 // +  Profiler [BAS]

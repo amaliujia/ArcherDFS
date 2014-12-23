@@ -24,13 +24,12 @@
  */
 package org.slf4j.cal10n_dummy;
 
-import java.util.Locale;
-
+import ch.qos.cal10n.IMessageConveyor;
+import ch.qos.cal10n.MessageConveyor;
 import org.slf4j.cal10n.LocLogger;
 import org.slf4j.cal10n.LocLoggerFactory;
 
-import ch.qos.cal10n.IMessageConveyor;
-import ch.qos.cal10n.MessageConveyor;
+import java.util.Locale;
 
 public class MyApplication {
 

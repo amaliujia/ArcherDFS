@@ -24,9 +24,9 @@
  */
 package org.slf4j.cal10n_dummy;
 
-import ch.qos.cal10n.LocaleData;
-import ch.qos.cal10n.Locale;
 import ch.qos.cal10n.BaseName;
+import ch.qos.cal10n.Locale;
+import ch.qos.cal10n.LocaleData;
 
 @BaseName("production")
 @LocaleData( { @Locale("en_UK"), @Locale("fr") })

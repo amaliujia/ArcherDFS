@@ -24,11 +24,11 @@
  */
 package org.slf4j.impl;
 
+import junit.framework.TestCase;
+
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-
-import junit.framework.TestCase;
 
 public class JDK14AdapterLoggerNameTest extends TestCase {
   private MockHandler mockHandler;

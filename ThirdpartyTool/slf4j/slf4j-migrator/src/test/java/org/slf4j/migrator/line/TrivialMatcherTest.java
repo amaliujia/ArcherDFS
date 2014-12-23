@@ -24,8 +24,6 @@
  */
 package org.slf4j.migrator.line;
 
-import org.slf4j.migrator.line.LineConverter;
-
 import junit.framework.TestCase;
 
 public class TrivialMatcherTest extends TestCase {

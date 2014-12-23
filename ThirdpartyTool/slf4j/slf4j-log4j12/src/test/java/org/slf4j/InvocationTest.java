@@ -24,12 +24,11 @@
  */
 package org.slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import junit.framework.TestCase;
 import org.apache.log4j.spi.LoggingEvent;
 
-import junit.framework.TestCase;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Test whether invoking the SLF4J API causes problems or not.

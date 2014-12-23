@@ -24,6 +24,13 @@
  */
 package org.slf4j.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.helpers.FormattingTuple;
+import org.slf4j.helpers.MarkerIgnoringBase;
+import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.helpers.Util;
+import org.slf4j.spi.LocationAwareLogger;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -34,13 +41,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-
-import org.slf4j.Logger;
-import org.slf4j.helpers.FormattingTuple;
-import org.slf4j.helpers.MarkerIgnoringBase;
-import org.slf4j.helpers.MessageFormatter;
-import org.slf4j.helpers.Util;
-import org.slf4j.spi.LocationAwareLogger;
 
 /**
  * <p>Simple implementation of {@link Logger} that sends all enabled log messages,

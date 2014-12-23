@@ -24,9 +24,9 @@
  */
 package org.slf4j;
 
-import java.util.logging.Level;
-
 import junit.framework.TestCase;
+
+import java.util.logging.Level;
 
 
 /**

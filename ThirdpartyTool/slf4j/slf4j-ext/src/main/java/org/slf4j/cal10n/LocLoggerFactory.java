@@ -24,10 +24,9 @@
  */
 package org.slf4j.cal10n;
 
+import ch.qos.cal10n.IMessageConveyor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import ch.qos.cal10n.IMessageConveyor;
 
 /**
  * 

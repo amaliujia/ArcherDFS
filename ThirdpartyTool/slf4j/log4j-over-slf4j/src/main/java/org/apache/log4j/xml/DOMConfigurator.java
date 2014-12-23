@@ -18,15 +18,13 @@ package org.apache.log4j.xml;
 
 import org.apache.log4j.spi.Configurator;
 import org.apache.log4j.spi.LoggerRepository;
+import org.w3c.dom.Element;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Properties;
-
-
-import org.w3c.dom.Element;
 
 public class DOMConfigurator implements Configurator {
 

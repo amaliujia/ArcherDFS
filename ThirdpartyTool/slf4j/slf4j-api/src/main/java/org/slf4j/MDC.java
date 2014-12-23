@@ -24,14 +24,14 @@
  */
 package org.slf4j;
 
-import java.io.Closeable;
-import java.util.Map;
-
-import org.slf4j.helpers.NOPMDCAdapter;
 import org.slf4j.helpers.BasicMDCAdapter;
+import org.slf4j.helpers.NOPMDCAdapter;
 import org.slf4j.helpers.Util;
 import org.slf4j.impl.StaticMDCBinder;
 import org.slf4j.spi.MDCAdapter;
+
+import java.io.Closeable;
+import java.util.Map;
 
 /**
  * This class hides and serves as a substitute for the underlying logging

@@ -24,11 +24,11 @@
  */
 package org.slf4j.impl;
 
+import org.slf4j.spi.MDCAdapter;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.slf4j.spi.MDCAdapter;
 
 public class Log4jMDCAdapter implements MDCAdapter {
 

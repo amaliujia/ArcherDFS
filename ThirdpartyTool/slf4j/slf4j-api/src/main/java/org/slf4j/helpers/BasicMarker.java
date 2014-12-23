@@ -24,12 +24,12 @@
  */
 package org.slf4j.helpers;
 
+import org.slf4j.Marker;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
-
-import org.slf4j.Marker;
 
 /**
  * A simple implementation of the {@link Marker} interface.

@@ -24,13 +24,13 @@
  */
 package org.slf4j.agent;
 
+import org.slf4j.instrumentation.LogTransformer;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.util.Date;
 import java.util.Properties;
-
-import org.slf4j.instrumentation.LogTransformer;
 
 /**
  * Entry point for slf4j-ext when used as a Java agent.

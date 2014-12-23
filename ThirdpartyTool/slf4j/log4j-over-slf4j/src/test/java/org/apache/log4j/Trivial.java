@@ -24,8 +24,6 @@
  */
 package org.apache.log4j;
 
-import org.apache.log4j.Logger;
-
 import junit.framework.TestCase;
 
 public class Trivial extends TestCase {

@@ -24,11 +24,11 @@
  */
 package org.slf4j.migrator;
 
+import org.slf4j.migrator.internal.ProgressListener;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.slf4j.migrator.internal.ProgressListener;
 
 public class FileSelector {
 

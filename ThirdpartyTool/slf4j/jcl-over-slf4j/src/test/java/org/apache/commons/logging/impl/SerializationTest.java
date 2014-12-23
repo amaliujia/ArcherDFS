@@ -24,18 +24,13 @@
  */
 package org.apache.commons.logging.impl;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import junit.framework.TestCase;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.impl.JDK14LoggerFactory;
 import org.slf4j.spi.LocationAwareLogger;
+
+import java.io.*;
 
 public class SerializationTest extends TestCase {
 

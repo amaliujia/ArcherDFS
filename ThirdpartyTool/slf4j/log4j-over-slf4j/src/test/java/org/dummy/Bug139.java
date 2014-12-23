@@ -24,13 +24,12 @@
  */
 package org.dummy;
 
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-
 import junit.framework.TestCase;
-
 import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
+
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
 
 public class Bug139 extends TestCase {
 

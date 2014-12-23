@@ -24,9 +24,9 @@
  */
 package org.slf4j.helpers;
 
-import java.text.MessageFormat;
-
 import junit.framework.TestCase;
+
+import java.text.MessageFormat;
 
 public class MessageFormatterPerfTest extends TestCase {
 

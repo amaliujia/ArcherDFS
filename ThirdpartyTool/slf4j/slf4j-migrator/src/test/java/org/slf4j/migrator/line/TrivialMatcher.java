@@ -28,11 +28,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-import org.slf4j.migrator.line.ConversionRule;
-import org.slf4j.migrator.line.MultiGroupConversionRule;
-import org.slf4j.migrator.line.RuleSet;
-import org.slf4j.migrator.line.SingleConversionRule;
-
 class TrivialMatcher implements RuleSet {
  
   private ArrayList<ConversionRule> conversionRuleList;

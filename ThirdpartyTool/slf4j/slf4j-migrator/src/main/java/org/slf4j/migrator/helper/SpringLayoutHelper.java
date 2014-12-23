@@ -24,9 +24,8 @@
  */
 package org.slf4j.migrator.helper;
 
-import java.awt.Component;
-
-import javax.swing.SpringLayout;
+import javax.swing.*;
+import java.awt.*;
 
 public class SpringLayoutHelper {
   

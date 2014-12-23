@@ -32,12 +32,12 @@
 
 package org.slf4j.osgi.logservice.impl;
 
-import java.util.Properties;
-
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceFactory;
 import org.osgi.service.log.LogService;
+
+import java.util.Properties;
 
 /**
  * <code>Activator</code> implements a simple bundle that registers a

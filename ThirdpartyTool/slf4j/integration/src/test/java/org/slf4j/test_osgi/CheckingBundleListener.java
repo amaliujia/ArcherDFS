@@ -24,12 +24,12 @@
  */
 package org.slf4j.test_osgi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleEvent;
 import org.osgi.framework.BundleListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CheckingBundleListener implements BundleListener {
 

@@ -24,20 +24,15 @@
  */
 package org.slf4j;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.slf4j.helpers.NOPLoggerFactory;
 import org.slf4j.helpers.SubstituteLogger;
 import org.slf4j.helpers.SubstituteLoggerFactory;
 import org.slf4j.helpers.Util;
 import org.slf4j.impl.StaticLoggerBinder;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
 
 /**
  * The <code>LoggerFactory</code> is a utility class producing Loggers for

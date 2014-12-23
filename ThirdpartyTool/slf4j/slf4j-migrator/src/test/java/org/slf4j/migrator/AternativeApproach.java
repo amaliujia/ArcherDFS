@@ -24,12 +24,11 @@
  */
 package org.slf4j.migrator;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import junit.framework.TestCase;
 import org.slf4j.migrator.line.MultiGroupConversionRule;
 
-import junit.framework.TestCase;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AternativeApproach extends TestCase {
 

@@ -24,20 +24,11 @@
  */
 package org.slf4j.migrator;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.Reader;
-
 import org.slf4j.migrator.internal.ProgressListener;
 import org.slf4j.migrator.line.LineConverter;
 import org.slf4j.migrator.line.RuleSet;
+
+import java.io.*;
 
 public class InplaceFileConverter {
 

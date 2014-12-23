@@ -24,11 +24,7 @@
  */
 package org.slf4j.migrator;
 
-import org.slf4j.migrator.line.EmptyRuleSet;
-import org.slf4j.migrator.line.JCLRuleSet;
-import org.slf4j.migrator.line.JULRuleSet;
-import org.slf4j.migrator.line.Log4jRuleSet;
-import org.slf4j.migrator.line.RuleSet;
+import org.slf4j.migrator.line.*;
 
 /**
  * This class runs Pattern matching with java.util.regex using Patterns defined

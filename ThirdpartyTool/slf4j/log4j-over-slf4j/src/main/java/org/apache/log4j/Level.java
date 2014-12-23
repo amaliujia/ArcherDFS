@@ -18,11 +18,8 @@
 //                Nicholas Wolff
 
 package org.apache.log4j;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamException;
-import java.io.Serializable;
+
+import java.io.*;
 
 /**
    Defines the minimum set of levels recognized by the system, that is

@@ -24,11 +24,11 @@
  */
 package org.slf4j.test_osgi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.FrameworkListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FrameworkErrorListener implements FrameworkListener {
 

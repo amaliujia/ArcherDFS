@@ -24,17 +24,16 @@
  */
 package org.slf4j.migrator;
 
+import org.slf4j.migrator.internal.MigratorFrame;
+import org.slf4j.migrator.internal.ProgressListener;
+import org.slf4j.migrator.line.RuleSet;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.SwingUtilities;
-
-import org.slf4j.migrator.internal.MigratorFrame;
-import org.slf4j.migrator.internal.ProgressListener;
-import org.slf4j.migrator.line.RuleSet;
 
 public class ProjectConverter {
 

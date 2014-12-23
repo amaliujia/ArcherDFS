@@ -27,20 +27,14 @@
  */
 package org.slf4j.instrumentation;
 
-import static org.slf4j.helpers.MessageFormatter.format;
+import javassist.*;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.io.ByteArrayInputStream;
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
 
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtBehavior;
-import javassist.CtClass;
-import javassist.CtField;
-import javassist.NotFoundException;
-
-import org.slf4j.helpers.MessageFormatter;
+import static org.slf4j.helpers.MessageFormatter.format;
 
 /**
  * <p>

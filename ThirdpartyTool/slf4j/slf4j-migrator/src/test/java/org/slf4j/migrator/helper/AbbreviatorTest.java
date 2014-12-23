@@ -24,8 +24,6 @@
  */
 package org.slf4j.migrator.helper;
 
-import org.slf4j.migrator.helper.Abbreviator;
-
 import junit.framework.TestCase;
 
 public class AbbreviatorTest extends TestCase {
