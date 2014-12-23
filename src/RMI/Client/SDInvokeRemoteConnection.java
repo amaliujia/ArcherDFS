@@ -7,6 +7,7 @@ import RMI.RMIBase.SDRemoteConnection;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.Socket;
 
 /**
  * SDInvokeRemoteConnection is a subclass of SDRemoteConnection.
@@ -15,8 +16,13 @@ import java.lang.reflect.Method;
  * It may support features like timeout, at-least one send, etc.
  */
 public class SDInvokeRemoteConnection extends SDRemoteConnection {
+
     public SDInvokeRemoteConnection(String address, int port) throws SDConnectionException {
         super(address, port);
+    }
+
+    public SDInvokeRemoteConnection(Socket socket) throws SDConnectionException {
+        super(socket);
     }
 
     /**
