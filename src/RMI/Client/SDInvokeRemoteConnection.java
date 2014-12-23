@@ -3,6 +3,7 @@ package RMI.Client;
 import ArcherException.SDConnectionException;
 import ArcherException.SDMarshallingException;
 import ArcherException.SDUnmarshallingException;
+import RMI.RMIBase.SDRemoteConnection;
 
 import java.io.IOException;
 import java.lang.reflect.Method;

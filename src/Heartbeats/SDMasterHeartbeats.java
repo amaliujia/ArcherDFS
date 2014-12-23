@@ -138,6 +138,7 @@ public class SDMasterHeartbeats extends TimerTask{
                 slaveList.remove(id);
             }
         }
+        //TODO: one a slave lost control, what should ArcherDFS do?
     }
 
     /**

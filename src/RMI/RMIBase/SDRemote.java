@@ -1,4 +1,4 @@
-package RMI.Client;
+package RMI.RMIBase;
 
 /**
  * Created by amaliujia on 14-12-22.

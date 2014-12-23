@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
+import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Created by amaliujia on 14-12-20.
@@ -23,11 +25,16 @@ public class SDMasterNode {
 
     public static HashMap<Integer, SDSlave> slaveHashMap;
 
+    private ExecutorService threadsPool;
+
+    private Timer heartbeatsTimer;
+
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
-        Timer timer = new Timer();
-        timer.schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
+        threadsPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * SDUtil.POOLSIZE);
+        heartbeatsTimer = new Timer();
+        heartbeatsTimer .schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
     }
 
     public void startService(){
@@ -124,4 +131,6 @@ public class SDMasterNode {
         }
 
     }
+
+    //TODO: define private slave class to handle communication service
 }

@@ -14,6 +14,8 @@ public class SDUtil {
     public static final String REMOTESTUBIP = masterAddress;
     public static final int RMIRegistryPort = 16642;
 
+    public static final int POOLSIZE = 10;
+
 
     static public void fatalError (String message) {
         System.err.println (message);
