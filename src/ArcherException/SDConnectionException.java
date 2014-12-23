@@ -1,4 +1,4 @@
-package RMI;
+package ArcherException;
 
 
 import java.io.IOException;

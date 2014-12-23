@@ -1,8 +1,7 @@
-package ArcherException;
+package RMI;
 
 
-import RMI.SDConnectionException;
-import RMI.SDRemoteObjectReference;
+import ArcherException.SDConnectionException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
