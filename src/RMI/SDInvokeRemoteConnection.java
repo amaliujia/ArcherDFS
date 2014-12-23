@@ -1,6 +1,7 @@
 package RMI;
 
 import ArcherException.SDConnectionException;
+import ArcherException.SDMarshallingException;
 import ArcherException.SDUnmarshallingException;
 
 import java.io.IOException;
@@ -21,13 +22,23 @@ public class SDInvokeRemoteConnection extends SDRemoteConnection {
             out.writeByte(SDCommandConstants.INVOKE);
             out.writeObject(ref);
             out.writeLong(methodHash);
-            //TODO: marvalue and send parameters
+            try {
+                if(params != null){
+                    for(int i = 0; i < params.length; i++){
+                        marshalling(types[i], params[i], out);
+                    }
+                }
+            } catch (IOException e){
+                throw new SDMarshallingException("Failed to marshalling", e);
+            }
+            out.flush();
+            //TODO: return invocation result
         }catch (IOException e){
             throw new SDConnectionException("Fail to send invocation", e);
         }
     }
 
-    private Object invokeReturn(Method method) throws IOException{
+    private Object invokeReturn(Method method) throws IOException, ClassNotFoundException {
         if(in.readByte() != SDCommandConstants.RETURN){
            throw new SDUnmarshallingException("Invoke return command code is invalid");
         }
@@ -37,12 +48,12 @@ public class SDInvokeRemoteConnection extends SDRemoteConnection {
             default:
                 break;
         }
+        //TODO: handle exception return and unexpected return
         Class<?> returnType = method.getReturnType();
         if(returnType == void.class){
             return null;
         }
 
-        //TODO unmarshalling
-        return null;
+        return unmarshalling(returnType, in);
     }
 }
