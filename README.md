@@ -11,3 +11,5 @@ Milestone
 2. Heartbeats protocol
 
 3. Remote methods invocation
+
+4. Integrate error log
