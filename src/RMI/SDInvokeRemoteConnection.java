@@ -8,15 +8,27 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 /**
- * Created by amaliujia on 14-12-23.
+ * SDInvokeRemoteConnection is a subclass of SDRemoteConnection.
+ * It is mainly used to send a invocation from client to server.
+ * This connection will handle invoke, marshalling, unmarshalling.
+ * It may support features like timeout, at-least one send, etc.
  */
 public class SDInvokeRemoteConnection extends SDRemoteConnection {
     public SDInvokeRemoteConnection(String address, int port) throws SDConnectionException {
         super(address, port);
     }
 
-    public void invoke(SDRemoteObjectReference ref, Method method, long methodHash, Object[] params)
-            throws SDConnectionException{
+    /**
+     * Start point of an Invocation. Based on protocol, send method and parameters to server, and
+     * waiting return.
+     * @param ref
+     * @param method
+     * @param methodHash
+     * @param params
+     * @throws SDConnectionException
+     */
+    public Object invoke(SDRemoteObjectReference ref, Method method, long methodHash, Object[] params)
+            throws SDConnectionException, ClassNotFoundException {
         try{
             Class<?>[] types = method.getParameterTypes();
             out.writeByte(SDCommandConstants.INVOKE);
@@ -32,13 +44,21 @@ public class SDInvokeRemoteConnection extends SDRemoteConnection {
                 throw new SDMarshallingException("Failed to marshalling", e);
             }
             out.flush();
-            //TODO: return invocation result
+            return invokeReturn(method);
         }catch (IOException e){
             throw new SDConnectionException("Fail to send invocation", e);
         }
     }
 
+    /**
+     * Call in invoke function, waiting for receiving RMI result.
+     * @param method
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private Object invokeReturn(Method method) throws IOException, ClassNotFoundException {
+        //TODO: define return message format
         if(in.readByte() != SDCommandConstants.RETURN){
            throw new SDUnmarshallingException("Invoke return command code is invalid");
         }

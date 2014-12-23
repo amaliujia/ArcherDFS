@@ -13,13 +13,22 @@ import java.net.Socket;
  * Created by amaliujia on 14-12-23.
  */
 public abstract class SDRemoteConnection {
-
+    // TCP connection to do RMI
     protected Socket socket;
 
+    // Connection output stream
     protected ObjectInputStream in;
 
+    // Connection input stream
     protected ObjectOutputStream out;
 
+    /**
+     * Constructor of SDRemoteConnection, parameters are used
+     * to create socket connection with server.
+     * @param address
+     * @param port
+     * @throws SDConnectionException
+     */
     public SDRemoteConnection(String address, int port) throws SDConnectionException {
         try {
             socket = new Socket(address, port);
@@ -30,6 +39,11 @@ public abstract class SDRemoteConnection {
         }
     }
 
+    /**
+     * Constructor of SDRemoteConnection
+     * @param socket
+     * @throws SDConnectionException
+     */
     public SDRemoteConnection(Socket socket) throws SDConnectionException {
         try {
             this.socket = socket;
@@ -40,6 +54,10 @@ public abstract class SDRemoteConnection {
         }
     }
 
+    /**
+     * Close function to close current connection
+     * @throws SDConnectionException
+     */
     public void close() throws SDConnectionException {
         try {
             out.close();
@@ -50,6 +68,13 @@ public abstract class SDRemoteConnection {
         }
     }
 
+    /**
+     * Marshalling function, used to send parameters for one RMI
+     * @param type
+     * @param value
+     * @param out
+     * @throws IOException
+     */
     public void marshalling(Class<?> type, Object value, ObjectOutputStream out) throws IOException {
         if(type.isPrimitive()){
             if(type == int.class){
@@ -76,6 +101,14 @@ public abstract class SDRemoteConnection {
         }
     }
 
+    /**
+     * Unmarshalling function, used ot extract return result of one RMIß
+     * @param type
+     * @param in
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public Object unmarshalling(Class<?> type, ObjectInputStream in) throws IOException, ClassNotFoundException {
         if(type.isPrimitive()){
             if(type == int.class){

@@ -2,9 +2,7 @@ package RMI;
 
 import java.io.Serializable;
 
-/**
- * Created by amaliujia on 14-12-22.
- */
+
 public class SDRemoteObjectReference implements Serializable {
 
     private String address;
