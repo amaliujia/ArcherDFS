@@ -1,4 +1,4 @@
-package RMI;
+package RMI.Client;
 
 import ArcherException.SDConnectionException;
 import ArcherException.SDMarshallingException;

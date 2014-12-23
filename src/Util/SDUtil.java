@@ -10,7 +10,9 @@ public class SDUtil {
     public static final String masterAddress = "128.237.191.211";
     public static final int heatbeatsPort = 16641;
     public static final long heartbeatsIntervalMillionSeconds = 3500;
-    public static final int RMIRegistryPort = 16643;
+
+    public static final String REMOTESTUBIP = masterAddress;
+    public static final int RMIRegistryPort = 16642;
 
 
     static public void fatalError (String message) {

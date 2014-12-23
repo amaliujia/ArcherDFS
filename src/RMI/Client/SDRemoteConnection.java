@@ -1,8 +1,7 @@
-package RMI;
+package RMI.Client;
 
 
 import ArcherException.SDConnectionException;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
