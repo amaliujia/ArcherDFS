@@ -47,6 +47,10 @@ public class SDRemoteObjectReference implements Serializable {
         return result;
     }
 
+    public Object localise(){
+        return null;
+    }
+
     public String getClassName(){
         return className;
     }

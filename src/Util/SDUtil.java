@@ -1,7 +1,7 @@
 package Util;
 
 import static java.lang.System.exit;
-
+import java.net.*;
 /**
  * Created by amaliujia on 14-12-20.
  */
@@ -13,6 +13,7 @@ public class SDUtil {
 
     public static final String REMOTESTUBIP = masterAddress;
     public static final int RMIRegistryPort = 16642;
+    public static final int REGISTRY_OBJID = 0x0;
 
     public static final int POOLSIZE = 10;
 
@@ -22,5 +23,9 @@ public class SDUtil {
         exit(1);
     }
 
-
+    static public String getHost()
+            throws UnknownHostException {
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        return inetAddress.getHostName();
+    }
 }
