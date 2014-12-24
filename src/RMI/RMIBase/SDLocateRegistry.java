@@ -30,15 +30,16 @@ public class SDLocateRegistry {
             if(registry == null){
                 if(host == null){
                     try {
-                        host = SDUtil.getHost();
+                        host = SDUtil.getLocalHost();
                     } catch (UnknownHostException e){
                         host = "";
                     }
                 }
                 SDRemoteObjectReference ref = new SDRemoteObjectReference(
-                        host, port, "", SDUtil.REGISTRY_OBJID
+                        host, port, "RMI.Server.SDRegistryImp", SDUtil.REGISTRY_OBJID
                 );
                 //TODO: getRegistry from server.
+                registry = (Registry)ref.localise();
             }
         }
         return registry;

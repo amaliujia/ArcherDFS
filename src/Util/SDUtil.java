@@ -1,7 +1,9 @@
 package Util;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import static java.lang.System.exit;
-import java.net.*;
 /**
  * Created by amaliujia on 14-12-20.
  */
@@ -23,7 +25,7 @@ public class SDUtil {
         exit(1);
     }
 
-    static public String getHost()
+    static public String getLocalHost()
             throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getLocalHost();
         return inetAddress.getHostName();

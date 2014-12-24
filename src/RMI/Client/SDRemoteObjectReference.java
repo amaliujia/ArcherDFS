@@ -1,6 +1,9 @@
 package RMI.Client;
 
 import ArcherException.SDConnectionException;
+import ArcherException.SDRemoteReferenceObjectException;
+import RMI.RMIBase.SDRemote;
+import Util.SDUtil;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -42,12 +45,31 @@ public class SDRemoteObjectReference implements Serializable {
      */
     public Object invoke(Method method, long methodHash, Object[] params)
             throws SDConnectionException, ClassNotFoundException {
-       SDInvokeRemoteConnection connection = new SDInvokeRemoteConnection(address, port);
+        SDInvokeRemoteConnection connection = new SDInvokeRemoteConnection(address, port);
         Object result = connection.invoke(this, method, methodHash, params);
         return result;
     }
 
-    public Object localise(){
+
+    public SDRemoteStub localise(){
+        //TODO: which port should be used to download stub?
+        SDRemoteClassLoader classLoader = new SDRemoteClassLoader(
+                                            SDUtil.masterAddress, SDUtil.RMIRegistryPort, className);
+        Class c = classLoader.getStubtClass();
+        try {
+            Object stub = c.newInstance();
+            if(stub instanceof SDRemoteStub){
+                return (SDRemoteStub)stub;
+            }else{
+               throw new SDRemoteReferenceObjectException("This is not a stub");
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (SDRemoteReferenceObjectException e){
+            e.printStackTrace();
+        }
         return null;
     }
 
