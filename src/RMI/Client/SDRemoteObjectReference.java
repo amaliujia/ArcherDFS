@@ -5,6 +5,7 @@ import ArcherException.SDRemoteReferenceObjectException;
 import RMI.RMIBase.SDRemote;
 import Util.SDUtil;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
@@ -55,7 +56,12 @@ public class SDRemoteObjectReference implements Serializable {
         //TODO: which port should be used to download stub?
         SDRemoteClassLoader classLoader = new SDRemoteClassLoader(
                                             SDUtil.masterAddress, SDUtil.RMIRegistryPort, className);
-        Class c = classLoader.getStubtClass();
+        Class c = null;
+        try {
+            c = classLoader.getStubtClass();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         try {
             Object stub = c.newInstance();
             if(stub instanceof SDRemoteStub){
