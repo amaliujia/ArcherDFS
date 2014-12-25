@@ -18,6 +18,9 @@ public class SDRMIRemoteServerJob implements Runnable {
     }
 
     @Override
+    /**
+     *  3 basic functions: 1.lookup specific service name 2.list all service names 3.invoke specific functions
+     */
     public void run(){
 
     }
