@@ -18,7 +18,7 @@ public class SDRMIRemoteServerJob implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run(){
 
     }
 }

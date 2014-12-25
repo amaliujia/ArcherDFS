@@ -5,6 +5,5 @@ package RMI.Client;
  */
 public class SDRMIClientUtil {
     public static final String STUB_SUFFIX = "_Stub";
-    public static final String STUB_Prefix = "RMI/RMIService/Student";
-    public static final String CLient_STUB_Prefix = "RMI/Client";
+    public static final String STUB_PATH = "RMIService.Student.";
 }

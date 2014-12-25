@@ -29,7 +29,7 @@ public class SDRemoteClassLoader extends ClassLoader{
     public Class getStubtClass() throws IOException {
         Class c;
         try{
-           c = Class.forName(SDRMIClientUtil.CLient_STUB_Prefix + className + SDRMIClientUtil.STUB_SUFFIX);
+           c = Class.forName(SDRMIClientUtil.STUB_PATH + className + SDRMIClientUtil.STUB_SUFFIX);
         } catch (ClassNotFoundException e) {
            c = getRemoteStubClass();
         }
@@ -38,8 +38,8 @@ public class SDRemoteClassLoader extends ClassLoader{
 
     private Class getRemoteStubClass()
             throws IOException{
-        byte[] stubClassBytes = getClassFileByte(SDRMIClientUtil.STUB_Prefix + className + SDRMIClientUtil.STUB_SUFFIX);
-        return defineClass(SDRMIClientUtil.STUB_Prefix + className + SDRMIClientUtil.STUB_SUFFIX, stubClassBytes, 0, stubClassBytes.length);
+        byte[] stubClassBytes = getClassFileByte(SDRMIClientUtil.STUB_PATH + className + SDRMIClientUtil.STUB_SUFFIX);
+        return defineClass(SDRMIClientUtil.STUB_PATH + className + SDRMIClientUtil.STUB_SUFFIX, stubClassBytes, 0, stubClassBytes.length);
     }
 
     /**
