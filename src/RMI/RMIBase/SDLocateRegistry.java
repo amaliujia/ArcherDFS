@@ -39,7 +39,7 @@ public class SDLocateRegistry {
                         host, port, "RMI.Server.SDRegistryImp", SDUtil.REGISTRY_OBJID
                 );
                 //TODO: getRegistry from server.
-                registry = (Registry)ref.localise();
+                registry = (Registry)ref.localize();
             }
         }
         return registry;

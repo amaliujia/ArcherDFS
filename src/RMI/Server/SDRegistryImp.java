@@ -12,11 +12,20 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by amaliujia on 14-12-23.
  */
 public class SDRegistryImp implements SDRegistry {
-    private ConcurrentHashMap<String, SDRemoteObjectReference> refs;
-
-    public SDRegistryImp(){
+    // Singleton
+    private  static final SDRegistryImp singleRegistry = new SDRegistryImp();
+    private SDRegistryImp(){
         refs = new ConcurrentHashMap<String, SDRemoteObjectReference>();
     }
+
+    public static SDRegistry getInstance() {
+        return singleRegistry;
+    }
+    private ConcurrentHashMap<String, SDRemoteObjectReference> refs;
+
+    /*public SDRegistryImp(){
+        refs = new ConcurrentHashMap<String, SDRemoteObjectReference>();
+    }*/
 
     /**
      * Look up a service name in registry.

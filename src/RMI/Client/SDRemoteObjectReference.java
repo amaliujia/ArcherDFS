@@ -52,7 +52,7 @@ public class SDRemoteObjectReference implements Serializable {
     }
 
 
-    public SDRemoteStub localise(){
+    public SDRemoteStub localize(){
         //TODO: which port should be used to download stub?
         SDRemoteClassLoader classLoader = new SDRemoteClassLoader(
                                             SDUtil.masterAddress, SDUtil.RMIRegistryPort, className);
