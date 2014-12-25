@@ -17,8 +17,7 @@ public class SDRegistryImp implements SDRegistry {
     private SDRegistryImp(){
         refs = new ConcurrentHashMap<String, SDRemoteObjectReference>();
     }
-
-    public static SDRegistry getInstance() {
+    public static SDRegistry getSharedRegistry() {
         return singleRegistry;
     }
     private ConcurrentHashMap<String, SDRemoteObjectReference> refs;
@@ -72,6 +71,8 @@ public class SDRegistryImp implements SDRegistry {
      * @param serviceName
      * @param ref
      * @throws SDDuplicateService
+     *
+     * is it necessary?
      */
     @Override
     public void rebind(String serviceName, SDRemoteObjectReference ref) throws SDDuplicateService {

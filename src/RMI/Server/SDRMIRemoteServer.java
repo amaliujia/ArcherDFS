@@ -1,8 +1,10 @@
 package RMI.Server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,28 +12,41 @@ import java.util.concurrent.Executors;
 public class SDRMIRemoteServer implements Runnable{
 
     // server port
-    private int port;
+    private static int listenPort;
 
     //server address
-    private String address;
+    private static String address;
 
     //thread pool
     private ExecutorService threadsPool;
 
     //listening
-    ServerSocket sock;
+    private ServerSocket sock;
 
     public SDRMIRemoteServer(String address, int port, int size){
         this.address = address;
-        this.port = port;
+        this.listenPort = port;
         threadsPool = Executors.newFixedThreadPool(size);
     }
 
+    public static String getLocalIP(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        }
+        catch (UnknownHostException ex){
+            System.err.println("UnknownHost");
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
+    public static int getListenPort(){
+            return listenPort;
+    }
     @Override
     public void run() {
         try {
-            sock = new ServerSocket(port);
+            sock = new ServerSocket(this.listenPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
