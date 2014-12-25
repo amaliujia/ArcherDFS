@@ -5,4 +5,5 @@ package RMI.RMIService.Student;
  */
 public interface StudentMethods {
    public String listStudents();
+   public String wishes(String name);
 }

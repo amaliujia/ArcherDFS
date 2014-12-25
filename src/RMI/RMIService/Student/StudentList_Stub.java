@@ -15,4 +15,8 @@ public class StudentList_Stub extends SDRemoteStub implements StudentMethods{
     public String listStudents() {
         return null;
     }
+
+    public String wishes(String name){
+        return "Happy new Year!" + name == null? "everyBody" : name;
+    }
 }
