@@ -1,7 +1,9 @@
 package RMI.RMIService.Student;
 
+import ArcherException.SDRemoteReferenceObjectException;
 import RMI.Client.SDRemoteObjectReference;
 import RMI.Client.SDRemoteStub;
+import java.lang.reflect.Method;
 
 /**
  * Created by amaliujia on 14-12-24.
@@ -17,6 +19,16 @@ public class StudentList_Stub extends SDRemoteStub implements StudentMethods{
     }
 
     public String wishes(String name){
-        return "Happy new Year!" + name == null? "everyBody" : name;
+        String result = null;
+        try {
+            Method method = StudentMethods.class.getMethod("wishes", String.class);
+
+            result = (String)invoke(method, new Object[] {name});
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (SDRemoteReferenceObjectException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
