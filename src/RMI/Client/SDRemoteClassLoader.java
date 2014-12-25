@@ -29,7 +29,7 @@ public class SDRemoteClassLoader extends ClassLoader{
     public Class getStubtClass() throws IOException {
         Class c;
         try{
-           c = Class.forName(SDRMIClientUtil.STUB_Prefix + className + SDRMIClientUtil.STUB_SUFFIX);
+           c = Class.forName(SDRMIClientUtil.CLient_STUB_Prefix + className + SDRMIClientUtil.STUB_SUFFIX);
         } catch (ClassNotFoundException e) {
            c = getRemoteStubClass();
         }

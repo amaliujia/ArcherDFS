@@ -19,5 +19,6 @@ public class SDArcherMain {
         }else{
             System.out.println("Arguments wrong");
         }
+        //TODO: add entrance to Registry
     }
 }
