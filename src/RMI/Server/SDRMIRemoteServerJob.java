@@ -58,7 +58,12 @@ public class SDRMIRemoteServerJob implements Runnable {
 
         }
         else if (msg.getType() == HKRMIMessage.RMIMsgType.LIST){
-
+            try {
+                this.listFunction(msg);
+            }
+            catch (SDConnectionException ex){
+                ex.printStackTrace();
+            }
         }
     }
 
@@ -93,9 +98,17 @@ public class SDRMIRemoteServerJob implements Runnable {
         SDRemoteObjectReference ror = null;
         if (service != null) {
             ror = new SDRemoteObjectReference(SDRMIRemoteServer.getLocalIP(), SDRMIRemoteServer.getListenPort(), serviceName);
-            Method systemMethod = ((Object) ror).getClass().getMethod();
+            Method systemMethod = ((Object) ror).getClass().getMethod();  // T.B.D conflict with unmarshalling
         }
         HKRMIMessage respondMessage = new HKRMIMessage(ror, HKRMIMessage.RMIMsgType.RETURN);
+        this.sendMsg(socket, respondMessage);
+        return true;
+    }
+
+    private boolean listFunction(HKRMIMessage msg) throws SDConnectionException{
+        String serviceName =  msg.getServiceName();
+        SDServerResponseConnection response = new SDServerResponseConnection(socket);
+        HKRMIMessage respondMessage = new HKRMIMessage(SDRegistryImp.getSharedRegistry().getBindList(), HKRMIMessage.RMIMsgType.RETURN);
         this.sendMsg(socket, respondMessage);
         return true;
     }

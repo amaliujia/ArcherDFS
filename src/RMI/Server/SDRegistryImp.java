@@ -84,7 +84,7 @@ public class SDRegistryImp implements SDRegistry {
     }
 
     @Override
-    public String[] list() {
+    public String[] getBindList() {
         Set<String> keys = refs.keySet();
         String[] results = new String[keys.size()];
         keys.toArray(results);

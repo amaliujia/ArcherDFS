@@ -24,5 +24,6 @@ public interface SDRegistry extends SDRemote {
     void rebind(String serviceName, SDRemoteObjectReference ref)
             throws SDDuplicateService;
 
-    String[] list();
+    //return registered methodName
+    String[] getBindList();
 }
