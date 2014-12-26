@@ -8,6 +8,7 @@ import RMI.RMIBase.SDRemoteConnection;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -57,13 +58,18 @@ public class SDRMIRemoteServerJob implements Runnable {
 
         }
         else if (msg.getType() == HKRMIMessage.RMIMsgType.LIST){
-            
+
         }
     }
 
-
+    /**
+     *
+     * @param msg request information of RemoteObject
+     * @return
+     * @throws SDConnectionException
+     */
     private boolean lookupName(HKRMIMessage msg) throws SDConnectionException{
-        String serviceName =  msg.getRawContent().toString();
+        String serviceName =  msg.getServiceName();
         SDRemoteObjectReference service = SDRegistryImp.getSharedRegistry().lookup(serviceName);
         SDServerResponseConnection response = new SDServerResponseConnection(socket);
         SDRemoteObjectReference ror = null;
@@ -75,9 +81,32 @@ public class SDRMIRemoteServerJob implements Runnable {
         return true;
     }
 
-    /*
- * Receive a message from client socket. Return null if the incoming message is not RMIMessage.
- */
+    /**
+     *
+     * @param msg
+     * @return
+     */
+    private boolean callFunction(HKRMIMessage msg) throws SDConnectionException{
+        String serviceName =  msg.getServiceName();
+        SDRemoteObjectReference service = SDRegistryImp.getSharedRegistry().lookup(serviceName);
+        SDServerResponseConnection response = new SDServerResponseConnection(socket);
+        SDRemoteObjectReference ror = null;
+        if (service != null) {
+            ror = new SDRemoteObjectReference(SDRMIRemoteServer.getLocalIP(), SDRMIRemoteServer.getListenPort(), serviceName);
+            Method systemMethod = ((Object) ror).getClass().getMethod();
+        }
+        HKRMIMessage respondMessage = new HKRMIMessage(ror, HKRMIMessage.RMIMsgType.RETURN);
+        this.sendMsg(socket, respondMessage);
+        return true;
+    }
+
+    /**
+     *
+     * @param socket Client
+     * @return Receive a message from client socket. Return null if the incoming message is not RMIMessage.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public HKRMIMessage receiveMsg(Socket socket) throws IOException, ClassNotFoundException {
         ObjectInputStream inStream;
         Object inObj;
@@ -88,12 +117,13 @@ public class SDRMIRemoteServerJob implements Runnable {
             HKRMIMessage msg = (HKRMIMessage) inObj;
             return msg;
         }
-
         return null;
     }
 
-    /*
-     * Send msg to the client socket.
+    /**
+     *
+     * @param socket Client
+     * @param msg Send msg to the client socket.
      */
     public void sendMsg(Socket socket, Object msg) {
         if (!(msg instanceof HKRMIMessage)) {

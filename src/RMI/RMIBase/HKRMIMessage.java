@@ -13,7 +13,8 @@ public class HKRMIMessage {
     public enum RMIMsgType {
         LOOKUP,
         LIST,
-        CALL
+        CALL,
+        RETURN
     };
     private RMIMsgType type;
     private Object rorContent;
@@ -43,7 +44,6 @@ public class HKRMIMessage {
         if (!isTypeCall()) {
             return null;
         }
-
         else {
             return (SDRemoteObjectReference)(((Object[]) rorContent)[0]);
             //return (SDRemoteObjectReference) rorContent[0];
@@ -54,8 +54,16 @@ public class HKRMIMessage {
         if (!isTypeCall()) {
             return null;
         }
-        return (String)(((Object[]) rorContent)[1]);
+        return ((SDRemoteObjectReference)(((Object[]) rorContent)[0])).getClassName() +  (String)(((Object[]) rorContent)[1]);
        // return (String) rorContent[1];
+    }
+
+    public String methodName(){
+        if (!isTypeCall()) {
+            return null;
+        }
+        return (String)(((Object[]) rorContent)[1]);
+        // return (String) rorContent[1];
     }
 
     public Object[] getArguments(){
