@@ -83,6 +83,10 @@ public class SDRegistryImp implements SDRegistry {
         }
     }
 
+    /**
+     *
+     * @return List of service names of RemoteObjectReference
+     */
     @Override
     public String[] getBindList() {
         Set<String> keys = refs.keySet();
