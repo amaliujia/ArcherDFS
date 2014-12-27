@@ -1,5 +1,6 @@
 package Protocol.MasterService;
 
+import FileSystem.SDDFSFile;
 import RMI.RMIBase.SDRemote;
 
 /**
@@ -7,15 +8,18 @@ import RMI.RMIBase.SDRemote;
  */
 public interface SDMasterService extends SDRemote {
     //create file
-
+    //TODO: replication here?
+    public SDDFSFile createFile(String fileName);
 
     //get file
-
+    public SDDFSFile getFile(String fileName);
 
     //list files
-
+    public SDDFSFile[] listFiles();
 
     //delete file
-    public boolean deleteFile(long fileID);
+    public boolean deleteFile(String fileName);
+
+    //TODO: create chunk here?
 }
 
