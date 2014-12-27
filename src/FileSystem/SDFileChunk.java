@@ -23,7 +23,7 @@ public class SDFileChunk implements Serializable {
         this.id = id;
         this.fileID = fileID;
         this.size = size;
-        this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
+        //this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
     }
 
 }
