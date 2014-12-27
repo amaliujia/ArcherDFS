@@ -2,6 +2,8 @@ package Heartbeats;
 
 import Master.SDSlave;
 import Util.SDUtil;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -16,9 +18,14 @@ import java.util.*;
 public class SDMasterHeartbeats extends TimerTask{
 
     private HashMap<Integer, SDSlave> slaveList;
+
     private DatagramSocket listener;
+
     private HashMap<Integer, Boolean> responderList;
+
     private HashMap<String, Integer> slaveMap;
+
+    private Logger logger = LoggerFactory.getLogger(TimerTask.class);
 
     /**
      * Constructor for SDMaterHeartbeats
@@ -42,7 +49,8 @@ public class SDMasterHeartbeats extends TimerTask{
             try {
                 startListening(System.currentTimeMillis());
             } catch (IOException e) {
-                System.out.println("IOException");
+                logger.error("IOException");
+                //System.out.println("IOException");
                 e.printStackTrace();
             }
             maintain();
@@ -71,7 +79,8 @@ public class SDMasterHeartbeats extends TimerTask{
      *          throws when UDP socket receive data wrongly.
      */
     private void startListening(long currentTime) throws IOException {
-        System.out.println("Start UDP listening and slave map size + " + slaveMap.size());
+        //System.out.println("Start UDP listening and slave map size + " + slaveMap.size());
+        logger.debug("Start UDP listening and slave map size + " + slaveMap.size());
         try {
             listener = new DatagramSocket(SDUtil.heatbeatsPort);
         } catch (SocketException e) {
@@ -105,7 +114,8 @@ public class SDMasterHeartbeats extends TimerTask{
                         SDUtil.fatalError("Wrong slave key!!!!");
                     }
                 } catch (SocketTimeoutException e){
-                    System.err.println("UDP socket time out");
+                    //System.err.println("UDP socket time out");
+                    logger.error("UDP socket time out");
                 }
             }
             listener.close();

@@ -1,6 +1,8 @@
 package Heartbeats;
 
 import Util.SDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,9 +15,15 @@ import java.net.UnknownHostException;
  */
 public class HKSlaveHeartbeats implements Runnable {
     private DatagramSocket ds;
+
     private InetAddress heartBeatAddress;
+
     private int tcpPort;
+
     private int count = 0;
+
+    private Logger logger = LoggerFactory.getLogger(HKSlaveHeartbeats.class);
+
     public HKSlaveHeartbeats(int tcpPort){
         try {
             heartBeatAddress = InetAddress.getByName(SDUtil.masterAddress);
@@ -42,13 +50,15 @@ public class HKSlaveHeartbeats implements Runnable {
             ds.connect(heartBeatAddress, SDUtil.heatbeatsPort);
         }
         catch (IOException ex){
-            System.out.println("UDP connection error!");
+            logger.error("UDP connection error in client heart beats!");
+            //System.out.println("UDP connection error!");
         }
         DatagramPacket dp_send= new DatagramPacket(ack.getBytes(),ack.length(), heartBeatAddress, SDUtil.heatbeatsPort);
         try {
             ds.send(dp_send);
         } catch (IOException e) {
-            System.out.println("Slave fails to send");
+            //System.out.println("Slave fails to send");
+            logger.error("Slave fails to send in client heart beats!");
             e.printStackTrace();
         }
 

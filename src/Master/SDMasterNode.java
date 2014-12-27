@@ -2,6 +2,8 @@ package Master;
 
 import Heartbeats.SDMasterHeartbeats;
 import Util.SDUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 /**
  * Created by amaliujia on 14-12-20.
  */
@@ -28,6 +31,8 @@ public class SDMasterNode {
     private ExecutorService threadsPool;
 
     private Timer heartbeatsTimer;
+
+    private Logger logger = LoggerFactory.getLogger(SDMasterNode.class);
 
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
@@ -97,7 +102,8 @@ public class SDMasterNode {
             try {
                 listener = new ServerSocket(port);
             } catch (IOException e) {
-                System.out.println("listener socket fails");
+                //System.out.println("listener socket fails");
+                logger.error("listener socket fails");
                 e.printStackTrace();
             }
         }
@@ -109,7 +115,8 @@ public class SDMasterNode {
             while(true) {
                 try {
                     Socket sock = listener.accept();
-                    System.out.println("New slave connected");
+                    //System.out.println("New slave connected");
+                    logger.info("New slave connected");
                     SDSlave aSlave = new SDSlave(sock.getInetAddress(), sock.getPort());
                     aSlave.setReader(new BufferedReader(new InputStreamReader(sock.getInputStream())));
                     aSlave.setWriter(new PrintWriter(sock.getOutputStream()));
@@ -119,7 +126,8 @@ public class SDMasterNode {
                         slaveHashMap.put(key, aSlave);
                     }
                 }catch (IOException e){
-                    System.err.println("fail to establish a socket with a slave node");
+                    //System.err.println("fail to establish a socket with a slave node");
+                    logger.error("fail to establish a socket with a slave node");
                     e.printStackTrace();
                 }
             }

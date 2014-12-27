@@ -22,8 +22,7 @@ public class StudentList_Stub extends SDRemoteStub implements StudentMethods{
         String result = null;
         try {
             Method method = StudentMethods.class.getMethod("wishes", String.class);
-
-            result = (String)invoke(method, new Object[] {name});
+			result = (String)invoke(method, new Object[] {name});
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (SDRemoteReferenceObjectException e) {

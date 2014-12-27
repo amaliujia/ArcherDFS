@@ -1,24 +1,26 @@
 package MigratableProcess;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 public class SDMigratableProcess implements MigratableProcesses
 {
     private TransactionalFileInputStream  inFile;
+
     private TransactionalFileOutputStream outFile;
+
     private String query;
+
     private boolean finished;
 
     private volatile boolean suspending;
 
+    private Logger logger = LoggerFactory.getLogger(SDMigratableProcess.class);
+
     public SDMigratableProcess(String args[]) throws Exception
     {
-      /*  if (args.length != 3) {
-            System.out.println("usage: SDProcess <queryString> <inputFile> <outputFile>");
-            throw new Exception("Invalid Arguments");
-        }
-*/
-       // query = args[0];
         inFile = new TransactionalFileInputStream(args[0]);
         outFile = new TransactionalFileOutputStream(args[1], false);
         finished = false;
@@ -36,15 +38,11 @@ public class SDMigratableProcess implements MigratableProcesses
             while (!suspending) {
 
                 String line = in.readLine();
-               // if (line == null) continue;
-               // if (line.contains(query)) {
-               // System.out.println(line);
                 if (line == null){
                     break;
                 }
                  out.writeBytes(line);
                  out.writeBytes("\n");
-               // }
                 // Make grep take longer so that we don't require extremely large files for interesting results
                 try {
                    Thread.sleep(800);
@@ -55,11 +53,12 @@ public class SDMigratableProcess implements MigratableProcesses
         } catch (EOFException e) {
             //End of File
         } catch (IOException e) {
-            System.out.println ("SDProcess: Error: " + e);
+            logger.error("SDProcess: Error: " + e);
         }
         while(suspending && !finished){
           //  System.out.print(suspending);
-            System.out.println("10");
+          //  System.out.println("10");
+            logger.debug("10");
         }
         suspending = false;
         finished = true;
@@ -68,10 +67,9 @@ public class SDMigratableProcess implements MigratableProcesses
             //out.close();
         }
         catch (IOException ex){
-            System.out.println("writing failure...");
+            logger.error("writing failure in SDMigratable process");
         }
-        //outFile.closeFileStream();
-        System.out.println("finish writing...");
+        logger.info("finish writing...");
     }
 
     public void resume() {
@@ -87,10 +85,6 @@ public class SDMigratableProcess implements MigratableProcesses
         }catch (IOException e){
             e.printStackTrace();
         }
-
-       /* while (suspending){
-
-        };*/
     }
 
     public void finish(){

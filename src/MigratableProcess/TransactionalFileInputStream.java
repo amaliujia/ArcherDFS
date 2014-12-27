@@ -1,5 +1,8 @@
 package MigratableProcess;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 
 /**
@@ -7,10 +10,16 @@ import java.io.*;
  */
 public class TransactionalFileInputStream extends InputStream implements Serializable {
     private static final long serialVersionUID = 568680122;
+
     private String fileName;
+
     private transient RandomAccessFile randomAccessFile;
+
     private long offset;
+
     private boolean migratable;
+
+    private Logger logger = LoggerFactory.getLogger(TransactionalFileInputStream.class);
 
     public TransactionalFileInputStream(String arg){
         this.fileName = arg;
@@ -18,13 +27,13 @@ public class TransactionalFileInputStream extends InputStream implements Seriali
         try{
             this.randomAccessFile = new RandomAccessFile(this.fileName, "rws");
         } catch (FileNotFoundException e) {
-            System.err.println("Cannot find file " + this.fileName + " in file system");
+            logger.error("Cannot find file " + this.fileName + " in file system");
             e.printStackTrace();
         } catch (IllegalArgumentException e){
-            System.err.println("Illegal arguments");
+            logger.error("Illegal arguments");
             e.printStackTrace();
         } catch (SecurityException e){
-            System.err.println("Security problem");
+            logger.error("Security problem");
             e.printStackTrace();
         }
 

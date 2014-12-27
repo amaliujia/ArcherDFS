@@ -2,6 +2,8 @@ package Slave;
 
 
 import Heartbeats.HKSlaveHeartbeats;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,15 +12,24 @@ import java.net.Socket;
  */
 public class HKSlaveNode implements Runnable{
     private PrintWriter pw;
+
     private BufferedReader bs;
+
     private String masterAddress;
+
     private int masterPort;
+
     private Socket socket;
+
     HKSlaveHeartbeats heartBeat;
+
+    private Logger logger = LoggerFactory.getLogger(HKSlaveNode.class);
+
     public HKSlaveNode(String masterAddress, int masterPort){
         this.masterAddress = masterAddress;
         this.masterPort = masterPort;
     }
+
     public void connect(){
         try{
             socket = new Socket(masterAddress, masterPort);
@@ -27,9 +38,9 @@ public class HKSlaveNode implements Runnable{
             this.heartBeat = new HKSlaveHeartbeats(socket.getLocalPort());
         }
         catch(IOException ex) {
-            System.out.println("MasterAddress or MasterPort is wrong");
+            logger.error("MasterAddress or MasterPort is wrong");
         }
-        System.out.println("Connection success");
+        logger.info("Connection success");
     }
 
     public void disconnect(){
@@ -40,9 +51,9 @@ public class HKSlaveNode implements Runnable{
         }
         catch (IOException ex)
         {
-            System.out.println("disConnection error\n");
+            logger.error("disConnection error\n");
         }
-        System.out.println("disConnection success");
+        logger.info("disConnection success");
     }
 
     /**
@@ -52,12 +63,12 @@ public class HKSlaveNode implements Runnable{
     public void startService() throws IOException{
         String command = bs.readLine();
         if (command == null){
-            System.out.println("Interrupt!");
+            logger.error("Interrupt!");
             System.exit(1);
         }
         if (command.equals("Alive?")){
             new Thread(this.heartBeat).start();
-            System.out.println("heartBeat");
+            logger.info("heartBeat");
         }
     }
 
@@ -70,7 +81,7 @@ public class HKSlaveNode implements Runnable{
             try {
                 this.startService();
             } catch (IOException e) {
-                System.out.println("socket connection error");
+                logger.error("socket connection error");
                 e.printStackTrace();
             }
 
