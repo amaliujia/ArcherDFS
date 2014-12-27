@@ -2,7 +2,6 @@ package RMI.Client;
 
 import ArcherException.SDConnectionException;
 import ArcherException.SDRemoteReferenceObjectException;
-import RMI.RMIBase.SDRemote;
 import Util.SDUtil;
 
 import java.io.IOException;
