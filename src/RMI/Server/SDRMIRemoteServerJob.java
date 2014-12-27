@@ -98,7 +98,7 @@ public class SDRMIRemoteServerJob implements Runnable {
         SDRemoteObjectReference ror = null;
         if (service != null) {
             ror = new SDRemoteObjectReference(SDRMIRemoteServer.getLocalIP(), SDRMIRemoteServer.getListenPort(), serviceName);
-            Method systemMethod = ((Object) ror).getClass().getMethod();  // T.B.D conflict with unmarshalling
+           // Method systemMethod = ((Object) ror).getClass().getMethod();  // T.B.D conflict with unmarshalling
         }
         HKRMIMessage respondMessage = new HKRMIMessage(ror, HKRMIMessage.RMIMsgType.RETURN);
         this.sendMsg(socket, respondMessage);
