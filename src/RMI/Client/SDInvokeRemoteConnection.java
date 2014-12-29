@@ -40,7 +40,7 @@ public class SDInvokeRemoteConnection extends SDRemoteConnection {
             Class<?>[] types = method.getParameterTypes();
             out.writeByte(SDCommandConstants.INVOKE);
             out.writeObject(ref);
-            out.writeLong(methodHash);
+          //  out.writeLong(methodHash);
             try {
                 if(params != null){
                     for(int i = 0; i < params.length; i++){
