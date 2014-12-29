@@ -9,7 +9,7 @@ import RMI.RMIBase.SDRemote;
 public interface SDMasterService extends SDRemote {
     //create file
     //TODO: replication here?
-    public SDDFSFile createFile(String fileName);
+    public SDDFSFile createFile(String fileName, int re);
 
     //get file
     public SDDFSFile getFile(String fileName);
@@ -18,7 +18,7 @@ public interface SDMasterService extends SDRemote {
     public SDDFSFile[] listFiles();
 
     //delete file
-    public boolean deleteFile(String fileName);
+    public void deleteFile(String fileName);
 
     //TODO: create chunk here?
 }

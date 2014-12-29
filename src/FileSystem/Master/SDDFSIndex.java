@@ -13,8 +13,8 @@ import java.util.Map;
 /**
  * Created by amaliujia on 14-12-28.
  */
-public class SDIndex {
-    private static Logger logger = LoggerFactory.getLogger(SDIndex.class);
+public class SDDFSIndex {
+    private static Logger logger = LoggerFactory.getLogger(SDDFSIndex.class);
 
     private String lock;
 
@@ -33,7 +33,7 @@ public class SDIndex {
     //operation log
     private SDLogger sdLogger;
 
-    public SDIndex(SDLogger sdLogger){
+    public SDDFSIndex(SDLogger sdLogger){
         this.lock = "SkyDragon";
         this.sdLogger = sdLogger;
         this.dataNodes = new HashMap<String, SDDFSNode>();
@@ -77,6 +77,10 @@ public class SDIndex {
 
     }
 
+
+    public SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
+        return null;
+    }
 
     //TODO: log recover
 
