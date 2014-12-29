@@ -13,3 +13,9 @@ Milestone
 3. Remote methods invocation
 
 4. Integrate error log
+
+5. Log recovery
+
+6. Data model design 
+
+
