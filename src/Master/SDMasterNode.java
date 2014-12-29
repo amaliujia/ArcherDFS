@@ -43,7 +43,7 @@ public class SDMasterNode {
     }
 
     public void startService(){
-        ListenerService listener = new ListenerService(SDUtil.masterLinstenerPort);
+        ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
         listener.start();
     }
 

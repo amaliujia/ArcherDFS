@@ -7,10 +7,8 @@ import RMI.RMIBase.HKRMIMessage;
 import RMI.RMIBase.SDRemoteConnection;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.rmi.server.RemoteObject;
 
 /**
  * The <code>SDServerResponseConnection</code> handle the RMI request

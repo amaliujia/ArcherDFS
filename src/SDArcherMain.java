@@ -12,7 +12,7 @@ public class SDArcherMain {
         }else if(args[0].equals("master")){
             //start master
             SDMasterNode master = new SDMasterNode();
-            master.startService(SDUtil.masterLinstenerPort);
+            master.startService(SDUtil.masterListenerPort);
         }else if(args[0].equals("slave")){
             //start salve
             HKSlaveNode slave = new HKSlaveNode(args[1], Integer.parseInt(args[2]));
