@@ -1,4 +1,4 @@
-package FileSystem;
+package FileSystem.Base;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -19,11 +19,11 @@ public class SDFileChunk implements Serializable {
 
     private Set<SDDFSNode> chunkNodes;
 
-    public SDFileChunk(long id, long fileID, int size, SDDFSFile[] nodes){
+    public SDFileChunk(long id, long fileID, int size, SDDFSNode[] nodes){
         this.id = id;
         this.fileID = fileID;
         this.size = size;
-        //this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
+        this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
     }
 
 }

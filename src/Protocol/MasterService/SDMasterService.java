@@ -1,6 +1,6 @@
 package Protocol.MasterService;
 
-import FileSystem.SDDFSFile;
+import FileSystem.Base.SDDFSFile;
 import RMI.RMIBase.SDRemote;
 
 /**
