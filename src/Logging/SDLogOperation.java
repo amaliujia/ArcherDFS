@@ -7,6 +7,19 @@ import java.util.List;
  * Created by amaliujia on 14-12-26.
  */
 public class SDLogOperation {
+
+    public static final byte UNKNOWN = 0x0;
+
+    public static final byte UPDATE_DATA_NODE = 0x1;
+
+    public static final byte REMOVE_DATA_NODE = 0x2;
+
+    public static final byte DFS_CREATE_FILE = 0x3;
+
+    public static final byte DFS_CREATE_CHUNK = 0x4;
+
+    public static final byte DFS_DELETE_FILE = 0x5;
+
     private int type;
 
     private List<Object> argmuents;
