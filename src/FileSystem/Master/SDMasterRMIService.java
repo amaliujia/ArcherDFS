@@ -18,6 +18,17 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     }
 
     @Override
+    public void updateDataNode(String serviceName, String registryHost, int registryPort,
+                               int chunkNumber, long timestamp, boolean logable) {
+        index.updateDataNode(serviceName, registryHost, registryPort, chunkNumber, timestamp, logable);
+    }
+
+    @Override
+    public void deleteDataNode(String serviceName, boolean logable) {
+        index.removeDataNode(serviceName, logable);
+    }
+
+    @Override
     public SDDFSFile createFile(String fileName, int re) {
         return index.createFile(fileName, re, true);
     }

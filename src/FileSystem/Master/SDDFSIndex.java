@@ -3,6 +3,7 @@ package FileSystem.Master;
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
 import FileSystem.Base.SDFileChunk;
+import Logging.SDLogOperation;
 import Logging.SDLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +45,34 @@ public class SDDFSIndex {
 
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int numChunker, long timestamp, boolean logable){
+        SDDFSNode dataNode = null;
+        synchronized (lock){
+            if(dataNodes.containsKey(serviceName)){
+                dataNode = dataNodes.get(serviceName);
+                //TODO: how to log it?
 
+            } else{
+                 dataNode = new SDDFSNode(serviceName, registryHost, registryPort);
+                 dataNodes.put(serviceName, dataNode);
+                if(logable){
+                    dfsLog(SDLogOperation.UPDATE_DATA_NODE, new Object[] {serviceName,
+                            registryHost, registryPort, numChunker}) ;
+                }
+            }
+
+            dataNode.setChunkNumber(numChunker);
+            dataNode.setTimestamp(timestamp);
+        }
     }
 
-    public void removeDataNode(String serviceName, boolean logable){}
+    public void removeDataNode(String serviceName, boolean logable){
+        synchronized (lock){
+            this.dataNodes.remove(serviceName);
+            if(logable){
+                dfsLog(SDLogOperation.REMOVE_DATA_NODE, new Object[] {serviceName});
+            }
+        }
+    }
 
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
         return null;
@@ -80,6 +105,11 @@ public class SDDFSIndex {
 
     public SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
         return null;
+    }
+
+    private void dfsLog(byte operationType, Object[] arguments){
+        SDLogOperation operation = new SDLogOperation(operationType, arguments);
+        sdLogger.writeLog(operation);
     }
 
     //TODO: log recover

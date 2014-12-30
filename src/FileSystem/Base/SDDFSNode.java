@@ -40,11 +40,15 @@ public class SDDFSNode implements Serializable, Comparable<SDDFSNode>{
     }
 
     public int getChunkNumber(){
-        return  chunkerNumber;
+        return chunkerNumber;
     }
 
     public void setChunkNumber(int chunkNumber){
         this.chunkerNumber = chunkNumber;
+    }
+
+    public void setTimestamp(long timestamp){
+        this.timestamp = timestamp;
     }
 
     @Override
