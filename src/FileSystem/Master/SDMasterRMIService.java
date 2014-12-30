@@ -12,7 +12,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterService{
     private SDDFSIndex index;
 
-    protected SDMasterRMIService(SDDFSIndex index) throws RemoteException {
+    public SDMasterRMIService(SDDFSIndex index) throws RemoteException {
         super();
         this.index = index;
     }

@@ -1,6 +1,10 @@
 package Master;
 
+import FileSystem.Master.SDDFSIndex;
+import FileSystem.Master.SDMasterRMIService;
 import Heartbeats.SDMasterHeartbeats;
+import Logging.SDLogger;
+import Protocol.MasterService.SDMasterService;
 import Util.SDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,6 +42,14 @@ public class SDMasterNode {
 
     private Logger logger = LoggerFactory.getLogger(SDMasterNode.class);
 
+    private SDDFSIndex sddfsIndex;
+
+    private SDLogger sdLogger;
+
+    private SDMasterRMIService sdMasterRMIService;
+
+    private Registry registry;
+
     public SDMasterNode(){
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
@@ -42,9 +58,15 @@ public class SDMasterNode {
         heartbeatsTimer .schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
     }
 
-    public void startService(){
+    public void startService() throws RemoteException, UnknownHostException {
         ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
         listener.start();
+
+        sdLogger = new SDLogger(SDUtil.LOGPATH);
+        sddfsIndex = new SDDFSIndex(sdLogger);
+        sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
+        registry = LocateRegistry.getRegistry(SDUtil.getLocalHost(), SDUtil.MASTER_RMIRegistry_PORT);
+        registry.rebind(SDMasterRMIService.class.getCanonicalName(), sdMasterRMIService);
     }
 
     /**

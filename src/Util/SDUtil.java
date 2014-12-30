@@ -14,7 +14,7 @@ public class SDUtil {
     public static final long heartbeatsIntervalMillionSeconds = 3500;
 
     public static final String REMOTESTUBIP = masterAddress;
-    public static final int RMIRegistryPort = 16642;
+    public static final int MASTER_RMIRegistry_PORT = 16642;
     public static final int REGISTRY_OBJID = 0x0;
 
     public static final int POOLSIZE = 10;

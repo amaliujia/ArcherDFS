@@ -1,5 +1,6 @@
 package FileSystem.Slave;
 
+import Master.SDSlave;
 import Protocol.SlaveService.SDSlaveService;
 import Slave.SDSlaveNode;
 
@@ -14,7 +15,12 @@ public class SDSlaveRMIService extends UnicastRemoteObject implements SDSlaveSer
 
     private SDSlaveNode slave;
 
-    protected SDSlaveRMIService() throws RemoteException {
+    public SDSlaveRMIService() throws RemoteException {
+    }
+
+    public SDSlaveRMIService(SDSlaveNode node) throws RemoteException {
+        super();
+        this.slave = node;
     }
 
     @Override
