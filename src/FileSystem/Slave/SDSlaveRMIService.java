@@ -1,6 +1,5 @@
 package FileSystem.Slave;
 
-import Master.SDSlave;
 import Protocol.SlaveService.SDSlaveService;
 import Slave.SDSlaveNode;
 

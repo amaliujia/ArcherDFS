@@ -4,7 +4,6 @@ import FileSystem.Master.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
 import Heartbeats.SDMasterHeartbeats;
 import Logging.SDLogger;
-import Protocol.MasterService.SDMasterService;
 import Util.SDUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +58,8 @@ public class SDMasterNode {
     }
 
     public void startService() throws RemoteException, UnknownHostException {
-        ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
-        listener.start();
+//        ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
+//        listener.start();
 
         sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
@@ -161,6 +160,4 @@ public class SDMasterNode {
         }
 
     }
-
-    //TODO: define private slave class to handle communication service
 }
