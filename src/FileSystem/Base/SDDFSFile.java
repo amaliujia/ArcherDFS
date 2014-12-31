@@ -4,13 +4,17 @@ import Util.SDUtil;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by amaliujia on 14-12-27.
  */
-public class SDDFSFile implements Serializable {
+public class SDDFSFile implements Serializable{
+    public static AtomicLong maxId = new AtomicLong(0);
+
     private long fileID;
 
     private String name;
@@ -44,4 +48,7 @@ public class SDDFSFile implements Serializable {
         this.chunks.remove(chunk);
     }
 
+    public long getFileID(){
+        return this.fileID;
+    }
 }

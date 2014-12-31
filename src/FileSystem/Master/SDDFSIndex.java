@@ -8,8 +8,7 @@ import Logging.SDLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by amaliujia on 14-12-28.
@@ -54,12 +53,11 @@ public class SDDFSIndex {
             } else{
                  dataNode = new SDDFSNode(serviceName, registryHost, registryPort);
                  dataNodes.put(serviceName, dataNode);
-                if(logable){
+                 if(logable){
                     dfsLog(SDLogOperation.UPDATE_DATA_NODE, new Object[] {serviceName,
                             registryHost, registryPort, numChunker}) ;
                 }
             }
-
             dataNode.setChunkNumber(numChunker);
             dataNode.setTimestamp(timestamp);
         }
@@ -75,7 +73,19 @@ public class SDDFSIndex {
     }
 
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
-        return null;
+        SDDFSFile file = null;
+        synchronized (lock){
+            if(logable){
+                dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
+            }
+            if(fileIndex.containsKey(fileName)){
+                deleteFile(fileName, true);
+            }
+            file = new SDDFSFile(SDDFSFile.maxId.incrementAndGet(), fileName);
+            fileIndex.put(fileName, file.getFileID());
+            files.put(file.getFileID(), file);
+        }
+        return file;
     }
 
     public SDDFSFile getFile(String fileName){
@@ -99,9 +109,17 @@ public class SDDFSIndex {
     }
 
     public void deleteFile(String serviceName, boolean logable){
-
+        synchronized (lock){
+            if(logable){
+                dfsLog(SDLogOperation.DFS_DELETE_FILE, new Object[] {serviceName});
+            }
+            if(fileIndex.containsKey(serviceName)){
+                long id = fileIndex.get(serviceName);
+                fileIndex.remove(serviceName);
+                files.remove(id);
+            }
+        }
     }
-
 
     public SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
         return null;
@@ -112,6 +130,27 @@ public class SDDFSIndex {
         sdLogger.writeLog(operation);
     }
 
-    //TODO: log recover
+    private SDDFSNode[] allocateNode(int replication) {
+        List<SDDFSNode> nodes = new ArrayList<SDDFSNode>();
+        SDDFSNode[] results = null;
+        SDDFSNode[] allNodes = new SDDFSNode[dataNodes.size()];
+        dataNodes.values().toArray(allNodes);
+        Arrays.sort(allNodes, new Comparator<SDDFSNode>() {
+            @Override
+            public int compare(SDDFSNode o1, SDDFSNode o2) {
+                return o1.getChunkNumber() - o2.getChunkNumber();
+            }
+        });
+//        for(int i = 0; i < replicas && i < allNodes.length; i++){
+//            if(allNodes[i].isValid()){
+//                nodes.add(allNodes[i]);
+//            }
+//        }
+        nodes.add(allNodes[0]);
+        results = new SDDFSNode[nodes.size()];
+        nodes.toArray(results);
+        return results;
+    }
 
+    //TODO: log recover
 }
