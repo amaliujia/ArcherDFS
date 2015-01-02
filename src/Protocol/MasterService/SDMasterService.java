@@ -1,12 +1,13 @@
 package Protocol.MasterService;
 
 import FileSystem.Base.SDDFSFile;
-import RMI.RMIBase.SDRemote;
+
+import java.rmi.Remote;
 
 /**
  * Created by amaliujia on 14-12-27.
  */
-public interface SDMasterService extends SDRemote {
+public interface SDMasterService extends Remote {
     //create or update nodes, actually it is a kind of heartbeats
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int chunkNumber, long timestamp, boolean logable);

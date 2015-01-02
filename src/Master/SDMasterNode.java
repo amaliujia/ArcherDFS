@@ -2,11 +2,9 @@ package Master;
 
 import FileSystem.Master.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
-import Heartbeats.SDMasterHeartbeats;
 import Logging.SDLogger;
+import Protocol.MasterService.SDMasterService;
 import Util.SDUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -46,7 +43,7 @@ public class SDMasterNode {
 
     private SDLogger sdLogger;
 
-    private SDMasterRMIService sdMasterRMIService;
+    private SDMasterService sdMasterRMIService;
 
     private Registry registry;
 
@@ -67,11 +64,8 @@ public class SDMasterNode {
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
         registry = LocateRegistry.createRegistry(SDUtil.MASTER_RMIRegistry_PORT);
         //registry = LocateRegistry.getRegistry("localhost", SDUtil.MASTER_RMIRegistry_PORT);
-        try {
-            registry.bind(SDMasterRMIService.class.getCanonicalName(), sdMasterRMIService);
-        } catch (AlreadyBoundException e) {
-            e.printStackTrace();
-        }
+        registry.rebind(SDMasterService.class.getCanonicalName(), sdMasterRMIService);
+
     }
 
     /**

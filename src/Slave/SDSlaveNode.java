@@ -1,7 +1,7 @@
 package Slave;
 
+import FileSystem.Master.SDMasterRMIService;
 import FileSystem.Slave.SDSlaveIO;
-import FileSystem.Slave.SDSlaveRMIService;
 import Protocol.MasterService.SDMasterService;
 import Util.SDUtil;
 
@@ -35,7 +35,7 @@ public class SDSlaveNode {
            // registry = LocateRegistry.getRegistry();
            // registry.rebind(serviceName, sdSlaveRMIService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
-            masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
+            masterService = (SDMasterService) registry.lookup(SDMasterRMIService.class.getCanonicalName());
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
