@@ -31,9 +31,9 @@ public class SDSlaveNode {
     public void startService(){
         slaveIO = new SDSlaveIO();
         try {
-            SDSlaveRMIService sdSlaveRMIService = new SDSlaveRMIService(this);
-            registry = LocateRegistry.getRegistry();
-            registry.rebind(serviceName, sdSlaveRMIService);
+           // SDSlaveRMIService sdSlaveRMIService = new SDSlaveRMIService(this);
+           // registry = LocateRegistry.getRegistry();
+           // registry.rebind(serviceName, sdSlaveRMIService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
             masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
         } catch (RemoteException e) {

@@ -1,5 +1,6 @@
 import Master.SDMasterNode;
 import Slave.HKSlaveNode;
+import Slave.SDSlaveNode;
 import Util.SDUtil;
 
 /**
@@ -12,12 +13,14 @@ public class SDArcherMain {
         }else if(args[0].equals("master")){
             //start master
             SDMasterNode master = new SDMasterNode();
-            master.startService(SDUtil.masterListenerPort);
+            master.startService();
         }else if(args[0].equals("slave")){
             //start salve
-            HKSlaveNode slave = new HKSlaveNode(args[1], Integer.parseInt(args[2]));
-            slave.connect();
-            new Thread(slave).start();
+//            HKSlaveNode slave = new HKSlaveNode(args[1], Integer.parseInt(args[2]));
+//            slave.connect();
+//            new Thread(slave).start();
+            SDSlaveNode slave = new SDSlaveNode();
+            slave.startService();
         }else if(args[0].equals("RMIServer")){
             //TODO: start rmiserver
         }else if(args[0].equals("Registry")){

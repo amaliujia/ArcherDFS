@@ -14,7 +14,7 @@ public class SDLocateRegistry {
     private static Registry registry = null;
 
     public static Registry getRegistry(){
-        return getRegistry(null, SDUtil.RMIRegistryPort);
+        return getRegistry(null, SDUtil.MASTER_RMIRegistry_PORT);
     }
 
     public static Registry getRegistry(int port){
@@ -22,7 +22,7 @@ public class SDLocateRegistry {
     }
 
     public static Registry getRegistry(String address){
-        return getRegistry(address, SDUtil.RMIRegistryPort);
+        return getRegistry(address, SDUtil.MASTER_RMIRegistry_PORT);
     }
 
     public static Registry getRegistry(String host, int port){

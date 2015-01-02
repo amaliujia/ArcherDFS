@@ -9,7 +9,8 @@ import static java.lang.System.exit;
  */
 public class SDUtil {
     public static final int masterListenerPort = 16640;
-    public static final String masterAddress = "128.237.191.211";
+    //public static final String masterAddress = "128.237.191.211";
+    public static final String masterAddress = "localhost";
     public static final int heatbeatsPort = 16641;
     public static final long heartbeatsIntervalMillionSeconds = 3500;
 
@@ -19,7 +20,7 @@ public class SDUtil {
 
     public static final int POOLSIZE = 10;
 
-    public static final String LOGPATH = "Resources/ArcherDFS.log";
+    public static final String LOGPATH = "/Users/amaliujia/Documents/github/ArcherDFS/Resources/ArcherDFS.log";
     public static final int DEFAULT_REPLICATION = 1;
 
     static public void fatalError (String message) {

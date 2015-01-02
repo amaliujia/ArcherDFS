@@ -14,7 +14,7 @@ import java.util.*;
  * Created by amaliujia on 14-12-28.
  */
 public class SDDFSIndex {
-    private static Logger logger = LoggerFactory.getLogger(SDDFSIndex.class);
+//    private static Logger logger = LoggerFactory.getLogger(SDDFSIndex.class);
 
     private String lock;
 

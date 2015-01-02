@@ -18,13 +18,13 @@ public class SDLogger {
     private BufferedWriter writer;
 
     // error log
-    private Logger logger = LoggerFactory.getLogger(SDLogger.class);
+   // private Logger logger = LoggerFactory.getLogger(SDLogger.class);
 
     public SDLogger(String filePath){
         try {
             writer = new BufferedWriter(new FileWriter(filePath, true));
         } catch (IOException e) {
-            logger.error("Cannot find log file");
+            //logger.error("Cannot find log file");
             e.printStackTrace();
         }
 
@@ -41,7 +41,7 @@ public class SDLogger {
             writer.newLine();
             writer.flush();
         } catch (IOException e) {
-            logger.error("Fail to write log\n\t" + operation.toString());
+            //logger.error("Fail to write log\n\t" + operation.toString());
         }
     }
 

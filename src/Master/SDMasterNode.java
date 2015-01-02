@@ -15,6 +15,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -39,7 +40,7 @@ public class SDMasterNode {
 
     private Timer heartbeatsTimer;
 
-    private Logger logger = LoggerFactory.getLogger(SDMasterNode.class);
+   // private  Logger logger = LoggerFactory.getLogger(SDMasterNode.class);
 
     private SDDFSIndex sddfsIndex;
 
@@ -53,8 +54,8 @@ public class SDMasterNode {
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
         threadsPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * SDUtil.POOLSIZE);
-        heartbeatsTimer = new Timer();
-        heartbeatsTimer .schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
+//        heartbeatsTimer = new Timer();
+//        heartbeatsTimer .schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
     }
 
     public void startService() throws RemoteException, UnknownHostException {
@@ -64,8 +65,13 @@ public class SDMasterNode {
         sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
-        registry = LocateRegistry.getRegistry(SDUtil.getLocalHost(), SDUtil.MASTER_RMIRegistry_PORT);
-        registry.rebind(SDMasterRMIService.class.getCanonicalName(), sdMasterRMIService);
+        registry = LocateRegistry.createRegistry(SDUtil.MASTER_RMIRegistry_PORT);
+        //registry = LocateRegistry.getRegistry("localhost", SDUtil.MASTER_RMIRegistry_PORT);
+        try {
+            registry.bind(SDMasterRMIService.class.getCanonicalName(), sdMasterRMIService);
+        } catch (AlreadyBoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -124,7 +130,7 @@ public class SDMasterNode {
                 listener = new ServerSocket(port);
             } catch (IOException e) {
                 //System.out.println("listener socket fails");
-                logger.error("listener socket fails");
+                //logger.error("listener socket fails");
                 e.printStackTrace();
             }
         }
@@ -137,7 +143,7 @@ public class SDMasterNode {
                 try {
                     Socket sock = listener.accept();
                     //System.out.println("New slave connected");
-                    logger.info("New slave connected");
+                  //  logger.info("New slave connected");
                     SDSlave aSlave = new SDSlave(sock.getInetAddress(), sock.getPort());
                     aSlave.setReader(new BufferedReader(new InputStreamReader(sock.getInputStream())));
                     aSlave.setWriter(new PrintWriter(sock.getOutputStream()));
@@ -148,7 +154,7 @@ public class SDMasterNode {
                     }
                 }catch (IOException e){
                     //System.err.println("fail to establish a socket with a slave node");
-                    logger.error("fail to establish a socket with a slave node");
+                   // logger.error("fail to establish a socket with a slave node");
                     e.printStackTrace();
                 }
             }
