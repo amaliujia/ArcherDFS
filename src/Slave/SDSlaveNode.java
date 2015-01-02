@@ -9,6 +9,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by amaliujia on 14-12-29.
@@ -23,6 +24,8 @@ public class SDSlaveNode {
 
     private SDMasterService masterService;
 
+    private ScheduledExecutorService heartbeatService;
+
     public SDSlaveNode(){
 
     }
@@ -35,7 +38,7 @@ public class SDSlaveNode {
            // registry = LocateRegistry.getRegistry();
            // registry.rebind(serviceName, sdSlaveRMIService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
-            masterService = (SDMasterService) registry.lookup(SDMasterRMIService.class.getCanonicalName());
+            masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
