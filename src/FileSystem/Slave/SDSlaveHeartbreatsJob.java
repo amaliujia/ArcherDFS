@@ -24,6 +24,7 @@ public class SDSlaveHeartbreatsJob implements Runnable{
 
     @Override
     public void run() {
+        System.out.println("Heart beat");
 //        try {
 //            SDMasterService masterService = (SDMasterService)
 //                    registry.lookup(SDMasterService.class.getCanonicalName());
