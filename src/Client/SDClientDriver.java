@@ -3,7 +3,6 @@ package Client;
 import Protocol.MasterService.SDMasterService;
 import Util.SDUtil;
 
-import java.beans.FeatureDescriptor;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

@@ -3,7 +3,6 @@ package FileSystem.Slave;
 import FileSystem.Util.SDDFSConstants;
 import Protocol.MasterService.SDMasterService;
 
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;

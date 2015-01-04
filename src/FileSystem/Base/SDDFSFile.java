@@ -50,4 +50,8 @@ public class SDDFSFile implements Serializable{
     public long getFileID(){
         return this.fileID;
     }
+
+    public int getReplication() {
+        return this.replication;
+    }
 }

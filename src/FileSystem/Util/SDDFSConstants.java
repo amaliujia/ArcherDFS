@@ -9,4 +9,6 @@ public class SDDFSConstants {
     public static final String DATA_DIR = "/Users/amaliujia/Documents/github/ArcherDFS/Data";
 
     public static final int DEFAULT__SLAVE_REGISTRY_PORT = 10999;
+
+    public static final long CHUNK_SIZE = 0x4000000;
 }

@@ -3,9 +3,13 @@ package FileSystem.Master;
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
 import FileSystem.Base.SDFileChunk;
+import FileSystem.Util.SDDFSConstants;
 import Logging.SDLogOperation;
 import Logging.SDLogger;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.*;
 
 /**
@@ -73,6 +77,15 @@ public class SDDFSIndex {
 
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
         SDDFSFile file = null;
+
+        RandomAccessFile randomAccessFile = null;
+        try {
+            randomAccessFile = new RandomAccessFile(fileName, "r");
+        } catch (FileNotFoundException e) {
+            System.err.println(fileName + " doesn't exist" );
+            return file;
+        }
+
         synchronized (lock){
             if(logable){
                 dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
@@ -84,6 +97,23 @@ public class SDDFSIndex {
             fileIndex.put(fileName, file.getFileID());
             files.put(file.getFileID(), file);
         }
+
+
+        try {
+            long filesize = randomAccessFile.length();
+            int chunknumToSplit = (int)(filesize / SDDFSConstants.CHUNK_SIZE);
+            long lastOff = filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE;
+            for(int i = 0; i < chunknumToSplit ; i++){
+                createChunk(file.getFileID(), i * SDDFSConstants.CHUNK_SIZE, (int)SDDFSConstants.CHUNK_SIZE, true);
+            }
+            if(filesize - lastOff > 0){
+                createChunk(file.getFileID(), lastOff, (int)(filesize - lastOff), true);
+            }
+        } catch (IOException e) {
+            System.err.println(fileName + " cannot be modified");
+            return file;
+        }
+
         return file;
     }
 
@@ -120,8 +150,22 @@ public class SDDFSIndex {
         }
     }
 
-    public SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
-        return null;
+    private SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
+        SDFileChunk chunk = null;
+        synchronized (lock){
+            if(logable){
+                dfsLog(SDLogOperation.DFS_CREATE_CHUNK, new Object[]{fileId, offset, size});
+            }
+            if(files.containsKey(fileId)){
+                SDDFSFile file = files.get(fileId);
+                SDDFSNode[] dataNodes = allocateNode(file.getReplication());
+                long chunkId = SDFileChunk.maxId.incrementAndGet();
+                chunk = new SDFileChunk(chunkId, fileId, offset, size, dataNodes);
+                file.addChunk(chunk);
+                chunks.put(chunk.getId(), chunk);
+            }
+        }
+        return chunk;
     }
 
     private void dfsLog(byte operationType, Object[] arguments){

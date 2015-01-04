@@ -1,6 +1,5 @@
 package Slave;
 
-import FileSystem.Master.SDMasterRMIService;
 import FileSystem.Slave.SDSlaveHeartbreatsJob;
 import FileSystem.Slave.SDSlaveIO;
 import FileSystem.Slave.SDSlaveRMIService;
