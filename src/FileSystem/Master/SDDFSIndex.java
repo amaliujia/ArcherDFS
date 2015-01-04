@@ -120,6 +120,10 @@ public class SDDFSIndex {
             return file;
         }
 
+        if(logable){
+            dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
+        }
+
         return file;
     }
 
@@ -177,6 +181,21 @@ public class SDDFSIndex {
     private void dfsLog(byte operationType, Object[] arguments){
         SDLogOperation operation = new SDLogOperation(operationType, arguments);
         sdLogger.writeLog(operation);
+    }
+
+    public void distributeFile(long fileID, boolean logable){
+        synchronized (lock){
+            if(!files.containsKey(fileID)){
+                System.err.println(fileID + " doesn't exist. Distribution failed !!");
+                return;
+            }
+
+            SDDFSChunkTransfer chunkTransfer = new SDDFSChunkTransfer(files.get(fileID));
+            chunkTransfer.distributeFile();
+            if(logable){
+                dfsLog(SDLogOperation.DFS_DISTRIBUTE_FILE, new Object[] {fileID});
+            }
+        }
     }
 
     //TODO: update logic of alloc nodes

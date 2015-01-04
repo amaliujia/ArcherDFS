@@ -19,9 +19,9 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     }
 
     @Override
-    public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber)
+    public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber, boolean logable)
             throws RemoteException {
-        index.updateDataNode(serviceName, registryHost, registryPort, chunkNumber, System.currentTimeMillis(), true);
+        index.updateDataNode(serviceName, registryHost, registryPort, chunkNumber, System.currentTimeMillis(), logable);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     }
 
     @Override
-    public SDDFSFile createFile(String fileName, int re) throws RemoteException {
-        return index.createFile(fileName, re, true);
+    public SDDFSFile createFile(String fileName, int re, boolean logable) throws RemoteException {
+        return index.createFile(fileName, re, logable);
     }
 
     @Override
@@ -51,12 +51,12 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     }
 
     @Override
-    public void deleteFile(String fileName) throws RemoteException {
-        index.deleteFile(fileName, true);
+    public void deleteFile(String fileName, boolean logable) throws RemoteException {
+        index.deleteFile(fileName, logable);
     }
 
     @Override
-    public void distributeFile(long fileID) throws RemoteException {
-
+    public void distributeFile(long fileID, boolean logable) throws RemoteException {
+        index.distributeFile(fileID, logable);
     }
 }

@@ -28,7 +28,7 @@ public class SDDFSChunkTransfer {
         file = sddfsFile;
     }
 
-    private void distributeFile(){
+    public void distributeFile(){
         getAccessToFile();
         if(randomAccessFile == null){
             return;

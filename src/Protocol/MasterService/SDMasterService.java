@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
  */
 public interface SDMasterService extends Remote {
 
-    public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber)
+    public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber, boolean logable)
                                         throws RemoteException;
     //create or update nodes, actually it is a kind of heartbeats
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
@@ -20,7 +20,7 @@ public interface SDMasterService extends Remote {
     public void deleteDataNode(String serviceName, boolean logable) throws RemoteException;
     //create file
     //TODO: replication here?
-    public SDDFSFile createFile(String fileName, int re) throws RemoteException;
+    public SDDFSFile createFile(String fileName, int re, boolean logable) throws RemoteException;
 
     //get file
     public SDDFSFile getFile(String fileName) throws RemoteException;
@@ -29,9 +29,9 @@ public interface SDMasterService extends Remote {
     public SDDFSFile[] listFiles() throws RemoteException;
 
     //delete file
-    public void deleteFile(String fileName) throws RemoteException;
+    public void deleteFile(String fileName, boolean logable) throws RemoteException;
 
     //distribute file
-    public void distributeFile(long fileID) throws RemoteException;
+    public void distributeFile(long fileID, boolean logable) throws RemoteException;
 }
 

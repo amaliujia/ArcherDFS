@@ -20,6 +20,8 @@ public class SDLogOperation {
 
     public static final byte DFS_DELETE_FILE = 0x5;
 
+    public static final byte DFS_DISTRIBUTE_FILE = 0x6;
+
     private int type;
 
     private List<Object> argmuents;
