@@ -1,8 +1,9 @@
-package FileSystem.Master;
+package FileSystem.Index;
 
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
 import FileSystem.Base.SDFileChunk;
+import FileSystem.Master.SDDFSChunkTransfer;
 import FileSystem.Util.SDDFSConstants;
 import Logging.SDLogOperation;
 import Logging.SDLogger;

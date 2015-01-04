@@ -1,6 +1,6 @@
 package Master;
 
-import FileSystem.Master.SDDFSIndex;
+import FileSystem.Index.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
 import Logging.SDLogger;
 import Protocol.MasterService.SDMasterService;

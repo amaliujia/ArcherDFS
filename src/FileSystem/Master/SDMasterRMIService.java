@@ -1,6 +1,7 @@
 package FileSystem.Master;
 
 import FileSystem.Base.SDDFSFile;
+import FileSystem.Index.SDDFSIndex;
 import Protocol.MasterService.SDMasterService;
 
 import java.rmi.RemoteException;
