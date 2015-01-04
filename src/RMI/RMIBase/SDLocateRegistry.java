@@ -30,7 +30,7 @@ public class SDLocateRegistry {
             if(registry == null){
                 if(host == null){
                     try {
-                        host = SDUtil.getLocalHost();
+                        host = SDUtil.getlocalHost();
                     } catch (UnknownHostException e){
                         host = "";
                     }

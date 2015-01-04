@@ -58,6 +58,7 @@ public class SDDFSIndex {
             }
             dataNode.setChunkNumber(numChunker);
             dataNode.setTimestamp(timestamp);
+            System.out.println(dataNode.toString());
         }
     }
 

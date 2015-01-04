@@ -28,7 +28,7 @@ public class SDUtil {
         exit(1);
     }
 
-    static public String getLocalHost()
+    static public String getlocalHost()
             throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getLocalHost();
         return inetAddress.getHostName();

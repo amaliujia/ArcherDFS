@@ -12,6 +12,8 @@ import java.util.Arrays;
  */
 public class SDSlaveIO {
 
+    private int chunkNumber;
+
     public byte[] read(long chunkID, long offset, int size) throws IOException {
         File file = new File(getChunkPath(chunkID));
         if(file.exists()){
@@ -56,5 +58,9 @@ public class SDSlaveIO {
     private String getChunkPath(long chunkID){
         return SDDFSConstants.DATA_DIR + System.getProperty("file.separator") + SDDFSConstants.CHUNK_PREFIX +
                 chunkID + '.' + SDDFSConstants.CHUNK_SUFFIX;
+    }
+
+    public int getChunkNumber(){
+        return chunkNumber;
     }
 }

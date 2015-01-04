@@ -1,5 +1,6 @@
 package FileSystem.Slave;
 
+import FileSystem.Util.SDDFSConstants;
 import Protocol.MasterService.SDMasterService;
 
 import java.net.UnknownHostException;
@@ -25,16 +26,15 @@ public class SDSlaveHeartbreatsJob implements Runnable{
     @Override
     public void run() {
         System.out.println("Heart beat");
-//        try {
-//            SDMasterService masterService = (SDMasterService)
-//                    registry.lookup(SDMasterService.class.getCanonicalName());
-//            masterService.heartbeat();
-//        } catch (RemoteException e) {
-//            System.err.println("master node error");
-//        } catch (NotBoundException e) {
-//            System.err.println("master service not found");
-//        } catch (UnknownHostException e) {
-//            System.err.println("can't resolve hostname");
-//        }
+        try {
+            SDMasterService masterService = (SDMasterService)
+                    registry.lookup(SDMasterService.class.getCanonicalName());
+            masterService.heartbeat("slave", "localhost", SDDFSConstants.DEFAULT__SLAVE_REGISTRY_PORT,
+                                    slaveIO.getChunkNumber());
+        } catch (RemoteException e) {
+            System.err.println("master node error");
+        } catch (NotBoundException e) {
+            System.err.println("master service not found");
+        }
     }
 }
