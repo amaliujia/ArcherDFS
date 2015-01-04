@@ -37,4 +37,8 @@ public class SDFileChunk implements Serializable {
     public long getFileID(){
         return this.fileID;
     }
+
+    public Set<SDDFSNode> getChunkNodes(){
+        return chunkNodes;
+    }
 }

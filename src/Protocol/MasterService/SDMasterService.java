@@ -31,6 +31,7 @@ public interface SDMasterService extends Remote {
     //delete file
     public void deleteFile(String fileName) throws RemoteException;
 
-    //TODO: create chunk here?
+    //distribute file
+    public void distributeFile(long fileID) throws RemoteException;
 }
 

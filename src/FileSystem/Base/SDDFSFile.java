@@ -54,4 +54,8 @@ public class SDDFSFile implements Serializable{
     public int getReplication() {
         return this.replication;
     }
+
+    public String getFileName(){
+        return name;
+    }
 }

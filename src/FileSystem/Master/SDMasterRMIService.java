@@ -54,4 +54,9 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     public void deleteFile(String fileName) throws RemoteException {
         index.deleteFile(fileName, true);
     }
+
+    @Override
+    public void distributeFile(long fileID) throws RemoteException {
+
+    }
 }

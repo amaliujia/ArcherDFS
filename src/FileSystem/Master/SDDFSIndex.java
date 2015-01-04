@@ -86,6 +86,12 @@ public class SDDFSIndex {
             return file;
         }
 
+        try {
+            randomAccessFile.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         synchronized (lock){
             if(logable){
                 dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
@@ -173,6 +179,7 @@ public class SDDFSIndex {
         sdLogger.writeLog(operation);
     }
 
+    //TODO: update logic of alloc nodes
     private SDDFSNode[] allocateNode(int replication) {
         List<SDDFSNode> nodes = new ArrayList<SDDFSNode>();
         SDDFSNode[] results = null;
