@@ -8,3 +8,7 @@
 *.class
 
 .DS_Store
+
+Data/Inputfile.txt
+
+Resources/ArcherDFS.log

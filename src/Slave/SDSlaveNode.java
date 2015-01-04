@@ -3,7 +3,9 @@ package Slave;
 import FileSystem.Master.SDMasterRMIService;
 import FileSystem.Slave.SDSlaveHeartbreatsJob;
 import FileSystem.Slave.SDSlaveIO;
+import FileSystem.Slave.SDSlaveRMIService;
 import Protocol.MasterService.SDMasterService;
+import Protocol.SlaveService.SDSlaveService;
 import Util.SDUtil;
 
 import java.rmi.NotBoundException;
@@ -37,14 +39,14 @@ public class SDSlaveNode {
     public void startService(){
         slaveIO = new SDSlaveIO();
         try {
-           // SDSlaveRMIService sdSlaveRMIService = new SDSlaveRMIService(this);
-           // registry = LocateRegistry.getRegistry();
-           // registry.rebind(serviceName, sdSlaveRMIService);
+            SDSlaveService slaveService = new SDSlaveRMIService(this);
+            registry = LocateRegistry.createRegistry(SDUtil.SALVE_RMIREGISTRY_PORT);
+            registry.rebind(serviceName, slaveService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
             masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
             heartbeatService = Executors.newScheduledThreadPool(10);
             heartbeatService.scheduleAtFixedRate(new SDSlaveHeartbreatsJob(this.slaveIO, registry),
-                    0, 1000, TimeUnit.MILLISECONDS);
+                    0, 1000, TimeUnit.SECONDS);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
