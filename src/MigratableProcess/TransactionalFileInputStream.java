@@ -1,8 +1,5 @@
 package MigratableProcess;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 
 /**
@@ -19,21 +16,19 @@ public class TransactionalFileInputStream extends InputStream implements Seriali
 
     private boolean migratable;
 
-    private Logger logger = LoggerFactory.getLogger(TransactionalFileInputStream.class);
-
     public TransactionalFileInputStream(String arg){
         this.fileName = arg;
 
         try{
             this.randomAccessFile = new RandomAccessFile(this.fileName, "rws");
         } catch (FileNotFoundException e) {
-            logger.error("Cannot find file " + this.fileName + " in file system");
+            //logger.error("Cannot find file " + this.fileName + " in file system");
             e.printStackTrace();
         } catch (IllegalArgumentException e){
-            logger.error("Illegal arguments");
+           // logger.error("Illegal arguments");
             e.printStackTrace();
         } catch (SecurityException e){
-            logger.error("Security problem");
+           // logger.error("Security problem");
             e.printStackTrace();
         }
 

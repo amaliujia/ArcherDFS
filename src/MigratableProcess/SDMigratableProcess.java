@@ -1,7 +1,5 @@
 package MigratableProcess;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -17,7 +15,7 @@ public class SDMigratableProcess implements MigratableProcesses
 
     private volatile boolean suspending;
 
-    private Logger logger = LoggerFactory.getLogger(SDMigratableProcess.class);
+    //private Logger logger = LoggerFactory.getLogger(SDMigratableProcess.class);
 
     public SDMigratableProcess(String args[]) throws Exception
     {
@@ -53,12 +51,12 @@ public class SDMigratableProcess implements MigratableProcesses
         } catch (EOFException e) {
             //End of File
         } catch (IOException e) {
-            logger.error("SDProcess: Error: " + e);
+            //logger.error("SDProcess: Error: " + e);
         }
         while(suspending && !finished){
           //  System.out.print(suspending);
           //  System.out.println("10");
-            logger.debug("10");
+            //logger.debug("10");
         }
         suspending = false;
         finished = true;
@@ -67,9 +65,9 @@ public class SDMigratableProcess implements MigratableProcesses
             //out.close();
         }
         catch (IOException ex){
-            logger.error("writing failure in SDMigratable process");
+            //logger.error("writing failure in SDMigratable process");
         }
-        logger.info("finish writing...");
+        //logger.info("finish writing...");
     }
 
     public void resume() {

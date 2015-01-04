@@ -28,7 +28,6 @@ public class SDFileChunk implements Serializable {
         this.fileID = fileID;
         this.size = size;
         this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
-        distributeChunks();
     }
 
     public long getId(){
@@ -38,9 +37,4 @@ public class SDFileChunk implements Serializable {
     public long getFileID(){
         return this.fileID;
     }
-
-    private void distributeChunks(){
-       //TODO: use RMI send chunks to slave
-    }
-
 }

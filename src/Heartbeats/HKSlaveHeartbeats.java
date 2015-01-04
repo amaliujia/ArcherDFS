@@ -1,8 +1,6 @@
 package Heartbeats;
 
 import Util.SDUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -22,7 +20,7 @@ public class HKSlaveHeartbeats implements Runnable {
 
     private int count = 0;
 
-    private Logger logger = LoggerFactory.getLogger(HKSlaveHeartbeats.class);
+    //private Logger logger = LoggerFactory.getLogger(HKSlaveHeartbeats.class);
 
     public HKSlaveHeartbeats(int tcpPort){
         try {
@@ -50,7 +48,7 @@ public class HKSlaveHeartbeats implements Runnable {
             ds.connect(heartBeatAddress, SDUtil.heatbeatsPort);
         }
         catch (IOException ex){
-            logger.error("UDP connection error in client heart beats!");
+           // logger.error("UDP connection error in client heart beats!");
             //System.out.println("UDP connection error!");
         }
         DatagramPacket dp_send= new DatagramPacket(ack.getBytes(),ack.length(), heartBeatAddress, SDUtil.heatbeatsPort);
@@ -58,7 +56,7 @@ public class HKSlaveHeartbeats implements Runnable {
             ds.send(dp_send);
         } catch (IOException e) {
             //System.out.println("Slave fails to send");
-            logger.error("Slave fails to send in client heart beats!");
+          //  logger.error("Slave fails to send in client heart beats!");
             e.printStackTrace();
         }
 

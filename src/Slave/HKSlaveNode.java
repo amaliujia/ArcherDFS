@@ -2,8 +2,6 @@ package Slave;
 
 
 import Heartbeats.HKSlaveHeartbeats;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
@@ -23,7 +21,7 @@ public class HKSlaveNode implements Runnable{
 
     HKSlaveHeartbeats heartBeat;
 
-    private Logger logger = LoggerFactory.getLogger(HKSlaveNode.class);
+   // private Logger logger = LoggerFactory.getLogger(HKSlaveNode.class);
 
     public HKSlaveNode(String masterAddress, int masterPort){
         this.masterAddress = masterAddress;
@@ -38,9 +36,9 @@ public class HKSlaveNode implements Runnable{
             this.heartBeat = new HKSlaveHeartbeats(socket.getLocalPort());
         }
         catch(IOException ex) {
-            logger.error("MasterAddress or MasterPort is wrong");
+            //logger.error("MasterAddress or MasterPort is wrong");
         }
-        logger.info("Connection success");
+        //logger.info("Connection success");
     }
 
     public void disconnect(){
@@ -51,9 +49,9 @@ public class HKSlaveNode implements Runnable{
         }
         catch (IOException ex)
         {
-            logger.error("disConnection error\n");
+            //logger.error("disConnection error\n");
         }
-        logger.info("disConnection success");
+       // logger.info("disConnection success");
     }
 
     /**
@@ -63,12 +61,12 @@ public class HKSlaveNode implements Runnable{
     public void startService() throws IOException{
         String command = bs.readLine();
         if (command == null){
-            logger.error("Interrupt!");
+           // logger.error("Interrupt!");
             System.exit(1);
         }
         if (command.equals("Alive?")){
             new Thread(this.heartBeat).start();
-            logger.info("heartBeat");
+           // logger.info("heartBeat");
         }
     }
 
@@ -81,7 +79,7 @@ public class HKSlaveNode implements Runnable{
             try {
                 this.startService();
             } catch (IOException e) {
-                logger.error("socket connection error");
+                //logger.error("socket connection error");
                 e.printStackTrace();
             }
 
