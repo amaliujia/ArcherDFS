@@ -21,3 +21,5 @@ Milestone
 7. File system implementation
 
 8. File system test
+
+9. Client implementation
