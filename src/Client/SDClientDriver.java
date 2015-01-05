@@ -31,7 +31,7 @@ public class SDClientDriver {
     public void lookup(String method, Object[] args){
         if(method == "create"){
             try {
-                masterService.createFile((String)args[0], (Integer)args[1]);
+                masterService.createFile((String)args[0], (Integer)args[1], true);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
