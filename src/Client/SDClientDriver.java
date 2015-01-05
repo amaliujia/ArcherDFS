@@ -35,6 +35,12 @@ public class SDClientDriver {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+        }else if(method == "distributefile"){
+            try {
+                masterService.distributeFile((String) args[0], true);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

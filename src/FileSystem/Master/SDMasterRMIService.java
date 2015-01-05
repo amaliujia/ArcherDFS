@@ -60,4 +60,12 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     public void distributeFile(long fileID, boolean logable) throws RemoteException {
         index.distributeFile(fileID, logable);
     }
+
+    public void distributeFile(String filename, boolean logable) throws RemoteException {
+        long fileID = index.getFileID(filename);
+        if(fileID == -1){
+            return;
+        }
+        index.distributeFile(fileID, logable);
+    }
 }

@@ -33,5 +33,7 @@ public interface SDMasterService extends Remote {
 
     //distribute file
     public void distributeFile(long fileID, boolean logable) throws RemoteException;
+
+    public void distributeFile(String filename, boolean logable) throws RemoteException;
 }
 

@@ -222,5 +222,15 @@ public class SDDFSIndex {
         return results;
     }
 
+    public long getFileID(String filename){
+        synchronized (lock){
+            if(fileIndex.containsKey(filename)){
+                return fileIndex.get(filename);
+            }else{
+                return -1;
+            }
+        }
+    }
+
     //TODO: log recover
 }

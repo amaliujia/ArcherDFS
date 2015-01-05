@@ -31,6 +31,7 @@ public class SDClient {
                 }else if(args[0] == "create" && args.length >= 3){
                     int re = Integer.parseInt(args[2]);
                     driver.lookup("create", new Object[] {args[1], re});
+                    driver.lookup("distributefile", new Object[] {args[1]});
                 }else{
                     promptPrinter("help");
                     continue;
