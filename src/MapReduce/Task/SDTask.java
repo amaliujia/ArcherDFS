@@ -1,4 +1,4 @@
-package MapReduce.Slave;
+package MapReduce.Task;
 
 import java.io.Serializable;
 import java.util.Comparator;

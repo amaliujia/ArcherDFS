@@ -3,8 +3,8 @@ package Slave;
 import FileSystem.Slave.SDSlaveHeartbreatsJob;
 import FileSystem.Slave.SDSlaveIO;
 import FileSystem.Slave.SDSlaveRMIService;
-import Protocol.MasterService.SDMasterService;
-import Protocol.SlaveService.SDSlaveService;
+import Protocol.DFS.MasterService.SDMasterService;
+import Protocol.DFS.SlaveService.SDSlaveService;
 import Util.SDUtil;
 
 import java.rmi.NotBoundException;

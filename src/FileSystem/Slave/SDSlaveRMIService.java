@@ -1,6 +1,6 @@
 package FileSystem.Slave;
 
-import Protocol.SlaveService.SDSlaveService;
+import Protocol.DFS.SlaveService.SDSlaveService;
 import Slave.SDSlaveNode;
 
 import java.io.IOException;

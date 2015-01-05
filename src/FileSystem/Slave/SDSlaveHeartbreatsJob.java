@@ -1,7 +1,7 @@
 package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
-import Protocol.MasterService.SDMasterService;
+import Protocol.DFS.MasterService.SDMasterService;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,7 +24,6 @@ public class SDSlaveHeartbreatsJob implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Heart beat");
         try {
             SDMasterService masterService = (SDMasterService)
                     registry.lookup(SDMasterService.class.getCanonicalName());

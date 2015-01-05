@@ -3,7 +3,7 @@ package Master;
 import FileSystem.Index.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
 import Logging.SDLogger;
-import Protocol.MasterService.SDMasterService;
+import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
 
 import java.io.BufferedReader;

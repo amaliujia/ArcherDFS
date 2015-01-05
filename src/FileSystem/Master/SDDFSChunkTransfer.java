@@ -3,7 +3,7 @@ package FileSystem.Master;
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
 import FileSystem.Base.SDFileChunk;
-import Protocol.SlaveService.SDSlaveService;
+import Protocol.DFS.SlaveService.SDSlaveService;
 import Util.SDUtil;
 
 import java.io.FileNotFoundException;

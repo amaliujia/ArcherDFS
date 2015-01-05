@@ -1,4 +1,4 @@
-package Protocol.SlaveService;
+package Protocol.DFS.SlaveService;
 
 import java.io.IOException;
 import java.rmi.Remote;

@@ -1,6 +1,6 @@
 package Client;
 
-import Protocol.MasterService.SDMasterService;
+import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
 
 import java.rmi.NotBoundException;

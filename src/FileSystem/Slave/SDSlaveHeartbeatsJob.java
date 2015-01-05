@@ -1,7 +1,7 @@
 package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
-import Protocol.MasterService.SDMasterService;
+import Protocol.DFS.MasterService.SDMasterService;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;

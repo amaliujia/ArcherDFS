@@ -1,4 +1,4 @@
-package Protocol.MasterService;
+package Protocol.DFS.MasterService;
 
 import FileSystem.Base.SDDFSFile;
 
