@@ -23,3 +23,5 @@ Milestone
 8. File system test
 
 9. Client implementation
+
+10. Map Reduce Architecture Deisgn
