@@ -201,6 +201,9 @@ public class SDDFSIndex {
 
     //TODO: update logic of alloc nodes
     private SDDFSNode[] allocateNode(int replication) {
+        if(replication != 1){
+            System.err.println("replication is not 1 !!!");
+        }
         List<SDDFSNode> nodes = new ArrayList<SDDFSNode>();
         SDDFSNode[] results = null;
         SDDFSNode[] allNodes = new SDDFSNode[dataNodes.size()];
@@ -211,12 +214,9 @@ public class SDDFSIndex {
                 return o1.getChunkNumber() - o2.getChunkNumber();
             }
         });
-//        for(int i = 0; i < replicas && i < allNodes.length; i++){
-//            if(allNodes[i].isValid()){
-//                nodes.add(allNodes[i]);
-//            }
-//        }
-        nodes.add(allNodes[0]);
+        for(int i = 0; i < replication && i < allNodes.length; i++){
+            nodes.add(allNodes[i]);
+        }
         results = new SDDFSNode[nodes.size()];
         nodes.toArray(results);
         return results;

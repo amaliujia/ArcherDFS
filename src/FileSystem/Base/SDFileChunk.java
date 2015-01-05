@@ -27,6 +27,7 @@ public class SDFileChunk implements Serializable {
         this.id = id;
         this.fileID = fileID;
         this.size = size;
+        this.offset = offset;
         this.chunkNodes = new TreeSet<SDDFSNode>(Arrays.asList(nodes));
     }
 
@@ -36,6 +37,14 @@ public class SDFileChunk implements Serializable {
 
     public long getFileID(){
         return this.fileID;
+    }
+
+    public long getOffset() {
+        return offset;
+    }
+
+    public int getSize(){
+        return  size;
     }
 
     public Set<SDDFSNode> getChunkNodes(){

@@ -2,7 +2,9 @@ package FileSystem.Master;
 
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
+import FileSystem.Base.SDFileChunk;
 import Protocol.SlaveService.SDSlaveService;
+import Util.SDUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -35,19 +37,24 @@ public class SDDFSChunkTransfer {
         }
 
         for(int i = 0; i < file.getChunks().length; i++){
-            Set<SDDFSNode> chunkNodes = file.getChunks()[i].getChunkNodes();
+            SDFileChunk chunk = file.getChunks()[i];
+            Set<SDDFSNode> chunkNodes = chunk.getChunkNodes();
             Iterator<SDDFSNode> iterator = chunkNodes.iterator();
             while(iterator.hasNext()){
                 SDDFSNode node = iterator.next();
                 try {
                     Registry registry = LocateRegistry.getRegistry(node.getRegistryHost(), node.getRegistryPort());
                     SDSlaveService slaveService = (SDSlaveService)registry.lookup(node.getServiceName());
-                //slaveService.write(id, offset, size, )
+                    slaveService.write(chunk.getId(), chunk.getOffset(), chunk.getSize(), getChunkData(chunk));
                 } catch (RemoteException e) {
                     System.err.println("Cannot get registry from " + node.toString() );
                     continue;
                 } catch (NotBoundException e) {
                     System.err.println("Cannot look up service " + node.getServiceName() +  " from " + node.toString());
+                    continue;
+                } catch (IOException e) {
+                    System.err.println("IO exception when try to distributed chunk " +
+                                        chunk.toString() + " to " + node.toString());
                     continue;
                 }
             }
@@ -61,5 +68,23 @@ public class SDDFSChunkTransfer {
             System.err.println(file.getFileName() + " doesn't exist" );
             return;
         }
+    }
+
+    private byte[] getChunkData(SDFileChunk chunk){
+        long offset = chunk.getOffset();
+        int size = chunk.getSize();
+        byte[] bytes = new byte[size];
+
+        try {
+            randomAccessFile.seek(offset);
+            int len = randomAccessFile.read(bytes, 0, size);
+            if(len != size){
+                SDUtil.fatalError("Read incomplete data from files " + file.toString() + " in which chunk " + chunk.toString()
+                                + " have problem");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bytes;
     }
 }
