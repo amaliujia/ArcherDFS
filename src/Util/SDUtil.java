@@ -9,8 +9,8 @@ import static java.lang.System.exit;
  */
 public class SDUtil {
     public static final int masterListenerPort = 16640;
-    //public static final String masterAddress = "128.237.191.211";
-    public static final String masterAddress = "localhost";
+    public static final String masterAddress = "128.237.191.211";
+    //public static final String masterAddress = "localhost";
     public static final int heatbeatsPort = 16641;
     public static final long heartbeatsIntervalMillionSeconds = 3500;
 
