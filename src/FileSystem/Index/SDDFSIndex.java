@@ -45,6 +45,15 @@ public class SDDFSIndex {
         this.files = new HashMap<Long, SDDFSFile>();
     }
 
+    /**
+     * Call by heartbeats function to update data nodes.
+     * @param serviceName the service name of data node.
+     * @param registryHost registry host of data node.
+     * @param registryPort registry port of data node.
+     * @param numChunker number of chunker of data node.
+     * @param timestamp time stamp of this operation.
+     * @param logable if need to log.
+     */
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int numChunker, long timestamp, boolean logable){
         SDDFSNode dataNode = null;
@@ -67,6 +76,11 @@ public class SDDFSIndex {
         }
     }
 
+    /**
+     * Remove data node from index if lose connection of data node.
+     * @param serviceName service name of data node.
+     * @param logable if need to log.
+     */
     public void removeDataNode(String serviceName, boolean logable){
         synchronized (lock){
             this.dataNodes.remove(serviceName);
@@ -76,6 +90,13 @@ public class SDDFSIndex {
         }
     }
 
+    /**
+     * Create file in distributed file system.
+     * @param fileName file name of data node.
+     * @param replication number of replication.
+     * @param logable if need to log.
+     * @return Reference of SDDFSFile.
+     */
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
         SDDFSFile file = null;
 
@@ -128,6 +149,11 @@ public class SDDFSIndex {
         return file;
     }
 
+    /**
+     * Get reference of file in DFS.
+     * @param fileName filename of data node.
+     * @return Reference of SDDFSFile.
+     */
     public SDDFSFile getFile(String fileName){
         SDDFSFile file = null;
         synchronized (lock){
@@ -138,6 +164,10 @@ public class SDDFSIndex {
         return file;
     }
 
+    /**
+     * List all files in DFS.
+     * @return Array of SDDFSFiles.
+     */
     public SDDFSFile[] listFiles(){
         SDDFSFile[] fs = null;
 
@@ -148,6 +178,11 @@ public class SDDFSIndex {
         return fs;
     }
 
+    /**
+     * Delete file from DFS.
+     * @param serviceName service name of data node.
+     * @param logable if need to log.
+     */
     public void deleteFile(String serviceName, boolean logable){
         synchronized (lock){
             if(logable){
@@ -161,6 +196,14 @@ public class SDDFSIndex {
         }
     }
 
+    /**
+     * Create Chunk of a file.
+     * @param fileId file ID.
+     * @param offset offset in given file.
+     * @param size chunk size.
+     * @param logable if need to log.
+     * @return Reference of SDFileChunk.
+     */
     private SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
         SDFileChunk chunk = null;
         synchronized (lock){
@@ -179,11 +222,21 @@ public class SDDFSIndex {
         return chunk;
     }
 
+    /**
+     * Log function to print
+     * @param operationType Operation type code.
+     * @param arguments Operation arguments.
+     */
     private void dfsLog(byte operationType, Object[] arguments){
         SDLogOperation operation = new SDLogOperation(operationType, arguments);
         sdLogger.writeLog(operation);
     }
 
+    /**
+     * Distribute files into data nodes.
+     * @param fileID file to be distributed.
+     * @param logable if need to log.
+     */
     public void distributeFile(long fileID, boolean logable){
         synchronized (lock){
             if(!files.containsKey(fileID)){
@@ -199,7 +252,11 @@ public class SDDFSIndex {
         }
     }
 
-    //TODO: update logic of alloc nodes
+    /**
+     * Allocate data nodes for a file which to be distributed.
+     * @param replication  The replication number for given file.
+     * @return SDDFSNode array.
+     */
     private SDDFSNode[] allocateNode(int replication) {
         if(replication != 1){
             System.err.println("replication is not 1 !!!");
@@ -222,6 +279,11 @@ public class SDDFSIndex {
         return results;
     }
 
+    /**
+     * Get file id from index.
+     * @param filename filename of data node.
+     * @return file ID.
+     */
     public long getFileID(String filename){
         synchronized (lock){
             if(fileIndex.containsKey(filename)){

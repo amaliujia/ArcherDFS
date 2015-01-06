@@ -28,6 +28,11 @@ public class SDClientDriver {
         }
     }
 
+    /**
+     * Choose the right service function to execute.
+     * @param method function name to be executed.
+     * @param args arguments for invoked function
+     */
     public void lookup(String method, Object[] args){
         if(method == "create"){
             try {
