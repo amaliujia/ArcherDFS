@@ -38,6 +38,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
 
     @Override
     public SDDFSFile createFile(String fileName, int re, boolean logable) throws RemoteException {
+        System.err.println("get in master rmi service");
         return index.createFile(fileName, re, logable);
     }
 

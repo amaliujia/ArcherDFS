@@ -3,6 +3,7 @@ package FileSystem.Master;
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Base.SDDFSNode;
 import FileSystem.Base.SDFileChunk;
+import FileSystem.Slave.SDSlaveRMIService;
 import Protocol.DFS.SlaveService.SDSlaveService;
 import Util.SDUtil;
 
@@ -36,6 +37,7 @@ public class SDDFSChunkTransfer {
         }
 
         for(int i = 0; i < file.getChunks().length; i++){
+            System.err.println("Chunk transfer !!  length " + file.getChunks().length + " i: " + i);
             SDFileChunk chunk = file.getChunks()[i];
             Set<SDDFSNode> chunkNodes = chunk.getChunkNodes();
             Iterator<SDDFSNode> iterator = chunkNodes.iterator();
@@ -43,7 +45,8 @@ public class SDDFSChunkTransfer {
                 SDDFSNode node = iterator.next();
                 try {
                     Registry registry = LocateRegistry.getRegistry(node.getRegistryHost(), node.getRegistryPort());
-                    SDSlaveService slaveService = (SDSlaveService)registry.lookup(node.getServiceName());
+                    SDSlaveService slaveService = (SDSlaveService)registry.lookup(SDSlaveService.class.getCanonicalName());
+                    System.err.println("data chunk length: " + getChunkData(chunk).length);
                     slaveService.write(chunk.getId(), chunk.getOffset(), chunk.getSize(), getChunkData(chunk));
                 } catch (RemoteException e) {
                     System.err.println("Cannot get registry from " + node.toString() );

@@ -1,5 +1,7 @@
 package Client;
 
+import Util.SDUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,8 +29,10 @@ public class SDClient {
                 args = inputString.split(" ");
 
                 if (args.length == 0) {
-                    continue;
-                }else if(args[0] == "create" && args.length >= 3){
+                    SDUtil.fatalError("Wrong !!!!!");
+                    //continue;
+                }else if(args[0].equals("create") && args.length >= 3){
+                    System.err.println("Clent start in");
                     int re = Integer.parseInt(args[2]);
                     driver.lookup("create", new Object[] {args[1], re});
                     driver.lookup("distributefile", new Object[] {args[1]});

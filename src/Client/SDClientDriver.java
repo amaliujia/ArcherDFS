@@ -34,13 +34,14 @@ public class SDClientDriver {
      * @param args arguments for invoked function
      */
     public void lookup(String method, Object[] args){
-        if(method == "create"){
+        if(method.equals("create")){
             try {
-                masterService.createFile((String)args[0], (Integer)args[1], true);
+                masterService.createFile((String) args[0], (Integer) args[1], true);
+                System.err.println("Client received");
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-        }else if(method == "distributefile"){
+        }else if(method.equals("distributefile")){
             try {
                 masterService.distributeFile((String) args[0], true);
             } catch (RemoteException e) {

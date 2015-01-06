@@ -2,6 +2,7 @@ package FileSystem.Base;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
@@ -9,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by amaliujia on 14-12-27.
  */
-public class SDFileChunk implements Serializable {
+public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
 
     public static AtomicLong maxId = new AtomicLong(0);
 
@@ -49,5 +50,10 @@ public class SDFileChunk implements Serializable {
 
     public Set<SDDFSNode> getChunkNodes(){
         return chunkNodes;
+    }
+
+    @Override
+    public int compareTo(SDFileChunk o) {
+        return 0;
     }
 }

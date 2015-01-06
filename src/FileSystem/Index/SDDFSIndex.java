@@ -98,21 +98,22 @@ public class SDDFSIndex {
      * @return Reference of SDDFSFile.
      */
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
+        System.err.println("get in index rmi service");
         SDDFSFile file = null;
 
         RandomAccessFile randomAccessFile = null;
         try {
-            randomAccessFile = new RandomAccessFile(fileName, "r");
+            randomAccessFile = new RandomAccessFile(fileName, "rw");
         } catch (FileNotFoundException e) {
             System.err.println(fileName + " doesn't exist" );
             return file;
         }
 
-        try {
-            randomAccessFile.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            randomAccessFile.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         synchronized (lock){
             if(logable){
@@ -126,9 +127,10 @@ public class SDDFSIndex {
             files.put(file.getFileID(), file);
         }
 
-
+        long filesize = -1;
         try {
-            long filesize = randomAccessFile.length();
+             filesize = randomAccessFile.length();
+             //filesize = 0x4000000 * 2;
             int chunknumToSplit = (int)(filesize / SDDFSConstants.CHUNK_SIZE);
             long lastOff = filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE;
             for(int i = 0; i < chunknumToSplit ; i++){
@@ -138,7 +140,7 @@ public class SDDFSIndex {
                 createChunk(file.getFileID(), lastOff, (int)(filesize - lastOff), true);
             }
         } catch (IOException e) {
-            System.err.println(fileName + " cannot be modified");
+            System.err.println(fileName + " cannot be modified     filesize " + filesize);
             return file;
         }
 
