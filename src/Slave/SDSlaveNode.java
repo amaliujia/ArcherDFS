@@ -24,7 +24,7 @@ public class SDSlaveNode {
 
     private Registry registry;
 
-    private final String serviceName = "SlaveRMIService";
+    private final String serviceName = "slave";
 
     private SDMasterService masterService;
 
