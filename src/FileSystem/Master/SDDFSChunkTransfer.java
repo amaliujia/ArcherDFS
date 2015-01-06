@@ -30,6 +30,9 @@ public class SDDFSChunkTransfer {
         file = sddfsFile;
     }
 
+    /**
+     * Distribute a file into data nodes.
+     */
     public void distributeFile(){
         getAccessToFile();
         if(randomAccessFile == null){
@@ -63,6 +66,9 @@ public class SDDFSChunkTransfer {
         }
     }
 
+    /**
+     * If file exists.
+     */
     private void getAccessToFile(){
         try {
             randomAccessFile = new RandomAccessFile(file.getFileName(), "r");
@@ -72,6 +78,13 @@ public class SDDFSChunkTransfer {
         }
     }
 
+    /**
+     * Read chunk data from file
+     * @param chunk
+     *          target chunk.
+     * @return
+     *          bytes array.
+     */
     private byte[] getChunkData(SDFileChunk chunk){
         long offset = chunk.getOffset();
         int size = chunk.getSize();

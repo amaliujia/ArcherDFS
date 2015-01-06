@@ -47,12 +47,18 @@ public class SDDFSIndex {
 
     /**
      * Call by heartbeats function to update data nodes.
-     * @param serviceName the service name of data node.
-     * @param registryHost registry host of data node.
-     * @param registryPort registry port of data node.
-     * @param numChunker number of chunker of data node.
-     * @param timestamp time stamp of this operation.
-     * @param logable if need to log.
+     * @param serviceName
+     *                  the service name of data node.
+     * @param registryHost
+     *                  registry host of data node.
+     * @param registryPort
+     *                   registry port of data node.
+     * @param numChunker
+     *                   number of chunker of data node.
+     * @param timestamp
+     *                   time stamp of this operation.
+     * @param logable
+     *                  if need to log.
      */
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int numChunker, long timestamp, boolean logable){
@@ -78,8 +84,10 @@ public class SDDFSIndex {
 
     /**
      * Remove data node from index if lose connection of data node.
-     * @param serviceName service name of data node.
-     * @param logable if need to log.
+     * @param serviceName
+     *                  service name of data node.
+     * @param logable
+     *                  if need to log.
      */
     public void removeDataNode(String serviceName, boolean logable){
         synchronized (lock){
@@ -92,10 +100,14 @@ public class SDDFSIndex {
 
     /**
      * Create file in distributed file system.
-     * @param fileName file name of data node.
-     * @param replication number of replication.
-     * @param logable if need to log.
-     * @return Reference of SDDFSFile.
+     * @param fileName
+     *                  file name of data node.
+     * @param replication
+     *                  number of replication.
+     * @param logable
+     *                  if need to log.
+     * @return
+     *                  Reference of SDDFSFile.
      */
     public SDDFSFile createFile(String fileName, int replication, boolean logable){
         System.err.println("get in index rmi service");
@@ -153,8 +165,10 @@ public class SDDFSIndex {
 
     /**
      * Get reference of file in DFS.
-     * @param fileName filename of data node.
-     * @return Reference of SDDFSFile.
+     * @param
+     *          fileName filename of data node.
+     * @return
+     *          Reference of SDDFSFile.
      */
     public SDDFSFile getFile(String fileName){
         SDDFSFile file = null;
@@ -168,7 +182,8 @@ public class SDDFSIndex {
 
     /**
      * List all files in DFS.
-     * @return Array of SDDFSFiles.
+     * @return
+     *          Array of SDDFSFiles.
      */
     public SDDFSFile[] listFiles(){
         SDDFSFile[] fs = null;
@@ -182,8 +197,10 @@ public class SDDFSIndex {
 
     /**
      * Delete file from DFS.
-     * @param serviceName service name of data node.
-     * @param logable if need to log.
+     * @param serviceName
+     *              service name of data node.
+     * @param logable
+     *              if need to log.
      */
     public void deleteFile(String serviceName, boolean logable){
         synchronized (lock){
@@ -200,11 +217,16 @@ public class SDDFSIndex {
 
     /**
      * Create Chunk of a file.
-     * @param fileId file ID.
-     * @param offset offset in given file.
-     * @param size chunk size.
-     * @param logable if need to log.
-     * @return Reference of SDFileChunk.
+     * @param fileId
+     *               file ID.
+     * @param offset
+     *              offset in given file.
+     * @param size
+     *              chunk size.
+     * @param logable
+     *              if need to log.
+     * @return
+     *              Reference of SDFileChunk.
      */
     private SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
         SDFileChunk chunk = null;
@@ -226,8 +248,10 @@ public class SDDFSIndex {
 
     /**
      * Log function to print
-     * @param operationType Operation type code.
-     * @param arguments Operation arguments.
+     * @param operationType
+     *                  Operation type code.
+     * @param arguments
+     *                  Operation arguments.
      */
     private void dfsLog(byte operationType, Object[] arguments){
         SDLogOperation operation = new SDLogOperation(operationType, arguments);
@@ -236,8 +260,10 @@ public class SDDFSIndex {
 
     /**
      * Distribute files into data nodes.
-     * @param fileID file to be distributed.
-     * @param logable if need to log.
+     * @param fileID
+     *              file to be distributed.
+     * @param logable
+     *              if need to log.
      */
     public void distributeFile(long fileID, boolean logable){
         synchronized (lock){
@@ -256,8 +282,10 @@ public class SDDFSIndex {
 
     /**
      * Allocate data nodes for a file which to be distributed.
-     * @param replication  The replication number for given file.
-     * @return SDDFSNode array.
+     * @param replication
+     *                  The replication number for given file.
+     * @return
+     *                  SDDFSNode array.
      */
     private SDDFSNode[] allocateNode(int replication) {
         if(replication != 1){
@@ -283,8 +311,10 @@ public class SDDFSIndex {
 
     /**
      * Get file id from index.
-     * @param filename filename of data node.
-     * @return file ID.
+     * @param filename
+     *              filename of data node.
+     * @return
+     *              file ID.
      */
     public long getFileID(String filename){
         synchronized (lock){
