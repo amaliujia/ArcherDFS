@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * Created by amaliujia on 15-1-7.
  */
-public class JobConfig implements Serializable {
+public class SDJobConfig implements Serializable {
 
     private String jobName;
 
