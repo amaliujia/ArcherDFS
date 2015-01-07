@@ -1,7 +1,7 @@
 ArcherDFS
 =========
 
-This is a MapReduce Framework and Distributed File System implementation. Firstly, Migratable processes system and Remote Method Invocation Framework were integrated into ArcherDFS. Then, Heartbeats protocol was designed and achieved in ArcherDFS, aiming at a robust infrastructure. As for distributed system design, architecture and main ideas came from GFS. Finally, main components like mapper, shuffle, reducer in MapReduce framework were designed and implemented. Word count was used to test this system.
+This is a MapReduce Framework and Distributed File System implementation. Firstly, Migratable processes system and Remote Method Invocation Framework were integrated into ArcherDFS. Then, Heartbeats protocol was designed and achieved in ArcherDFS, aiming at a robust infrastructure. As for distributed system design, architecture and main ideas came from GFS. Finally, MapReduce framework were designed and implemented. Word count was used to test this system. i
 
 Milestone
 =========
