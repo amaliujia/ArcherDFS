@@ -1,5 +1,7 @@
 package MapReduce.Master;
 
+import MapReduce.IO.SDFileBlock;
+import MapReduce.Job.SDJobStatus;
 import MapReduce.Slave.SDTaskTrackerInfo;
 import MapReduce.Task.SDMapperTask;
 import MapReduce.Task.SDReducerTask;
@@ -10,6 +12,7 @@ import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -45,10 +48,53 @@ public class SDJobTracker {
         threadpool = Executors.newFixedThreadPool(10);
     }
 
-    void start() throws Exception{
+    public void start() throws Exception{
         bindService();
         //TODO: checker, scheduler and fileserver.
 
+
+    }
+
+    public void startJob(int jobID) throws Exception {
+        SDJobInfo job = jobs.get(jobID);
+        if(job != null){
+            generateMapperTasks(job);
+            generateReducerTasks(job);
+            dispatchTasks(job);
+        }
+
+    }
+
+    public void startJobFailed(int jobId){
+        SDJobInfo job = jobs.get(jobId);
+        if(job != null){
+            job.setJobStatus(SDJobStatus.FAILED);
+        }
+    }
+
+    private void generateMapperTasks(SDJobInfo jobInfo)
+            throws Exception {
+//        List<SDFileBlock> fileBlocks = splitInputFile(job);
+//        job.getConfig().setMapperAmount(fileBlocks.size());
+//        for(FileBlock fileBlock : fileBlocks){
+//            MapperTask task = new MapperTask(job.getId(), fileBlock, job.getConfig().getReducerAmount());
+//            TaskTrackerInfo taskTracker = getMapperTaskTracker();
+//            if(taskTracker == null){
+//                job.setJobStatus(JobStatus.FAILED);
+//                throw new RemoteException("No available task tracker now");
+//            }
+//            task.setTaskTrackerName(taskTracker);
+//            task.setStatus(TaskStatus.PENDING);
+//            task.setMRClassName(job.getConfig().getClassName());
+//            job.addMapperTask(task);
+//        }
+    }
+
+    private void generateReducerTasks(SDJobInfo jobInfo){
+
+    }
+
+    private void dispatchTasks(SDJobInfo jobInfo){
 
     }
 
