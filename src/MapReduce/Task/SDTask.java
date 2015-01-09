@@ -10,6 +10,19 @@ public class SDTask implements Serializable, Comparator<SDTask> {
 
     private SDTaskStatus status;
 
+    private int id;
+
+    private SDTaskType taskType;
+
+    public SDTask(int jobid, SDTaskType type){
+        id = jobid;
+        taskType = type;
+    }
+
+    public int getTaskId() {
+        return id;
+    }
+
     @Override
     public int compare(SDTask o1, SDTask o2) {
         return 0;

@@ -22,11 +22,11 @@ public class SDTaskRMIService extends UnicastRemoteObject implements SDTaskServi
 
     @Override
     public void runMapperTask(SDMapperTask task) throws RemoteException {
-
+        taskTracker.runMapperTask(task);
     }
 
     @Override
     public void runReducerTask(SDMapperTask mapperTask, List<SDReducerTask> reducerTasks) throws RemoteException {
-
+        taskTracker.runReducerTask(mapperTask, reducerTasks);
     }
 }

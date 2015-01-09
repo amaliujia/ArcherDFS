@@ -5,10 +5,7 @@ package MapReduce.Task;
  */
 public class SDMapperTask extends SDTask {
 
-    private int id;
-
-    public int getTaskId(){
-        return id;
+    public SDMapperTask(int jobID){
+        super(jobID, SDTaskType.MAPPER);
     }
-
 }

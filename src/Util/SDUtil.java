@@ -1,5 +1,8 @@
 package Util;
 
+import MapReduce.Util.SDMapReduceConstants;
+import javafx.util.Pair;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -33,5 +36,14 @@ public class SDUtil {
             throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getLocalHost();
         return inetAddress.getHostName();
+    }
+
+    static public Pair<String, String> splitLines(String line){
+        String[] terms = line.split(SDMapReduceConstants.MAPREDUCE_DELIMITER_REGEX, 2);
+        if(terms.length < 2){
+           return new Pair<String, String>(line, null);
+        }else {
+            return new Pair<String, String> (terms[0], terms[1]);
+        }
     }
 }
