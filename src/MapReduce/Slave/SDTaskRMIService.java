@@ -13,7 +13,11 @@ import java.util.List;
  */
 public class SDTaskRMIService extends UnicastRemoteObject implements SDTaskService {
 
-    protected SDTaskRMIService() throws RemoteException {
+    private SDTaskTracker taskTracker;
+
+    public SDTaskRMIService(SDTaskTracker taskTracker) throws RemoteException {
+        super();
+        this.taskTracker = taskTracker;
     }
 
     @Override

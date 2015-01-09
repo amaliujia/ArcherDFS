@@ -5,7 +5,6 @@ import MapReduce.Task.SDMapperTask;
 import MapReduce.Task.SDReducerTask;
 import Protocol.MapReduce.SDJobService;
 import Util.SDUtil;
-import com.apple.concurrent.Dispatch;
 
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
@@ -65,7 +64,23 @@ public class SDJobTracker {
 
     }
 
-    
+    private void updateTaskTracker(SDTaskTrackerInfo taskTrackerInfo){
+          SDTaskTrackerInfo info= taskTrackerInfos.putIfAbsent(taskTrackerInfo.toString(), taskTrackerInfo);
+          if (info != null){
+          }else{
+
+          }
+//        TaskTrackerInfo old = taskTackers.putIfAbsent(taskTracker.toString(), taskTracker);
+//        if(old != null){
+//            old.setTimestamp(System.currentTimeMillis());
+//            old.setMapperTaskNumber(taskTracker.getMapperTaskNumber());
+//            old.setReduceTaskNumber(taskTracker.getReducerTaskNumber());
+//        } else {
+//            taskTracker.setTimestamp(System.currentTimeMillis());
+//        }
+    }
+
+
     public void mapperTaskSucceed(SDMapperTask task) throws RemoteException {
 
     }

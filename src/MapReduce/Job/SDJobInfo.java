@@ -3,6 +3,7 @@ package MapReduce.Job;
 import MapReduce.Task.SDMapperTask;
 import MapReduce.Task.SDReducerTask;
 import MapReduce.Task.SDTask;
+import MapReduce.Task.SDTaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,8 +75,7 @@ public class SDJobInfo {
         return jobConfig;
     }
 
-
-    public String describeJob(){
+    private String describeJob(){
         StringBuffer sb = new StringBuffer();
         SDJobStatus status = checkJobStatus();
         sb.append("#" + id);
@@ -95,17 +95,17 @@ public class SDJobInfo {
         int pendingCount = 0;
         int successCount = 0;
         int failureCount = 0;
-//        for(MapperTask mapperTask : getMapperTasks()){
-//            if(mapperTask.getStatus() == TaskStatus.PENDING){
-//                pendingCount++;
-//            }
-//            if(mapperTask.getStatus() == TaskStatus.SUCCEED){
-//                successCount++;
-//            }
-//            if(mapperTask.getStatus() == TaskStatus.FAILED){
-//                failureCount++;
-//            }
-//        }
+        for(SDMapperTask mapperTask : getMapperTasks()){
+            if(mapperTask.getStatus() == SDTaskStatus.PENDING){
+                pendingCount++;
+            }
+            if(mapperTask.getStatus() == SDTaskStatus.SUCCEED){
+                successCount++;
+            }
+            if(mapperTask.getStatus() == SDTaskStatus.FAILED){
+                failureCount++;
+            }
+        }
         return "mapper task: " + pendingCount + " pending, " + successCount +
                 " succeeded, " + failureCount + " failed";
     }
@@ -114,17 +114,17 @@ public class SDJobInfo {
         int pendingCount = 0;
         int successCount = 0;
         int failureCount = 0;
-//        for(ReducerTask reducerTask : getReducerTasks()){
-//            if(reducerTask.getStatus() == TaskStatus.PENDING){
-//                pendingCount++;
-//            }
-//            if(reducerTask.getStatus() == TaskStatus.SUCCEED){
-//                successCount++;
-//            }
-//            if(reducerTask.getStatus() == TaskStatus.FAILED){
-//                failureCount++;
-//            }
-//        }
+        for(SDReducerTask reducerTask : getReducerTasks()){
+            if(reducerTask.getStatus() == SDTaskStatus.PENDING){
+                pendingCount++;
+            }
+            if(reducerTask.getStatus() == SDTaskStatus.SUCCEED){
+                successCount++;
+            }
+            if(reducerTask.getStatus() == SDTaskStatus.FAILED){
+                failureCount++;
+            }
+        }
         return "reducer task: " + pendingCount + " pending, " + successCount +
                 " succeeded, " + failureCount + " failed";
     }
@@ -132,39 +132,43 @@ public class SDJobInfo {
     private SDJobStatus checkJobStatus(){
         boolean failure = false;
         boolean pending = false;
-//        if(status != JobStatus.PENDING){
-//            return status;
-//        }
-//        for(SDTask task : getMapperTasks()){
-//            if(task.getStatus() == SDTaskStatus.PENDING){
-//                pending = true;
-//            }
-//            if(task.getStatus() == TaskStatus.FAILED){
-//                failure = true;
-//                break;
-//            }
-//        }
-//
-//        for(SDTask task : getReducerTasks()){
-//            if(task.getStatus() == TaskStatus.PENDING){
-//                pending = true;
-//            }
-//            if(task.getStatus() == TaskStatus.FAILED){
-//                failure = true;
-//                break;
-//            }
-//        }
-//
-//        if(failure){
-//            setJobStatus(JobStatus.FAILED);
-//            return status;
-//        }
-//        if(pending){
-//            setJobStatus(JobStatus.PENDING);
-//            return status;
-//        }
-//        setJobStatus(JobStatus.SUCCEED);
+        if(jobStatus != SDJobStatus.PENDING){
+            return jobStatus;
+        }
+        for(SDTask task : getMapperTasks()){
+            if(task.getStatus() == SDTaskStatus.PENDING){
+                pending = true;
+            }
+            if(task.getStatus() == SDTaskStatus.FAILED){
+                failure = true;
+                break;
+            }
+        }
+
+        for(SDTask task : getReducerTasks()){
+            if(task.getStatus() == SDTaskStatus.PENDING){
+                pending = true;
+            }
+            if(task.getStatus() == SDTaskStatus.FAILED){
+                failure = true;
+                break;
+            }
+        }
+
+        if(failure){
+            setJobStatus(SDJobStatus.FAILED);
+            return jobStatus;
+        }
+        if(pending){
+            setJobStatus(SDJobStatus.PENDING);
+            return jobStatus;
+        }
+        setJobStatus(SDJobStatus.SUCCEED);
         return jobStatus;
+    }
+
+    public String toString(){
+        return describeJob();
     }
 
 
