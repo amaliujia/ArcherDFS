@@ -22,7 +22,7 @@ public class SDJobRMIService extends UnicastRemoteObject implements SDJobService
 
     @Override
     public void heartbeat(SDTaskTrackerInfo taskTrackerInfo) throws RemoteException {
-        jobTracker.heartbeat(taskTrackerInfo);
+        jobTracker.TaskTrackerupdate(taskTrackerInfo);
     }
 
     @Override

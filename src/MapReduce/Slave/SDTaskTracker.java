@@ -1,8 +1,10 @@
 package MapReduce.Slave;
 
+import MapReduce.Common.SDMapReduce;
 import MapReduce.Task.SDMapperTask;
 import MapReduce.Task.SDReducerTask;
 import MapReduce.Task.SDTask;
+import MapReduce.Util.SDMapReduceConstants;
 import Protocol.MapReduce.SDJobService;
 import Protocol.MapReduce.SDTaskService;
 import Util.SDUtil;
@@ -34,7 +36,12 @@ public class SDTaskTracker {
     private SDJobService jobTrackerService;
 
     public void runMapperTask(SDMapperTask task) throws RemoteException {
-
+        task.setOutputDir(SDMapReduceConstants.DEFAULT_OUTPUT_DIR);
+//        task.setFileServerHost(taskTrackerInfo.getHost());
+//        task.setFileServerPort(taskTrackerInfo.getFileServerPort());
+//        task.createTaskFolder();
+//        threadPool.execute(new TaskTrackerMapperWorker(task, this));
+//        taskTrackerInfo.increaseMapperTaskNumber();
     }
 
     public void runReducerTask(SDMapperTask mapperTask, List<SDReducerTask> reducerTasks) throws RemoteException {
@@ -61,6 +68,14 @@ public class SDTaskTracker {
         }
     }
 
+    public void heartbeat(){
+        try {
+            jobTrackerService.heartbeat(taskTrackerInfo);
+        } catch (RemoteException e) {
+            System.err.println("can't heartbeat with job tracker" + "  " + e.toString());
+        }
+    }
+
 
     public String getJobTrackerRegistryHost() {
         return jobTrackerRegistryHost;
@@ -77,5 +92,6 @@ public class SDTaskTracker {
     public Registry getJobTrackerRegistry(){
         return jobTrackerRegistry;
     }
+
 
 }

@@ -105,25 +105,17 @@ public class SDJobTracker {
         //TODO: rebind client rmi service
     }
 
-    
-    public void heartbeat(SDTaskTrackerInfo taskTrackerInfo) throws RemoteException {
 
-    }
 
-    private void updateTaskTracker(SDTaskTrackerInfo taskTrackerInfo){
+    public void TaskTrackerupdate(SDTaskTrackerInfo taskTrackerInfo){
           SDTaskTrackerInfo info= taskTrackerInfos.putIfAbsent(taskTrackerInfo.toString(), taskTrackerInfo);
           if (info != null){
+              info.setTimestamp(System.currentTimeMillis());
+              info.setMapperTaskNumber(taskTrackerInfo.getMapperTaskNumber());
+              info.setReduceTaskNumber(taskTrackerInfo.getReducerTaskNumber());
           }else{
-
+              taskTrackerInfo.setTimestamp(System.currentTimeMillis());
           }
-//        TaskTrackerInfo old = taskTackers.putIfAbsent(taskTracker.toString(), taskTracker);
-//        if(old != null){
-//            old.setTimestamp(System.currentTimeMillis());
-//            old.setMapperTaskNumber(taskTracker.getMapperTaskNumber());
-//            old.setReduceTaskNumber(taskTracker.getReducerTaskNumber());
-//        } else {
-//            taskTracker.setTimestamp(System.currentTimeMillis());
-//        }
     }
 
 

@@ -1,6 +1,7 @@
 package MapReduce.Common;
 
 import FileSystem.Util.SDDFSConstants;
+import MapReduce.Job.SDJob;
 import MapReduce.Job.SDJobConfig;
 
 /**
