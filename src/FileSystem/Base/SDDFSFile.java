@@ -14,12 +14,16 @@ import java.util.concurrent.atomic.AtomicLong;
 public class SDDFSFile implements Serializable{
     public static AtomicLong maxId = new AtomicLong(0);
 
+    // file ID of logic file in distributed system.
     private long fileID;
 
+    //file path
     private String name;
 
+    // replication number
     private int replication;
 
+    // chunks of this file
     private Set<SDFileChunk> chunks;
 
     public SDDFSFile(long id, String name){

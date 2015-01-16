@@ -10,11 +10,13 @@ import java.util.concurrent.atomic.AtomicLong;
  * Created by amaliujia on 14-12-27.
  */
 public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
-
+    // ID producer
     public static AtomicLong maxId = new AtomicLong(0);
 
+    // chunk ID
     private long id;
 
+    // File
     private long fileID;
 
     private long offset;
