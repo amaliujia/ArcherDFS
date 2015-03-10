@@ -35,13 +35,14 @@ public class SDSlaveIO {
 
     public boolean write(long chunkID, long offset, int size, byte[] data) throws IOException {
         File file = new File(getChunkPath(chunkID));
-        if(file.exists()){
-            RandomAccessFile rFile = new RandomAccessFile(file, "w");
-            rFile.seek(offset);
-            rFile.write(data, 0, Math.min(size, data.length));
-            rFile.close();
-            return true;
-        }
+//        if(file.exists()){
+//            RandomAccessFile rFile = new RandomAccessFile(file, "w");
+//            rFile.seek(offset);
+//            rFile.write(data, 0, Math.min(size, data.length));
+//            rFile.close();
+//            return true;
+//        }
+        System.err.println("1111");
         return false;
     }
 
