@@ -121,12 +121,6 @@ public class SDDFSIndex {
             return file;
         }
 
-//        try {
-//            randomAccessFile.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         synchronized (lock){
             if(logable){
                 dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
@@ -144,11 +138,13 @@ public class SDDFSIndex {
              filesize = randomAccessFile.length();
              //filesize = 0x4000000 * 2;
             int chunknumToSplit = (int)(filesize / SDDFSConstants.CHUNK_SIZE);
+            //TODO: wrong chunk size
             long lastOff = filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE;
             for(int i = 0; i < chunknumToSplit ; i++){
                 createChunk(file.getFileID(), i * SDDFSConstants.CHUNK_SIZE, (int)SDDFSConstants.CHUNK_SIZE, true);
             }
             if(filesize - lastOff > 0){
+                //TODO: wrong compuation
                 createChunk(file.getFileID(), lastOff, (int)(filesize - lastOff), true);
             }
         } catch (IOException e) {

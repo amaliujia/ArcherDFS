@@ -100,7 +100,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     /**
      * Get file from ArcherDFS.
      * @param fileName
-     *               Filename of this file.
+     *          Filename of this file.
      * @return
      *          return reference of a SDDFSFile.
      * @throws RemoteException
