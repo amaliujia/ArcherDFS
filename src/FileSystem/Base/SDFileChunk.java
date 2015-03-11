@@ -21,11 +21,11 @@ public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
 
     private long offset;
 
-    private int size;
+    private long size;
 
     private Set<SDDFSNode> chunkNodes;
 
-    public SDFileChunk(long id, long fileID, long offset, int size, SDDFSNode[] nodes){
+    public SDFileChunk(long id, long fileID, long offset, long size, SDDFSNode[] nodes){
         this.id = id;
         this.fileID = fileID;
         this.size = size;
@@ -45,7 +45,7 @@ public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
         return offset;
     }
 
-    public int getSize(){
+    public long getSize(){
         return  size;
     }
 
