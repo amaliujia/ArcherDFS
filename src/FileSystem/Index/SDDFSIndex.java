@@ -67,7 +67,7 @@ public class SDDFSIndex {
             if(dataNodes.containsKey(serviceName)){
                 dataNode = dataNodes.get(serviceName);
                 //TODO: how to log it?
-
+                System.out.println("connect!");
             } else{
                  dataNode = new SDDFSNode(serviceName, registryHost, registryPort);
                  dataNodes.put(serviceName, dataNode);

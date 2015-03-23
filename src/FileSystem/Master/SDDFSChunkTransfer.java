@@ -86,7 +86,7 @@ public class SDDFSChunkTransfer {
      */
     private byte[] getChunkData(SDFileChunk chunk){
         long offset = chunk.getOffset();
-        int size = chunk.getSize();
+        int size = (int)chunk.getSize();
         byte[] bytes = new byte[size];
 
         try {

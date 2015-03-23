@@ -24,7 +24,7 @@ public class SDSlaveNode {
 
     private Registry registry;
 
-    private final String serviceName = "slave";
+    private String serviceName;
 
     private SDMasterService masterService;
 
@@ -37,10 +37,11 @@ public class SDSlaveNode {
 
     public void startService(){
         slaveIO = new SDSlaveIO();
+        serviceName = SDSlaveService.class.getCanonicalName();
         try {
             SDSlaveService slaveService = new SDSlaveRMIService(this);
             registry = LocateRegistry.createRegistry(SDUtil.SALVE_RMIREGISTRY_PORT);
-            registry.rebind(serviceName, slaveService);
+            registry.rebind(SDSlaveService.class.getCanonicalName(), slaveService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
             masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
             heartbeatService = Executors.newScheduledThreadPool(10);

@@ -58,7 +58,7 @@ public class SDMasterNode {
     public void startService() throws RemoteException, UnknownHostException {
 //        ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
 //        listener.start();
-
+        String serviceName = SDMasterService.class.getCanonicalName();
         sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);

@@ -2,9 +2,7 @@ package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.util.Arrays;
 
 /**
@@ -42,8 +40,14 @@ public class SDSlaveIO {
 //            rFile.close();
 //            return true;
 //        }
-        System.err.println("1111");
-        return false;
+        //BufferedWriter write = new BufferedWriter(new FileWriter(file));
+        RandomAccessFile rFile = new RandomAccessFile(file, "rw");
+        rFile.seek(0);
+        rFile.write(data, 0, Math.min(size, data.length));
+        rFile.close();
+
+        //System.err.println("1111");
+        return true;
     }
 
     public boolean delete(long chunkID) {
