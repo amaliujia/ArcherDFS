@@ -48,8 +48,10 @@ public class SDDFSChunkTransfer {
                 try {
                     Registry registry = LocateRegistry.getRegistry(node.getRegistryHost(), node.getRegistryPort());
                     SDSlaveService slaveService = (SDSlaveService)registry.lookup(SDSlaveService.class.getCanonicalName());
+                    System.err.println("-------------------------------------------------");
                     System.err.println("data chunk length: " + getChunkData(chunk).length);
                     slaveService.write(chunk.getId(), chunk.getOffset(), chunk.getSize(), getChunkData(chunk));
+                    System.err.println("----------------------finish---------------------");
                 } catch (RemoteException e) {
                     System.err.println("Cannot get registry from " + node.toString() );
                     continue;
