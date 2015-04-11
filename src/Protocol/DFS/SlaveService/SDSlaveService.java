@@ -12,7 +12,7 @@ public interface SDSlaveService extends Remote {
     public byte[] read(long chunkID, long offset, int size) throws IOException, RemoteException;
 
     //write function that allows server (may other slaves) write fiels stored in local fs
-    public boolean write(long chunkID, long offset, int size, byte[] data) throws RemoteException, IOException;
+    public boolean write(long chunkID, long offset, long size, byte[] data) throws RemoteException, IOException;
 
     //delete chunks from local fs
     public boolean delete(long chunkID) throws RemoteException;

@@ -6,7 +6,7 @@ package FileSystem.Util;
 public class SDDFSConstants {
     public static final String CHUNK_PREFIX = "ArcherDFSChunk";
     public static final String CHUNK_SUFFIX = "ar";
-    public static final String DATA_DIR = "/Users/hk/GitHub/";
+    public static final String DATA_DIR = "/Users/amaliujia/Documents/github/ArcherDFS/chunks";
 
     public static final int DEFAULT_REPLICA_NUMBER = 3;
     public static final int DEFAULT_BLOCK_SIZE = (1 << 20);

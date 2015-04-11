@@ -14,7 +14,6 @@ public class SDArcherMain {
             SDMasterNode master = new SDMasterNode();
             master.startService();
         }else if(args[0].equals("slave")){
-            //start salve
 //            HKSlaveNode slave = new HKSlaveNode(args[1], Integer.parseInt(args[2]));
 //            slave.connect();
 //            new Thread(slave).start();

@@ -67,7 +67,7 @@ public class SDDFSIndex {
             if(dataNodes.containsKey(serviceName)){
                 dataNode = dataNodes.get(serviceName);
                 //TODO: how to log it?
-
+                System.out.println("connect!");
             } else{
                  dataNode = new SDDFSNode(serviceName, registryHost, registryPort);
                  dataNodes.put(serviceName, dataNode);
@@ -121,12 +121,6 @@ public class SDDFSIndex {
             return file;
         }
 
-//        try {
-//            randomAccessFile.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         synchronized (lock){
             if(logable){
                 dfsLog(SDLogOperation.DFS_CREATE_FILE, new Object[] {fileName, replication});
@@ -143,13 +137,17 @@ public class SDDFSIndex {
         try {
              filesize = randomAccessFile.length();
              //filesize = 0x4000000 * 2;
+            //TODO:test here
             int chunknumToSplit = (int)(filesize / SDDFSConstants.CHUNK_SIZE);
-            long lastOff = filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE;
+            long lastOff = 0;
+            if(filesize % SDDFSConstants.CHUNK_SIZE != 0){
+               lastOff = chunknumToSplit * SDDFSConstants.CHUNK_SIZE;
+            }
             for(int i = 0; i < chunknumToSplit ; i++){
                 createChunk(file.getFileID(), i * SDDFSConstants.CHUNK_SIZE, (int)SDDFSConstants.CHUNK_SIZE, true);
             }
-            if(filesize - lastOff > 0){
-                createChunk(file.getFileID(), lastOff, (int)(filesize - lastOff), true);
+            if(lastOff > 0){
+                createChunk(file.getFileID(), lastOff, filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE, true);
             }
         } catch (IOException e) {
             System.err.println(fileName + " cannot be modified     filesize " + filesize);
@@ -228,7 +226,7 @@ public class SDDFSIndex {
      * @return
      *              Reference of SDFileChunk.
      */
-    private SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
+    private SDFileChunk createChunk(long fileId, long offset, long size, boolean logable){
         SDFileChunk chunk = null;
         synchronized (lock){
             if(logable){
