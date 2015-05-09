@@ -22,21 +22,22 @@ public class SDSlaveRMIService extends UnicastRemoteObject implements SDSlaveSer
         this.slave = node;
     }
 
-    @Override
     public byte[] read(long chunkID, long offset, int size) throws IOException, RemoteException {
         return slave.slaveIO.read(chunkID, offset, size);
     }
 
-    @Override
-    public boolean write(long chunkID, long offset, long size, byte[] data) throws IOException, RemoteException {
+    public boolean write(long chunkID, long offset, int size, byte[] data) throws IOException, RemoteException {
         return slave.slaveIO.write(chunkID, offset, (int)size, data);
     }
 
-    @Override
+
     public boolean delete(long chunkID) throws RemoteException {
         return slave.slaveIO.delete(chunkID);
     }
 
+    public boolean append(long chunkID, int size, byte[] data) throws RemoteException {
+        return slave.slaveIO.append(chunkID, size, data);
+    }
 
 
 }

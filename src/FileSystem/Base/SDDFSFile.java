@@ -61,4 +61,8 @@ public class SDDFSFile implements Serializable{
     public String getFileName(){
         return name;
     }
+
+    public String toString(){
+        return "ID: " + fileID + " name: " + name + " replicas: " + replication;
+    }
 }

@@ -24,8 +24,6 @@ public class SDSlaveHeartbreatsJob implements Runnable{
         this.slaveIO = IO;
     }
 
-
-    @Override
     public void run() {
         try {
             String serviceName = SDSlaveService.class.getCanonicalName();

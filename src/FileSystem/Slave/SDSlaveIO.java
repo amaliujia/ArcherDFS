@@ -27,27 +27,33 @@ public class SDSlaveIO {
                 return null;
             }
         }
-
         return null;
+    }
+
+    public boolean append(long chunkID, int size, byte[] data){
+        File file = new File(getChunkPath(chunkID));
+        RandomAccessFile rFile = null;
+        try {
+            rFile = new RandomAccessFile(file, "rw");
+            rFile.seek(0);
+            rFile.write(data, 0, Math.min(size, data.length));
+            rFile.close();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
     }
 
     public boolean write(long chunkID, long offset, int size, byte[] data) throws IOException {
         File file = new File(getChunkPath(chunkID));
-//        if(file.exists()){
-//            RandomAccessFile rFile = new RandomAccessFile(file, "w");
-//            rFile.seek(offset);
-//            rFile.write(data, 0, Math.min(size, data.length));
-//            rFile.close();
-//            return true;
-//        }
-        //BufferedWriter write = new BufferedWriter(new FileWriter(file));
-        RandomAccessFile rFile = new RandomAccessFile(file, "rw");
-        rFile.seek(0);
-        rFile.write(data, 0, Math.min(size, data.length));
-        rFile.close();
-
-        //System.err.println("1111");
-        return true;
+        if(file.exists()){
+            RandomAccessFile rFile = new RandomAccessFile(file, "w");
+            rFile.seek(offset);
+            rFile.write(data, 0, (int)Math.min(size, data.length));
+            rFile.close();
+            return true;
+        }
+        return false;
     }
 
     public boolean delete(long chunkID) {

@@ -53,7 +53,8 @@ public class SDDFSNode implements Serializable, Comparable<SDDFSNode>{
 
     @Override
     public String toString(){
-        return getServiceName() + " " + getRegistryHost() + " " + getRegistryPort();
+        return "service name: " + getServiceName() + " registry host: " +
+                getRegistryHost() + " registry port" + getRegistryPort();
     }
 
     @Override
@@ -70,7 +71,6 @@ public class SDDFSNode implements Serializable, Comparable<SDDFSNode>{
         }
     }
 
-    @Override
     public int compareTo(SDDFSNode dfsNode) {
         return getServiceName().hashCode() - dfsNode.getServiceName().hashCode();
     }

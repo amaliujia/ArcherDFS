@@ -21,8 +21,6 @@ public class SDSlaveHeartbeatsJob implements Runnable{
         this.slaveIO = IO;
     }
 
-
-    @Override
     public void run() {
         System.out.println("Heart beat");
         try {

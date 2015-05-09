@@ -34,7 +34,6 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *              throws when Remote error happen.
      */
-    @Override
     public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber, boolean logable)
             throws RemoteException {
         index.updateDataNode(serviceName, registryHost, registryPort, chunkNumber, System.currentTimeMillis(), logable);
@@ -57,7 +56,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *                  throws when Remote error happen.
      */
-    @Override
+    
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int chunkNumber, long timestamp, boolean logable) throws RemoteException {
         index.updateDataNode(serviceName, registryHost, registryPort, chunkNumber, timestamp, logable);
@@ -73,7 +72,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *                  throws when Remote error happen.
      */
-    @Override
+    
     public void deleteDataNode(String serviceName, boolean logable) throws RemoteException {
         index.removeDataNode(serviceName, logable);
     }
@@ -91,7 +90,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *              throws when Remote error happen.
      */
-    @Override
+    
     public SDDFSFile createFile(String fileName, int re, boolean logable) throws RemoteException {
         System.err.println("get in master rmi service");
         return index.createFile(fileName, re, logable);
@@ -106,7 +105,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *          throws when Remote error happen.
      */
-    @Override
+    
     public SDDFSFile getFile(String fileName) throws RemoteException {
         return index.getFile(fileName);
     }
@@ -118,7 +117,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *           throws when Remote error happen.
      */
-    @Override
+    
     public SDDFSFile[] listFiles() throws RemoteException {
         return index.listFiles();
     }
@@ -132,7 +131,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *                  throws when Remote error happen.
      */
-    @Override
+    
     public void deleteFile(String fileName, boolean logable) throws RemoteException {
         index.deleteFile(fileName, logable);
     }
@@ -146,7 +145,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
      * @throws RemoteException
      *          throws when Remote error happen.
      */
-    @Override
+    
     public void distributeFile(long fileID, boolean logable) throws RemoteException {
         index.distributeFile(fileID, logable);
     }

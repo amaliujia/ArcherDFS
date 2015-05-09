@@ -147,7 +147,7 @@ public class SDDFSIndex {
                 createChunk(file.getFileID(), i * SDDFSConstants.CHUNK_SIZE, (int)SDDFSConstants.CHUNK_SIZE, true);
             }
             if(lastOff > 0){
-                createChunk(file.getFileID(), lastOff, filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE, true);
+                createChunk(file.getFileID(), lastOff, (int) (filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE), true);
             }
         } catch (IOException e) {
             System.err.println(fileName + " cannot be modified     filesize " + filesize);
@@ -226,7 +226,7 @@ public class SDDFSIndex {
      * @return
      *              Reference of SDFileChunk.
      */
-    private SDFileChunk createChunk(long fileId, long offset, long size, boolean logable){
+    private SDFileChunk createChunk(long fileId, long offset, int size, boolean logable){
         SDFileChunk chunk = null;
         synchronized (lock){
             if(logable){
@@ -294,7 +294,6 @@ public class SDDFSIndex {
         SDDFSNode[] allNodes = new SDDFSNode[dataNodes.size()];
         dataNodes.values().toArray(allNodes);
         Arrays.sort(allNodes, new Comparator<SDDFSNode>() {
-            @Override
             public int compare(SDDFSNode o1, SDDFSNode o2) {
                 return o1.getChunkNumber() - o2.getChunkNumber();
             }
