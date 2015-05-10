@@ -1,7 +1,7 @@
 package MapReduce.JobTracker;
 
-import MapReduce.Abstraction.SDMapperTask;
-import MapReduce.Abstraction.SDReducerTask;
+import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.TaskTracker.SDTaskObject;
 import Protocol.MapReduce.SDJobService;
 

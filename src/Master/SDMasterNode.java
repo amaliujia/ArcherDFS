@@ -6,7 +6,6 @@ import Logging.SDLogger;
 import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;

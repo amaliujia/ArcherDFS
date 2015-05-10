@@ -2,10 +2,9 @@ package MapReduce.JobTracker;
 
 import MapReduce.TaskTracker.SDTaskObject;
 import MapReduce.Util.SDMapReduceConstant;
-
+import Protocol.Client.SDMapReduceClientService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -20,6 +19,7 @@ public class SDJobTracker {
 
     private ConcurrentHashMap<String, SDTaskObject> taskTackers;
     private SDJobTrackerRMIService sdJobTrackerRMIService;
+    //private SDMapReduceClientService
     private Registry registry;
 
     public void startService(){
@@ -44,4 +44,7 @@ public class SDJobTracker {
                          " on port " + SDMapReduceConstant.JobTrackerServicePort);
     }
 
+    private void bindClientRMIService(){
+
+    }
 }

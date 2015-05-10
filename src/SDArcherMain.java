@@ -1,9 +1,6 @@
 import Master.SDMasterNode;
 import Slave.SDSlaveNode;
 import Util.SDUtil;
-import org.apache.log4j.jmx.LoggerDynamicMBean;
-
-import java.util.logging.Logger;
 
 /**
  * Created by amaliujia on 14-12-20.

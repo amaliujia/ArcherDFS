@@ -1,4 +1,4 @@
-package Client;
+package Client.DFS;
 
 import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;

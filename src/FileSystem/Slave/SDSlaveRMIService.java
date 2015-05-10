@@ -2,7 +2,6 @@ package FileSystem.Slave;
 
 import Protocol.DFS.SlaveService.SDSlaveService;
 import Slave.SDSlaveNode;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.rmi.RemoteException;

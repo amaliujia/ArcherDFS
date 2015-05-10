@@ -1,7 +1,7 @@
 package Protocol.MapReduce;
 
-import MapReduce.Abstraction.SDMapperTask;
-import MapReduce.Abstraction.SDReducerTask;
+import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

@@ -1,9 +1,8 @@
 package MapReduce.JobTracker;
 
-import MapReduce.Abstraction.SDTask;
+import MapReduce.DispatchUnits.SDTask;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 

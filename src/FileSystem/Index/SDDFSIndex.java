@@ -152,7 +152,7 @@ public class SDDFSIndex {
                 createChunk(file.getFileID(), lastOff, (int) (filesize - chunknumToSplit * SDDFSConstants.CHUNK_SIZE), true);
             }
         } catch (IOException e) {
-            System.err.println(fileName + " cannot be modified     filesize " + filesize);
+            System.err.println(fileName + " cannot be modified filesize " + filesize);
             return file;
         }
 

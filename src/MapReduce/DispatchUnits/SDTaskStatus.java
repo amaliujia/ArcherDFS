@@ -1,4 +1,4 @@
-package MapReduce.Abstraction;
+package MapReduce.DispatchUnits;
 
 import java.io.Serializable;
 

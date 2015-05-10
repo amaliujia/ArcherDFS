@@ -2,6 +2,7 @@ package MapReduce.Abstraction;
 
 import javafx.util.Pair;
 
+import java.io.Serializable;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.TreeSet;
@@ -9,7 +10,7 @@ import java.util.TreeSet;
 /**
  * Created by amaliujia on 15-5-9.
  */
-public class SDOutputCollector<K, V> {
+public class SDOutputCollector<K, V> implements Serializable{
     private PriorityQueue<Pair<K, V>> priorityQueue;
     private Set<K> keys;
 

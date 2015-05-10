@@ -1,10 +1,8 @@
 package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
-import Master.SDSlave;
 import Protocol.DFS.MasterService.SDMasterService;
 import Protocol.DFS.SlaveService.SDSlaveService;
-import Slave.SDSlaveNode;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
