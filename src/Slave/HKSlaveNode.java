@@ -73,7 +73,6 @@ public class HKSlaveNode implements Runnable{
     /**
      *  keep working
      */
-    @Override
     public void run() {
         while(true){
             try {

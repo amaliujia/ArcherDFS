@@ -1,6 +1,6 @@
 package Util;
 
-import MapReduce.Util.SDMapReduceConstants;
+import MapReduce.Util.SDMapReduceConstant;
 import javafx.util.Pair;
 
 import java.net.InetAddress;
@@ -29,6 +29,14 @@ public class SDUtil {
     public static final String LOGPATH = "/Users/amaliujia/Documents/github/ArcherDFS/Resources/ArcherDFS.log";
     public static final int DEFAULT_REPLICATION = 1;
 
+    public static final String LOG4JERROR_MAPREDUCE = "SDMapReduce error: ";
+    public static final String LOG4JDEBUG_MAPREDUCE = "SDMapReduce debug: ";
+    public static final String LOG4JINFO_MAPREDUCE = "SDMapReduce info: ";
+
+    public static final String LOG4JERROR_DFS = "SDDFS error: ";
+    public static final String LOG4JDEBUG_DFS = "SDDFS debug: ";
+    public static final String LOG4JINFO_DFS = "SDDFS info: ";
+
     static public void fatalError (String message) {
         System.err.println (message);
         exit(1);
@@ -41,7 +49,7 @@ public class SDUtil {
     }
 
     static public Pair<String, String> splitLines(String line){
-        String[] terms = line.split(SDMapReduceConstants.MAPREDUCE_DELIMITER_REGEX, 2);
+        String[] terms = line.split(SDMapReduceConstant.MAPREDUCE_DELIMITER_REGEX, 2);
         if(terms.length < 2){
            return new Pair<String, String>(line, null);
         }else {

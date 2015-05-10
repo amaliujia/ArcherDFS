@@ -1,6 +1,11 @@
 package Protocol.MapReduce;
 
+import MapReduce.Abstraction.SDMapperTask;
+import MapReduce.Abstraction.SDReducerTask;
+
 import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
 
 
 /**
@@ -8,7 +13,7 @@ import java.rmi.Remote;
  */
 public interface SDTaskService extends Remote {
 
-//    public void runMapperTask(SDMapperTask task) throws RemoteException;
-//
-//    public void runReducerTask(SDMapperTask mapperTask, List<SDReducerTask> reducerTasks) throws RemoteException;
+    public void runMapperTask(SDMapperTask task) throws RemoteException;
+
+    public void runReducerTask(SDMapperTask mapperTask, List<SDReducerTask> reducerTasks) throws RemoteException;
 }

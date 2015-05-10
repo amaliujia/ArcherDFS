@@ -5,6 +5,8 @@ import FileSystem.Master.SDMasterRMIService;
 import Logging.SDLogger;
 import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,6 +30,8 @@ import java.util.concurrent.Executors;
  * Created by amaliujia on 14-12-20.
  */
 public class SDMasterNode {
+    private static Logger log4jLogger = Logger.getLogger(SDMasterNode.class);
+
 
     public static ArrayList<SDSlave> slaveList;
 
@@ -36,8 +40,6 @@ public class SDMasterNode {
     private ExecutorService threadsPool;
 
     private Timer heartbeatsTimer;
-
-   // private  Logger logger = LoggerFactory.getLogger(SDMasterNode.class);
 
     private SDDFSIndex sddfsIndex;
 
@@ -51,21 +53,17 @@ public class SDMasterNode {
         slaveList = new ArrayList<SDSlave>();
         slaveHashMap = new HashMap<Integer, SDSlave>();
         threadsPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * SDUtil.POOLSIZE);
-//        heartbeatsTimer = new Timer();
-//        heartbeatsTimer .schedule(new SDMasterHeartbeats(slaveHashMap), 1000, SDUtil.heartbeatsIntervalMillionSeconds * 3);
     }
 
     public void startService() throws RemoteException, UnknownHostException {
-//        ListenerService listener = new ListenerService(SDUtil.masterListenerPort);
-//        listener.start();
         String serviceName = SDMasterService.class.getCanonicalName();
         sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
         registry = LocateRegistry.createRegistry(SDUtil.MASTER_RMIRegistry_PORT);
-        //registry = LocateRegistry.getRegistry("localhost", SDUtil.MASTER_RMIRegistry_PORT);
         registry.rebind(SDMasterService.class.getCanonicalName(), sdMasterRMIService);
 
+        log4jLogger.info("Master node starts running");
     }
 
     /**
@@ -136,8 +134,7 @@ public class SDMasterNode {
             while(true) {
                 try {
                     Socket sock = listener.accept();
-                    //System.out.println("New slave connected");
-                  //  logger.info("New slave connected");
+                    log4jLogger.info("Slave connected!");
                     SDSlave aSlave = new SDSlave(sock.getInetAddress(), sock.getPort());
                     aSlave.setReader(new BufferedReader(new InputStreamReader(sock.getInputStream())));
                     aSlave.setWriter(new PrintWriter(sock.getOutputStream()));
@@ -147,8 +144,7 @@ public class SDMasterNode {
                         slaveHashMap.put(key, aSlave);
                     }
                 }catch (IOException e){
-                    //System.err.println("fail to establish a socket with a slave node");
-                   // logger.error("fail to establish a socket with a slave node");
+                    log4jLogger.error("fail to establish a socket with a slave node");
                     e.printStackTrace();
                 }
             }

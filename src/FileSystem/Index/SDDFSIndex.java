@@ -7,6 +7,8 @@ import FileSystem.Master.SDDFSChunkTransfer;
 import FileSystem.Util.SDDFSConstants;
 import Logging.SDLogOperation;
 import Logging.SDLogger;
+import Util.SDUtil;
+import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +19,7 @@ import java.util.*;
  * Created by amaliujia on 14-12-28.
  */
 public class SDDFSIndex {
-//    private static Logger logger = LoggerFactory.getLogger(SDDFSIndex.class);
+    private static Logger Log4jlogger = Logger.getLogger(SDDFSIndex.class);
 
     private String lock;
 
@@ -66,8 +68,7 @@ public class SDDFSIndex {
         synchronized (lock){
             if(dataNodes.containsKey(serviceName)){
                 dataNode = dataNodes.get(serviceName);
-                //TODO: how to log it?
-                System.out.println("connect!");
+                Log4jlogger.info(SDUtil.LOG4JINFO_DFS + "Slave " + serviceName + " heart beats");
             } else{
                  dataNode = new SDDFSNode(serviceName, registryHost, registryPort);
                  dataNodes.put(serviceName, dataNode);
@@ -75,10 +76,10 @@ public class SDDFSIndex {
                     dfsLog(SDLogOperation.UPDATE_DATA_NODE, new Object[] {serviceName,
                             registryHost, registryPort, numChunker}) ;
                 }
+                Log4jlogger.info(SDUtil.LOG4JINFO_DFS + "Slave " + serviceName + " Connects");
             }
             dataNode.setChunkNumber(numChunker);
             dataNode.setTimestamp(timestamp);
-            System.out.println(dataNode.toString());
         }
     }
 
@@ -95,6 +96,7 @@ public class SDDFSIndex {
             if(logable){
                 dfsLog(SDLogOperation.REMOVE_DATA_NODE, new Object[] {serviceName});
             }
+            Log4jlogger.info(SDUtil.LOG4JINFO_DFS + "Slave " + serviceName + " remove");
         }
     }
 
@@ -117,7 +119,7 @@ public class SDDFSIndex {
         try {
             randomAccessFile = new RandomAccessFile(fileName, "rw");
         } catch (FileNotFoundException e) {
-            System.err.println(fileName + " doesn't exist" );
+            Log4jlogger.error(SDUtil.LOG4JERROR_DFS + fileName + " fail to create");
             return file;
         }
 

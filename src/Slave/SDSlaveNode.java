@@ -6,6 +6,7 @@ import FileSystem.Slave.SDSlaveRMIService;
 import Protocol.DFS.MasterService.SDMasterService;
 import Protocol.DFS.SlaveService.SDSlaveService;
 import Util.SDUtil;
+import org.apache.log4j.Logger;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
  * Created by amaliujia on 14-12-29.
  */
 public class SDSlaveNode {
+    private static Logger Log4jLogger = Logger.getLogger(SDSlaveNode.class);
 
     public SDSlaveIO slaveIO;
 

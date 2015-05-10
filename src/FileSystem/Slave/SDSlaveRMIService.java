@@ -2,6 +2,7 @@ package FileSystem.Slave;
 
 import Protocol.DFS.SlaveService.SDSlaveService;
 import Slave.SDSlaveNode;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -11,7 +12,6 @@ import java.rmi.server.UnicastRemoteObject;
  * Created by amaliujia on 14-12-29.
  */
 public class SDSlaveRMIService extends UnicastRemoteObject implements SDSlaveService {
-
     private SDSlaveNode slave;
 
     public SDSlaveRMIService() throws RemoteException {
