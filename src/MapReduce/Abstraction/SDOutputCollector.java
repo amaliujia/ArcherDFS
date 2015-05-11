@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
+ * Output collector for map function.
+ *
  * @author amaliujia
  */
 public class SDOutputCollector<K, V> implements Serializable{

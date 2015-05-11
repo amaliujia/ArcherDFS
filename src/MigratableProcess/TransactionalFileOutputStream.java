@@ -1,6 +1,8 @@
 package MigratableProcess;
 
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 
 
@@ -16,18 +18,18 @@ public class TransactionalFileOutputStream extends OutputStream implements Seria
 
     private boolean migratable;
 
-   // private Logger logger = LoggerFactory.getLogger(TransactionalFileOutputStream.class);
+    private Logger logger = Logger.getLogger(TransactionalFileOutputStream.class);
 
     public TransactionalFileOutputStream(String arg, boolean b){
          this.fileName = arg;
          try{
              this.randomAccessFile = new RandomAccessFile(this.fileName, "rws");
          } catch (FileNotFoundException e) {
-            // logger.error("Cannot find file " + this.fileName + " in file system");
+             logger.error("Cannot find file " + this.fileName + " in file system");
          } catch (IllegalArgumentException e){
-            // logger.error("illegal arguments");
+             logger.error("illegal arguments");
          } catch (SecurityException e){
-            // logger.error("Security problem");
+             logger.error("Security problem");
          }
 
          offset = 0L;
@@ -47,11 +49,9 @@ public class TransactionalFileOutputStream extends OutputStream implements Seria
         this.randomAccessFile.seek(offset);
         offset++;
         try {
-            //System.out.println("************");
             this.randomAccessFile.write(b);
         }catch (IOException e){
-            //logger.error("Fail to write to " + this.fileName);
-            e.printStackTrace();
+            logger.error("Fail to write to " + this.fileName);
         }
     }
 

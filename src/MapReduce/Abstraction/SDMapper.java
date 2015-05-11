@@ -1,6 +1,8 @@
 package MapReduce.Abstraction;
 
 /**
+ * Interface of map function.
+ *
  * @author amaliujia
  */
 public interface SDMapper<K1, V1, K2, V2>{

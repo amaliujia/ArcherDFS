@@ -9,14 +9,14 @@ import java.util.TreeSet;
 /**
  * @author amaliujia
  */
-public class SDJobObject implements Serializable{
+public class SDRemoteTaskObject implements Serializable{
     private String hostname;
     private int hostport;
     private int mapperTaskNumber;
     private int reduceTaskNumber;
     private Set<SDTask> tasks;
 
-    public SDJobObject(String name, int port){
+    public SDRemoteTaskObject(String name, int port){
         this.hostname = name;
         this.hostport = port;
         this.tasks = new TreeSet<SDTask>();

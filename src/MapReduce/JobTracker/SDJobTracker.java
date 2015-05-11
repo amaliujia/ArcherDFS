@@ -11,6 +11,9 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author amaliujia
@@ -22,6 +25,13 @@ public class SDJobTracker {
     private SDJobService sdJobTrackerRMIService;
     private SDMapReduceClientService sdMapReduceClientService;
     private Registry registry;
+    private ConcurrentHashMap<Integer, SDJobUnit> jobs;
+
+    //thread pool to execute jobs
+    ThreadPoolExecutor jobExecutor;
+
+    //Blocking queue for thread pool.
+    LinkedBlockingDeque<Runnable> threadsTasksQueue;
 
     public void startService(){
         try {
@@ -33,11 +43,27 @@ public class SDJobTracker {
                                 " on port " + SDMapReduceConstant.JobTrackerServicePort);
             e.printStackTrace();
         }
+        initThreads();
     }
 
+    /**
+     * Submit a job into thread pool.
+     * @param jobConfig
+     *          Description of a job.
+     */
     public void submitJob(SDJobConfig jobConfig){
-
+        SDJobUnit unit = new SDJobUnit(jobConfig);
+        jobs.put(unit.getID(), unit);
+        Runnable runnable = new SDJobDispatchUnit(unit);
+        jobExecutor.execute(runnable);
+        log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE + "job " + jobConfig.jobName + " sumbit");
     }
+
+    private void initThreads(){
+        threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
+        jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, threadsTasksQueue);
+    }
+
 
     private void bindRMIService() throws RemoteException {
         sdJobTrackerRMIService = new SDJobTrackerRMIService(this);
@@ -55,5 +81,12 @@ public class SDJobTracker {
         log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "bing service " +
                 SDJobTracker.class.getCanonicalName() + "client" +
                 " on port " + SDUtil.MASTER_RMIRegistry_PORT);
+    }
+
+    /**
+     * Shutdown thread pool when necessary.
+     */
+    protected void finalize(){
+        jobExecutor.shutdown();
     }
 }

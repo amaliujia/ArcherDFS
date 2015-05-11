@@ -1,11 +1,15 @@
 package MigratableProcess;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 
 /**
  * Created by amaliujia on 14-12-14.
  */
 public class TransactionalFileInputStream extends InputStream implements Serializable {
+    private static Logger logger = Logger.getLogger(TransactionalFileInputStream.class);
+
     private static final long serialVersionUID = 568680122;
 
     private String fileName;
@@ -22,14 +26,11 @@ public class TransactionalFileInputStream extends InputStream implements Seriali
         try{
             this.randomAccessFile = new RandomAccessFile(this.fileName, "rws");
         } catch (FileNotFoundException e) {
-            //logger.error("Cannot find file " + this.fileName + " in file system");
-            e.printStackTrace();
+            logger.error("Cannot find file " + this.fileName + " in file system");
         } catch (IllegalArgumentException e){
-           // logger.error("Illegal arguments");
-            e.printStackTrace();
+            logger.error("Illegal arguments");
         } catch (SecurityException e){
-           // logger.error("Security problem");
-            e.printStackTrace();
+            logger.error("Security problem");
         }
 
         offset = 0L;

@@ -14,7 +14,6 @@ public class StudentList_Stub extends SDRemoteStub implements StudentMethods{
         super(ref);
     }
 
-    @Override
     public String listStudents() {
         return null;
     }
