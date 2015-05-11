@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public class SDJobObject implements Serializable{
     private String hostname;

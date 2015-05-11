@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public class SDMapReduceClientRMIService extends UnicastRemoteObject implements SDMapReduceClientService {
     private SDJobTracker jobTracker;
@@ -17,6 +17,6 @@ public class SDMapReduceClientRMIService extends UnicastRemoteObject implements 
     }
 
     public void submitJob(SDJobConfig jobConfig) throws RemoteException {
-
+        jobTracker.submitJob(jobConfig);
     }
 }

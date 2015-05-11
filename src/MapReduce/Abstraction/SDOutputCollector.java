@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public class SDOutputCollector<K, V> implements Serializable{
     private PriorityQueue<Pair<K, V>> priorityQueue;
