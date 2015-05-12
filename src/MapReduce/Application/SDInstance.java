@@ -25,6 +25,12 @@ public class SDInstance {
         mapreduceServiceHost = host;
     }
 
+    /**
+     * A class to submit user-defined Map Reduce and related parameter..
+     * @param jobConfig
+     * @throws RemoteException
+     * @throws NotBoundException
+     */
     public void run(SDJobConfig jobConfig) throws RemoteException, NotBoundException {
         this.jobConfig = jobConfig;
         Registry registry = LocateRegistry.getRegistry(mapreduceServiceHost, mapreducePort);

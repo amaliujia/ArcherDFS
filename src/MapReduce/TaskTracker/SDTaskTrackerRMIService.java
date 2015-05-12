@@ -9,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public class SDTaskTrackerRMIService extends UnicastRemoteObject implements SDTaskService {
 

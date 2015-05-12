@@ -1,10 +1,7 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDJobStatus;
-import MapReduce.DispatchUnits.SDTaskType;
 
-import java.rmi.RemoteException;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

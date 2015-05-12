@@ -2,7 +2,6 @@ package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
-import MapReduce.TaskTracker.SDTaskObject;
 import Protocol.MapReduce.SDJobService;
 
 import java.rmi.RemoteException;
@@ -20,7 +19,16 @@ public class SDJobTrackerRMIService extends UnicastRemoteObject implements SDJob
         this.jobTracker = aJobTracker;
     }
 
-    public void heartbeat(SDTaskObject taskObject) throws RemoteException {
+    /**
+     * heartbeat in Map Reduce layer. In order for map reduce to moniter status of
+     * slave node, aka task trackers.
+     *
+     * @param taskObject
+     *          Descriptor of task trakcer.
+     * @throws RemoteException
+     *          throws when network fail.
+     */
+    public void heartbeat(SDRemoteTaskObject taskObject) throws RemoteException {
 
     }
 

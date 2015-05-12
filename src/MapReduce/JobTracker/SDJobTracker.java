@@ -22,10 +22,11 @@ public class SDJobTracker {
     private static Logger log4jLogger = Logger.getLogger(SDJobTracker.class);
 
     private ConcurrentHashMap<String, SDTaskObject> taskTackers;
+    private ConcurrentHashMap<Integer, SDJobUnit> jobs;
     private SDJobService sdJobTrackerRMIService;
     private SDMapReduceClientService sdMapReduceClientService;
     private Registry registry;
-    private ConcurrentHashMap<Integer, SDJobUnit> jobs;
+
 
     //thread pool to execute jobs
     ThreadPoolExecutor jobExecutor;
@@ -59,6 +60,9 @@ public class SDJobTracker {
         log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE + "job " + jobConfig.jobName + " sumbit");
     }
 
+    /**
+     * Init thread pool for handling
+     */
     private void initThreads(){
         //threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
         jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>());
@@ -66,15 +70,23 @@ public class SDJobTracker {
     }
 
 
+    /**
+     * Bind job RMI service on master node.
+     * @throws RemoteException
+     */
     private void bindRMIService() throws RemoteException {
         sdJobTrackerRMIService = new SDJobTrackerRMIService(this);
         registry = LocateRegistry.getRegistry(SDUtil.MASTER_RMIRegistry_PORT);
         registry.rebind(SDJobTracker.class.getCanonicalName(), sdJobTrackerRMIService);
-        log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "bing service "+
-                            SDJobTrackerRMIService.class.getCanonicalName() +
-                         " on port " + SDUtil.MASTER_RMIRegistry_PORT);
+        log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "bing service " +
+                SDJobTrackerRMIService.class.getCanonicalName() +
+                " on port " + SDUtil.MASTER_RMIRegistry_PORT);
     }
 
+    /**
+     * Bind map reduce client RMI service on master node.
+     * @throws RemoteException
+     */
     private void bindClientRMIService() throws RemoteException {
         sdMapReduceClientService = new SDMapReduceClientRMIService(this);
         registry = LocateRegistry.getRegistry(SDUtil.MASTER_RMIRegistry_PORT);

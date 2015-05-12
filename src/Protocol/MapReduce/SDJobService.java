@@ -2,7 +2,7 @@ package Protocol.MapReduce;
 
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
-import MapReduce.TaskTracker.SDTaskObject;
+import MapReduce.JobTracker.SDRemoteTaskObject;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
  */
 public interface SDJobService extends Remote{
 
-    public void heartbeat(SDTaskObject taskObject) throws RemoteException;
+    public void heartbeat(SDRemoteTaskObject taskObject) throws RemoteException;
 
      void mapperTaskSucceed(SDMapperTask task) throws RemoteException;
 

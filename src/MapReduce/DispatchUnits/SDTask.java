@@ -3,7 +3,7 @@ package MapReduce.DispatchUnits;
 import java.io.Serializable;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public abstract class SDTask implements Serializable, Comparable<SDTask> {
     protected int taskID;

@@ -1,7 +1,7 @@
 package MapReduce.DispatchUnits;
 
 /**
- * Created by amaliujia on 15-5-9.
+ * @author amaliujia
  */
 public class SDReducerTask extends SDTask {
 }
