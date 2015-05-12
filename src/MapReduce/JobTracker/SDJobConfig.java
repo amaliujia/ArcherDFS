@@ -1,7 +1,5 @@
 package MapReduce.JobTracker;
 
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * @author amaliujia
  */
@@ -11,7 +9,7 @@ public class SDJobConfig {
     public String inputFile;   // inputfile, which should be stored into DFS already.
     public String outputFile;  // outputfile, which should be stored into local fs.
     public int numMapper; // how many machines run mapper.
-    public int numReduce; // how many machines run reducer.
+    public int numReducer; // how many machines run reducer.
     public Class<?> mapreduceclass;
 
     public SDJobConfig(String jobn, String cn, String ifile, String ofile, int nMapper, int nReduce,
@@ -21,7 +19,31 @@ public class SDJobConfig {
         inputFile = ifile;
         outputFile = ofile;
         numMapper = nMapper;
-        numReduce = nReduce;
+        numReducer = nReduce;
         mapreduceclass = cl;
+    }
+
+    public String getJobName(){
+        return jobName;
+    }
+
+    public String getClassName(){
+        return className;
+    }
+
+    public String getInputFile(){
+        return inputFile;
+    }
+
+    public String getOutputFile(){
+        return outputFile;
+    }
+
+    public int getNumMapper(){
+        return numMapper;
+    }
+
+    public int getNumReducer() {
+        return numReducer;
     }
 }

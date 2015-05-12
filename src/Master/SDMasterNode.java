@@ -55,12 +55,16 @@ public class SDMasterNode {
     }
 
     public void startService() throws RemoteException, UnknownHostException {
+
+        //start dfs master service
         String serviceName = SDMasterService.class.getCanonicalName();
         sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
         registry = LocateRegistry.createRegistry(SDUtil.MASTER_RMIRegistry_PORT);
         registry.rebind(SDMasterService.class.getCanonicalName(), sdMasterRMIService);
+
+        //TODO: should start map reduce master service
 
         log4jLogger.info("Master node starts running");
     }

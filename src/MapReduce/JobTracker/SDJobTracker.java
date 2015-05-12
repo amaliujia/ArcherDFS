@@ -31,7 +31,7 @@ public class SDJobTracker {
     ThreadPoolExecutor jobExecutor;
 
     //Blocking queue for thread pool.
-    LinkedBlockingDeque<Runnable> threadsTasksQueue;
+    //LinkedBlockingDeque<Runnable> threadsTasksQueue;
 
     public void startService(){
         try {
@@ -54,14 +54,15 @@ public class SDJobTracker {
     public void submitJob(SDJobConfig jobConfig){
         SDJobUnit unit = new SDJobUnit(jobConfig);
         jobs.put(unit.getID(), unit);
-        Runnable runnable = new SDJobDispatchUnit(unit);
+        Runnable runnable = new SDJobInitializationUnit(unit, this);
         jobExecutor.execute(runnable);
         log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE + "job " + jobConfig.jobName + " sumbit");
     }
 
     private void initThreads(){
-        threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
-        jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, threadsTasksQueue);
+        //threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
+        jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>());
+        jobs = new ConcurrentHashMap<Integer, SDJobUnit>();
     }
 
 

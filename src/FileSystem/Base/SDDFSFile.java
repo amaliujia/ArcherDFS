@@ -24,7 +24,6 @@ public class SDDFSFile implements Serializable{
     private int replication;
 
     // chunks of this file
-    //private Set<SDFileChunk> chunks;
     private List<SDFileChunk> chunks;
     public SDDFSFile(long id, String name){
         this(id, name, SDUtil.DEFAULT_REPLICATION);
@@ -34,7 +33,6 @@ public class SDDFSFile implements Serializable{
         this.fileID = id;
         this.name = name;
         this.replication = replication;
-        //this.chunks = new TreeSet<SDFileChunk>();
         this.chunks = new ArrayList<SDFileChunk>();
     }
 

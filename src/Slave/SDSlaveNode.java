@@ -17,7 +17,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by amaliujia on 14-12-29.
+ * @author amaliujia
  */
 public class SDSlaveNode {
     private static Logger Log4jLogger = Logger.getLogger(SDSlaveNode.class);
@@ -38,6 +38,7 @@ public class SDSlaveNode {
 
 
     public void startService(){
+        //start dfs slave service.
         slaveIO = new SDSlaveIO();
         serviceName = SDSlaveService.class.getCanonicalName();
         try {
@@ -54,5 +55,7 @@ public class SDSlaveNode {
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
+
+        //TODO: should start map reduce service.
     }
 }
