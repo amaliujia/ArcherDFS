@@ -91,5 +91,9 @@ public class SDSlaveRMIService extends UnicastRemoteObject implements SDSlaveSer
         return slave.slaveIO.append(chunkID, size, data);
     }
 
+    public long[] offsetOfLinesInChunk(long chunkID) throws RemoteException {
+        return slave.slaveIO.offsetOfLinesInChunk(chunkID);
+    }
+
 
 }

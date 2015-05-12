@@ -1,16 +1,19 @@
 package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
+import Util.SDUtil;
+import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by amaliujia on 14-12-29.
  */
 public class SDSlaveIO {
+    public static Logger Log4jLogger = Logger.getLogger(SDSlaveIO.class);
 
     private int chunkNumber;
 
@@ -75,5 +78,33 @@ public class SDSlaveIO {
 
     public int getChunkNumber(){
         return chunkNumber;
+    }
+
+    public long[] offsetOfLinesInChunk(long chunkID) {
+        File file = new File(getChunkPath(chunkID));
+        Long[] results = null;
+        try {
+            List<Long> offsets = new ArrayList<Long>();
+            FileInputStream in = new FileInputStream(file);
+            byte ch;
+            byte prevChar = -1;
+            long offset = 0;
+            while ((ch = (byte) in.read()) != -1) {
+                if (prevChar == -1 || prevChar == '\n') {
+                    offsets.add(offset);
+                }
+                offset++;
+                prevChar = ch;
+            }
+            results = new Long[offsets.size()];
+            offsets.toArray(results);
+        } catch (FileNotFoundException e) {
+            Log4jLogger.error(SDUtil.LOG4JERROR_DFS + "chunk " + chunkID + "doesn't exist in ");
+            return null;
+        } catch (IOException e) {
+            Log4jLogger.error(SDUtil.LOG4JERROR_DFS + getChunkPath(chunkID) + " cannot be write");
+            return null;
+        }
+        return results != null ? SDUtil.toPrimitives(results) : null;
     }
 }

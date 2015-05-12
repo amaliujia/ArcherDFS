@@ -56,4 +56,13 @@ public class SDUtil {
             return new Pair<String, String> (terms[0], terms[1]);
         }
     }
+
+    public static long[] toPrimitives(Long... objects) {
+
+        long[] primitives = new long[objects.length];
+        for (int i = 0; i < objects.length; i++)
+            primitives[i] = objects[i];
+
+        return primitives;
+    }
 }

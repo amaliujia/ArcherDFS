@@ -19,4 +19,7 @@ public interface SDSlaveService extends Remote {
 
     //add chunk
      boolean append(long chunkID, int size,  byte[] data) throws RemoteException;
+
+    //read offset of lines in chunk
+    long[] offsetOfLinesInChunk(long chunkID) throws RemoteException;
 }

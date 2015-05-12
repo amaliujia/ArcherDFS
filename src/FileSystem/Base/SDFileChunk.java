@@ -53,8 +53,15 @@ public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
         return chunkNodes;
     }
 
+    public SDDFSNode[] getChunkNodesInArray(){
+        return (SDDFSNode[]) chunkNodes.toArray();
+    }
 
     public int compareTo(SDFileChunk o) {
         return 0;
+    }
+
+    public String toString(){
+        return id + " in " + fileID + " begins at " + offset + " with size " + size;
     }
 }
