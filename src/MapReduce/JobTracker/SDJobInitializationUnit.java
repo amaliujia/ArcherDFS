@@ -1,9 +1,18 @@
 package MapReduce.JobTracker;
 
+import MapReduce.DispatchUnits.SDJobStatus;
+import MapReduce.MapReduceIO.SDFileSegment;
+import MapReduce.MapReduceIO.SDSplitAgent;
+import Util.SDUtil;
+import org.apache.log4j.Logger;
+
+import java.util.List;
+
 /**
  * @author amaliujia
  */
 public class SDJobInitializationUnit implements Runnable {
+    public static Logger Log4jLogger = Logger.getLogger(SDJobInitializationUnit.class);
 
     private SDJobUnit jobUnit;
 
@@ -14,17 +23,23 @@ public class SDJobInitializationUnit implements Runnable {
         this.jobTracker = tracker;
     }
 
-    private void splitInputFile(){
-
+    private List<SDFileSegment> splitInputFile(){
+        SDSplitAgent agent = new SDSplitAgent();
+        return agent.split(jobUnit.getJobConfig().getInputFile(), jobUnit.getJobConfig().getNumMapper());
     }
 
     private void setupMapperTask(){
-
+        Log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE +  jobUnit.getJobConfig().getJobName() + ", set up mapper task");
+        List<SDFileSegment> segments = splitInputFile();
+        if(segments == null){
+            Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "cannot split input file");
+            return;
+        }
     }
 
     public void run() {
         // start to initialize MapReduce job
-
+        jobUnit.setJobStatus(SDJobStatus.SETUP);
         setupMapperTask();
 
         //TODO: set up reducer task

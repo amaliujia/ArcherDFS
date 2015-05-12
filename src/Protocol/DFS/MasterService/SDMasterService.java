@@ -18,8 +18,8 @@ public interface SDMasterService extends Remote {
 
     //delete a node
     public void deleteDataNode(String serviceName, boolean logable) throws RemoteException;
+
     //create file
-    //TODO: replication here?
     public SDDFSFile createFile(String fileName, int re, boolean logable) throws RemoteException;
 
     //get file
@@ -34,6 +34,9 @@ public interface SDMasterService extends Remote {
     //distribute file
     public void distributeFile(long fileID, boolean logable) throws RemoteException;
 
+    //distribute file
     public void distributeFile(String filename, boolean logable) throws RemoteException;
+
+    //
 }
 

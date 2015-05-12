@@ -1,5 +1,8 @@
 package MapReduce.JobTracker;
 
+import MapReduce.DispatchUnits.SDJobStatus;
+import MapReduce.DispatchUnits.SDTaskType;
+
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,12 +17,13 @@ public class SDJobUnit {
 
     private SDJobConfig jobConfig;
 
+    private SDJobStatus jobStatus;
+
     public SDJobUnit(SDJobConfig config){
         unitID = maxId.getAndIncrement();
         jobConfig = config;
+        jobStatus = SDJobStatus.PENDING;
     }
-
-
 
     public SDJobConfig getJobConfig(){
         return jobConfig;
@@ -27,5 +31,13 @@ public class SDJobUnit {
 
     public int getID(){
         return  unitID;
+    }
+
+    public void setJobStatus(SDJobStatus s){
+        jobStatus = s;
+    }
+
+    public SDJobStatus getJobStatus(){
+        return jobStatus;
     }
 }
