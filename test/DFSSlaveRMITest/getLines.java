@@ -3,7 +3,7 @@ package DFSSlaveRMITest;
 import junit.framework.TestCase;
 
 /**
- * Created by amaliujia on 15-5-12.
+ * @author amaliujia 
  */
 public class getLines extends TestCase {
 }

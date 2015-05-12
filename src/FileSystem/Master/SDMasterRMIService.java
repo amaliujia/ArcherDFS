@@ -166,4 +166,17 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
         }
         index.distributeFile(fileID, logable);
     }
+
+    /**
+     * Split file into lines, and return offsets of lines.
+     * @param filename
+     *            Filename in DFS.
+     * @return
+     *          offset array of lines
+     * @throws RemoteException
+     *          throws when Remote error happen.
+     */
+    public long[] splitFile(String filename) throws RemoteException {
+        return new long[0];
+    }
 }

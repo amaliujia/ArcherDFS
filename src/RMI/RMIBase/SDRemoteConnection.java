@@ -101,7 +101,7 @@ public abstract class SDRemoteConnection {
     }
 
     /**
-     * Unmarshalling function, used ot extract return result of one RMIß
+     * Unmarshalling function, used ot extract return result of one RMI.
      * @param type
      * @param in
      * @return
