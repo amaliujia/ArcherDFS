@@ -1,7 +1,6 @@
 package MapReduce.Application;
 
 import MapReduce.JobTracker.SDJobConfig;
-import MapReduce.JobTracker.SDJobTracker;
 import Protocol.Client.SDMapReduceClientService;
 
 import java.rmi.NotBoundException;
@@ -34,7 +33,7 @@ public class SDInstance {
     public void run(SDJobConfig jobConfig) throws RemoteException, NotBoundException {
         this.jobConfig = jobConfig;
         Registry registry = LocateRegistry.getRegistry(mapreduceServiceHost, mapreducePort);
-        sdMapReduceClientService = (SDMapReduceClientService) registry.lookup(SDJobTracker.class.getCanonicalName() + "client");
+        sdMapReduceClientService = (SDMapReduceClientService) registry.lookup(SDMapReduceClientService.class.getCanonicalName());
         sdMapReduceClientService.submitJob(this.jobConfig);
     }
 

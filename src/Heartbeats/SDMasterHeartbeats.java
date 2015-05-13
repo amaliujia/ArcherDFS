@@ -11,7 +11,8 @@ import java.net.SocketTimeoutException;
 import java.util.*;
 
 /**
- * Created by amaliujia on 14-12-20.
+ * @author amaliujia
+ * @author kanghuang
  */
 public class SDMasterHeartbeats extends TimerTask{
 

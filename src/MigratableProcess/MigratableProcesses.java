@@ -3,9 +3,9 @@ package MigratableProcess;
 import java.io.Serializable;
 
 /**
- * Created by amaliujia on 14-12-14.
+ * @author amaliujia
+ * @author kanghuang
  */
-
 public interface MigratableProcesses extends Runnable, Serializable{
 
     // file operation

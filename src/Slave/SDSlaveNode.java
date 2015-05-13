@@ -32,11 +32,6 @@ public class SDSlaveNode {
 
     private ScheduledExecutorService heartbeatService;
 
-    public SDSlaveNode(){
-
-    }
-
-
     public void startService(){
         //start dfs slave service.
         slaveIO = new SDSlaveIO();

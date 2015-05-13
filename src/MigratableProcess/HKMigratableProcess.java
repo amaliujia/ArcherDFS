@@ -1,5 +1,8 @@
-package MigratableProcess; /**
- * Created by kanghuang on 12/17/14.
+package MigratableProcess;
+
+/**
+ * @author amaliujia
+ * @author kanghuang
  */
 import java.io.*;
 

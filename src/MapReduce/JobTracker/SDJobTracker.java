@@ -1,6 +1,7 @@
 package MapReduce.JobTracker;
 
-import MapReduce.TaskTracker.SDTaskObject;
+import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.TaskTracker.SDRemoteTaskObject;
 import MapReduce.Util.SDMapReduceConstant;
 import Protocol.Client.SDMapReduceClientService;
 import Protocol.MapReduce.SDJobService;
@@ -10,10 +11,7 @@ import org.apache.log4j.Logger;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author amaliujia
@@ -21,8 +19,9 @@ import java.util.concurrent.TimeUnit;
 public class SDJobTracker {
     private static Logger log4jLogger = Logger.getLogger(SDJobTracker.class);
 
-    private ConcurrentHashMap<String, SDTaskObject> taskTackers;
+    private ConcurrentHashMap<String, SDRemoteTaskObject> taskTackers;
     private ConcurrentHashMap<Integer, SDJobUnit> jobs;
+    private ConcurrentLinkedQueue<SDMapperTask> mapperTasks;
     private SDJobService sdJobTrackerRMIService;
     private SDMapReduceClientService sdMapReduceClientService;
     private Registry registry;
@@ -30,9 +29,6 @@ public class SDJobTracker {
 
     //thread pool to execute jobs
     ThreadPoolExecutor jobExecutor;
-
-    //Blocking queue for thread pool.
-    //LinkedBlockingDeque<Runnable> threadsTasksQueue;
 
     public void startService(){
         try {
@@ -67,6 +63,7 @@ public class SDJobTracker {
         //threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
         jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>());
         jobs = new ConcurrentHashMap<Integer, SDJobUnit>();
+        mapperTasks = new ConcurrentLinkedQueue<SDMapperTask>();
     }
 
 
@@ -77,7 +74,7 @@ public class SDJobTracker {
     private void bindRMIService() throws RemoteException {
         sdJobTrackerRMIService = new SDJobTrackerRMIService(this);
         registry = LocateRegistry.getRegistry(SDUtil.MASTER_RMIRegistry_PORT);
-        registry.rebind(SDJobTracker.class.getCanonicalName(), sdJobTrackerRMIService);
+        registry.rebind(SDJobService.class.getCanonicalName(), sdJobTrackerRMIService);
         log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "bing service " +
                 SDJobTrackerRMIService.class.getCanonicalName() +
                 " on port " + SDUtil.MASTER_RMIRegistry_PORT);
@@ -90,7 +87,7 @@ public class SDJobTracker {
     private void bindClientRMIService() throws RemoteException {
         sdMapReduceClientService = new SDMapReduceClientRMIService(this);
         registry = LocateRegistry.getRegistry(SDUtil.MASTER_RMIRegistry_PORT);
-        registry.rebind(SDJobTracker.class.getCanonicalName() + "client", sdMapReduceClientService);
+        registry.rebind(SDMapReduceClientService.class.getCanonicalName(), sdMapReduceClientService);
         log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "bing service " +
                 SDJobTracker.class.getCanonicalName() + "client" +
                 " on port " + SDUtil.MASTER_RMIRegistry_PORT);
@@ -101,5 +98,13 @@ public class SDJobTracker {
      */
     protected void finalize(){
         jobExecutor.shutdown();
+    }
+
+    public void addMapperTask(SDMapperTask task){
+        mapperTasks.offer(task);
+    }
+
+    public void updateTaskTracker(SDRemoteTaskObject object){
+        taskTackers.put(object.getHostname(), object);
     }
 }

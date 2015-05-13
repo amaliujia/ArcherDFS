@@ -5,7 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Created by amaliujia on 14-12-26.
+ * @author amaliujia
+ * @author kanghuang
  */
 public class SDLogger {
     // location of log file

@@ -2,6 +2,7 @@ package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
+import MapReduce.TaskTracker.SDRemoteTaskObject;
 import Protocol.MapReduce.SDJobService;
 
 import java.rmi.RemoteException;
@@ -29,7 +30,7 @@ public class SDJobTrackerRMIService extends UnicastRemoteObject implements SDJob
      *          throws when network fail.
      */
     public void heartbeat(SDRemoteTaskObject taskObject) throws RemoteException {
-
+        jobTracker.updateTaskTracker(taskObject);
     }
 
     public void mapperTaskSucceed(SDMapperTask task) throws RemoteException {

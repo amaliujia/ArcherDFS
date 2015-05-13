@@ -6,7 +6,11 @@ package MapReduce.MapReduceIO;
 public class SDFileSegment {
     private String filename;
     private int size;
-    private int offset;
+    private long offset;
 
-
+    public SDFileSegment(String name, int s, long o){
+        filename = name;
+        size = s;
+        offset = o;
+    }
 }

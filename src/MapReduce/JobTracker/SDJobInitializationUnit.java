@@ -1,6 +1,7 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDJobStatus;
+import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.MapReduceIO.SDFileSegment;
 import MapReduce.MapReduceIO.SDSplitAgent;
 import Util.SDUtil;
@@ -28,19 +29,46 @@ public class SDJobInitializationUnit implements Runnable {
         return agent.split(jobUnit.getJobConfig().getInputFile(), jobUnit.getJobConfig().getNumMapper());
     }
 
-    private void setupMapperTask(){
+    private void setupMapperTask() throws Exception{
         Log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE +  jobUnit.getJobConfig().getJobName() + ", set up mapper task");
         List<SDFileSegment> segments = splitInputFile();
         if(segments == null){
+            jobUnit.setJobStatus(SDJobStatus.FAIL);
             Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "cannot split input file");
-            return;
+            throw new Exception("Split fail");
         }
+
+        //alloc mapper tasks
+        for (SDFileSegment segment : segments){
+            SDMapperTask task = new SDMapperTask(jobUnit.getID(), segment);
+            //init
+
+            jobTracker.addMapperTask(task);
+        }
+//        for(FileBlock fileBlock : fileBlocks){
+//            MapperTask task = new MapperTask(job.getId(), fileBlock, job.getConfig().getReducerAmount());
+//            TaskTrackerInfo taskTracker = getMapperTaskTracker();
+//            if(taskTracker == null){
+//                job.setJobStatus(JobStatus.FAILED);
+//                throw new RemoteException("No available task tracker now");
+//            }
+//            task.setTaskTrackerName(taskTracker);
+//            task.setStatus(TaskStatus.PENDING);
+//            task.setMRClassName(job.getConfig().getClassName());
+//            job.addMapperTask(task);
+//        }
     }
 
     public void run() {
         // start to initialize MapReduce job
         jobUnit.setJobStatus(SDJobStatus.SETUP);
-        setupMapperTask();
+        try {
+            setupMapperTask();
+
+        } catch (Exception e) {
+            jobUnit.setJobStatus(SDJobStatus.FAIL);
+            return;
+        }
 
         //TODO: set up reducer task
     }

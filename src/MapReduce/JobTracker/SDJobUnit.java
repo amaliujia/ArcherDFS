@@ -1,7 +1,11 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDJobStatus;
+import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -16,10 +20,17 @@ public class SDJobUnit {
 
     private SDJobStatus jobStatus;
 
+    private Map<Integer, SDMapperTask> mapperTaskMap;
+
+    private Map<Integer, SDReducerTask> reducerTaskMap;
+
     public SDJobUnit(SDJobConfig config){
         unitID = maxId.getAndIncrement();
         jobConfig = config;
         jobStatus = SDJobStatus.PENDING;
+
+        mapperTaskMap = new TreeMap<Integer, SDMapperTask>();
+        reducerTaskMap = new TreeMap<Integer, SDReducerTask>();
     }
 
     public SDJobConfig getJobConfig(){
@@ -36,5 +47,9 @@ public class SDJobUnit {
 
     public SDJobStatus getJobStatus(){
         return jobStatus;
+    }
+
+    public void addMapperTask(SDMapperTask task){
+        mapperTaskMap.put(task.getTaskID(), task);
     }
 }

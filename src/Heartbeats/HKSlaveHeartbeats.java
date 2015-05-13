@@ -9,7 +9,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * Created by kanghuang on 12/20/14.
+ * @author amaliujia
+ * @author kanghuang
  */
 public class HKSlaveHeartbeats implements Runnable {
     private DatagramSocket ds;
