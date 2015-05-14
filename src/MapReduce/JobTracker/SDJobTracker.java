@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Iterator;
 import java.util.concurrent.*;
 
 /**
@@ -93,6 +94,18 @@ public class SDJobTracker {
                 " on port " + SDUtil.MASTER_RMIRegistry_PORT);
     }
 
+    public SDRemoteTaskObject getMapperTaskTracker(){
+        SDRemoteTaskObject result = null;
+        Iterator<SDRemoteTaskObject> iterator = taskTackers.values().iterator();
+        while (iterator.hasNext()){
+            SDRemoteTaskObject o = iterator.next();
+            if(o.isValid() && (o.getMapperTaskNumber() < result.getMapperTaskNumber())){
+                result = o;
+            }
+        }
+        return result;
+    }
+
     /**
      * Shutdown thread pool when necessary.
      */
@@ -105,6 +118,7 @@ public class SDJobTracker {
     }
 
     public void updateTaskTracker(SDRemoteTaskObject object){
+        object.setTimestamp();
         taskTackers.put(object.getHostname(), object);
     }
 }

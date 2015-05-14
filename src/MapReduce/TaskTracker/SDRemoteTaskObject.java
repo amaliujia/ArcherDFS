@@ -11,6 +11,8 @@ public class SDRemoteTaskObject implements Serializable{
     private int mapperTaskNumber;
     private int reduceTaskNumber;
     //private Set<SDTask> tasks;
+    private long timestamp;
+    private final long period = 1000000;
 
     public SDRemoteTaskObject(String name, int port){
         this.hostname = name;
@@ -30,5 +32,25 @@ public class SDRemoteTaskObject implements Serializable{
 
     public String getHostname(){
         return hostname;
+    }
+
+    public void setTimestamp(){
+        timestamp = System.currentTimeMillis();
+    }
+
+
+    public int getMapperTaskNumber(){
+        return mapperTaskNumber;
+    }
+
+    public int getReduceTaskNumber(){
+        return reduceTaskNumber;
+    }
+
+    public boolean isValid(){
+        if((System.currentTimeMillis() - this.timestamp) < period){
+            return true;
+        }
+        return false;
     }
 }

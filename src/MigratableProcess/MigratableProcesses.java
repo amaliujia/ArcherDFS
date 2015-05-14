@@ -20,6 +20,4 @@ public interface MigratableProcesses extends Runnable, Serializable{
     public abstract void resume();
 
     public abstract void finish();
-  //  public void set_migrate();
-
 }
