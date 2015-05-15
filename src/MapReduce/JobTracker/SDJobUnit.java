@@ -52,4 +52,8 @@ public class SDJobUnit {
     public void addMapperTask(SDMapperTask task){
         mapperTaskMap.put(task.getTaskID(), task);
     }
+
+    public Map<Integer, SDMapperTask> getMapperTaskMap(){
+        return mapperTaskMap;
+    }
 }

@@ -1,5 +1,6 @@
 package MapReduce.JobTracker;
 
+import MapReduce.Abstraction.SDMapReduce;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.TaskTracker.SDRemoteTaskObject;
 import MapReduce.Util.SDMapReduceConstant;
@@ -22,10 +23,12 @@ public class SDJobTracker {
 
     private ConcurrentHashMap<String, SDRemoteTaskObject> taskTackers;
     private ConcurrentHashMap<Integer, SDJobUnit> jobs;
-    private ConcurrentLinkedQueue<SDMapperTask> mapperTasks;
+    //private ConcurrentLinkedQueue<SDMapperTask> mapperTasks;
+    private PriorityBlockingQueue<SDMapperTask> mapperTasks;
     private SDJobService sdJobTrackerRMIService;
     private SDMapReduceClientService sdMapReduceClientService;
     private Registry registry;
+    private Thread schedulerThread;
 
 
     //thread pool to execute jobs
@@ -64,7 +67,12 @@ public class SDJobTracker {
         //threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
         jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>());
         jobs = new ConcurrentHashMap<Integer, SDJobUnit>();
-        mapperTasks = new ConcurrentLinkedQueue<SDMapperTask>();
+        //mapperTasks = new ConcurrentLinkedQueue<SDMapperTask>();
+        mapperTasks = new PriorityBlockingQueue<SDMapperTask>();
+
+        //start scheduler
+        schedulerThread = new Thread(new SDTaskScheduler(this));
+        schedulerThread.start();
     }
 
 
@@ -106,11 +114,21 @@ public class SDJobTracker {
         return result;
     }
 
+    public SDMapperTask getMapperTaskInQueue() throws InterruptedException{
+        return mapperTasks.take();
+    }
+
     /**
      * Shutdown thread pool when necessary.
      */
     protected void finalize(){
         jobExecutor.shutdown();
+
+        try {
+            schedulerThread.join();
+        } catch (InterruptedException e) {
+            log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "scheduler thread join interrupted");
+        }
     }
 
     public void addMapperTask(SDMapperTask task){

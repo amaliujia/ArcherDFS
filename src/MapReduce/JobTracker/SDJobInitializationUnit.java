@@ -11,7 +11,9 @@ import Util.SDUtil;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author amaliujia
@@ -53,34 +55,26 @@ public class SDJobInitializationUnit implements Runnable {
             }
             task.setTaskTracker(o);
             task.setTaskStatus(SDTaskStatus.PENDING);
-            jobTracker.addMapperTask(task);
+            jobUnit.addMapperTask(task);
         }
     }
 
     private void  setupReducerTask() throws Exception {
         Log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE +  jobUnit.getJobConfig().getJobName() + ", set up reducer task");
         int reducerNum = jobUnit.getJobConfig().getNumReducer();
-        for(int i = 0; i < reducerNum; i++){
-            SDReducerTask task = new SDReducerTask();
+
+    }
+
+    private void dispatchMapperTask(SDMapperTask t){
+
+    }
+
+    private void dispatchTasks(){
+        Map<Integer, SDMapperTask> m = jobUnit.getMapperTaskMap();
+        Iterator<SDMapperTask> iterator = m.values().iterator();
+        while (iterator.hasNext()){
+            SDMapperTask s = iterator.next();
         }
-//        int reducerAmount = job.getConfig().getReducerAmount();
-//        for(int i = 0; i < reducerAmount; i++){
-//            ReducerTask task = new ReducerTask(job.getId());
-//            TaskTrackerInfo taskTracker = getReducerTaskTracker();
-//            if(taskTracker == null){
-//                job.setJobStatus(JobStatus.FAILED);
-//                throw new RemoteException("No available task tracker now");
-//            }
-//            task.setTaskTrackerName(taskTracker);
-//            task.setStatus(TaskStatus.PENDING);
-//            task.setMapperAmount(job.getConfig().getMapperAmount());
-//            task.setOutputFile(job.getConfig().getOutputFile());
-//            task.setLineCount(job.getConfig().getOutputFileBlockSize());
-//            task.setReplicas(job.getConfig().getOutputFileReplica());
-//            task.setPartitionIndex(i);
-//            task.setMRClassName(job.getConfig().getClassName());
-//            job.addReducerTask(task);
-//        }
     }
 
     public void run() {
@@ -100,6 +94,9 @@ public class SDJobInitializationUnit implements Runnable {
             jobUnit.setJobStatus(SDJobStatus.FAIL);
             return;
         }
+
+        //TODO: add task into job tracker queue.
+
 
         jobUnit.setJobStatus(SDJobStatus.PENDING);
     }
