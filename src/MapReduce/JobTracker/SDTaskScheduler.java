@@ -3,7 +3,6 @@ package MapReduce.JobTracker;
 import MapReduce.DispatchUnits.SDMapperTask;
 import org.apache.log4j.Logger;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

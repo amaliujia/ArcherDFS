@@ -1,6 +1,5 @@
 package MapReduce.JobTracker;
 
-import MapReduce.Abstraction.SDMapReduce;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.TaskTracker.SDRemoteTaskObject;
 import MapReduce.Util.SDMapReduceConstant;

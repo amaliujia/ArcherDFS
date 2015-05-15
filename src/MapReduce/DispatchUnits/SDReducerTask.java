@@ -1,6 +1,5 @@
 package MapReduce.DispatchUnits;
 
-import MapReduce.MapReduceIO.SDFileSegment;
 import MapReduce.TaskTracker.SDRemoteTaskObject;
 
 /**

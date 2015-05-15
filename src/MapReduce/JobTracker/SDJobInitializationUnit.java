@@ -2,7 +2,6 @@ package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDJobStatus;
 import MapReduce.DispatchUnits.SDMapperTask;
-import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.DispatchUnits.SDTaskStatus;
 import MapReduce.MapReduceIO.SDFileSegment;
 import MapReduce.MapReduceIO.SDSplitAgent;
@@ -10,7 +9,6 @@ import MapReduce.TaskTracker.SDRemoteTaskObject;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
 
-import java.rmi.RemoteException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -96,7 +94,12 @@ public class SDJobInitializationUnit implements Runnable {
         }
 
         //TODO: add task into job tracker queue.
-
+        Map<Integer, SDMapperTask> m = jobUnit.getMapperTaskMap();
+        Iterator<SDMapperTask> iterator = m.values().iterator();
+        while (iterator.hasNext()){
+            SDMapperTask task = iterator.next();
+            //jobTracker
+        }
 
         jobUnit.setJobStatus(SDJobStatus.PENDING);
     }
