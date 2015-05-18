@@ -1,6 +1,7 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
+import Util.SDUtil;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.ExecutorService;
@@ -24,9 +25,11 @@ public class SDTaskScheduler implements Runnable {
         while (true){
             try {
                 SDMapperTask task = jobTracker.getMapperTaskInQueue();
-                //TODO: Dispatch this task
+                SDTaskExecuteUnit executeUnit = new SDTaskExecuteUnit(jobTracker, task);
+                threadPool.execute(executeUnit);
             }catch (InterruptedException e){
-
+                Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "task scheduler interrupted");
+                System.exit(1);
             }
         }
     }

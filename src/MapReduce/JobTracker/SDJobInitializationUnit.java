@@ -63,10 +63,6 @@ public class SDJobInitializationUnit implements Runnable {
 
     }
 
-    private void dispatchMapperTask(SDMapperTask t){
-
-    }
-
     private void dispatchTasks(){
         Map<Integer, SDMapperTask> m = jobUnit.getMapperTaskMap();
         Iterator<SDMapperTask> iterator = m.values().iterator();
@@ -93,12 +89,11 @@ public class SDJobInitializationUnit implements Runnable {
             return;
         }
 
-        //TODO: add task into job tracker queue.
         Map<Integer, SDMapperTask> m = jobUnit.getMapperTaskMap();
         Iterator<SDMapperTask> iterator = m.values().iterator();
         while (iterator.hasNext()){
             SDMapperTask task = iterator.next();
-            //jobTracker
+            jobTracker.addMapperTask(task);
         }
 
         jobUnit.setJobStatus(SDJobStatus.PENDING);

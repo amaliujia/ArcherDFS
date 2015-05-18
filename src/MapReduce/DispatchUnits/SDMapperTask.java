@@ -27,4 +27,11 @@ public class SDMapperTask extends SDTask{
         taskTracker = o;
     }
 
+    public SDTaskStatus getTaskStatus(){
+        return taskStatus;
+    }
+
+    public SDRemoteTaskObject getTaskTracker(){
+        return taskTracker;
+    }
 }

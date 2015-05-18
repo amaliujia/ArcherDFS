@@ -34,6 +34,10 @@ public class SDRemoteTaskObject implements Serializable{
         return hostname;
     }
 
+    public int getHostport(){
+        return hostport;
+    }
+
     public void setTimestamp(){
         timestamp = System.currentTimeMillis();
     }

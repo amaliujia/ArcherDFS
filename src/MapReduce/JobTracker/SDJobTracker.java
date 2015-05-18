@@ -22,7 +22,6 @@ public class SDJobTracker {
 
     private ConcurrentHashMap<String, SDRemoteTaskObject> taskTackers;
     private ConcurrentHashMap<Integer, SDJobUnit> jobs;
-    //private ConcurrentLinkedQueue<SDMapperTask> mapperTasks;
     private PriorityBlockingQueue<SDMapperTask> mapperTasks;
     private SDJobService sdJobTrackerRMIService;
     private SDMapReduceClientService sdMapReduceClientService;
