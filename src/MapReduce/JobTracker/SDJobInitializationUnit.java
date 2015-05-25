@@ -53,6 +53,10 @@ public class SDJobInitializationUnit implements Runnable {
             }
             task.setTaskTracker(o);
             task.setTaskStatus(SDTaskStatus.PENDING);
+
+            // read class into byte array, and store array into task.
+
+
             jobUnit.addMapperTask(task);
         }
     }

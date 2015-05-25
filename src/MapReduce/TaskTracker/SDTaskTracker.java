@@ -1,5 +1,6 @@
 package MapReduce.TaskTracker;
 
+import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.JobTracker.SDJobTracker;
 import Protocol.MapReduce.SDJobService;
 import Protocol.MapReduce.SDTaskService;
@@ -30,7 +31,7 @@ public class SDTaskTracker {
         numReducerTasks = 0;
 
         registry = LocateRegistry.createRegistry(SDUtil.SALVE_RMIREGISTRY_PORT);
-        taskService = new SDTaskTrackerRMIService();
+        taskService = new SDTaskTrackerRMIService(this);
         registry.rebind(SDTaskTracker.class.getCanonicalName(), taskService);
         registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
         jobService = (SDJobService) registry.lookup(SDJobTracker.class.getCanonicalName());
@@ -38,6 +39,10 @@ public class SDTaskTracker {
         heartbeatService = Executors.newScheduledThreadPool(10);
         heartbeatService.scheduleAtFixedRate(new SDTaskHeartbeatJob(registry, this),
                 0, 1000, TimeUnit.SECONDS);
+    }
+
+    public void runMapperTask(SDMapperTask task){
+
     }
 
     public int getNumMapperTasks(){
