@@ -9,6 +9,9 @@ import MapReduce.TaskTracker.SDRemoteTaskObject;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +45,19 @@ public class SDJobInitializationUnit implements Runnable {
             throw new Exception("Split fail");
         }
 
+
+        File file = new File(jobUnit.getJobConfig().getClassName());
+        FileInputStream in = new FileInputStream(file);
+        ArrayList<Byte> bytes = new ArrayList<Byte>();
+        byte ch;
+        while ((ch = (byte) in.read()) != -1) {
+            bytes.add(ch);
+        }
+
+        Byte[] intermediate = new Byte[bytes.size()];
+        bytes.toArray(intermediate);
+        byte[] classBytes = SDUtil.toPrimitivesByte(intermediate);
+
         //alloc mapper tasks
         for (SDFileSegment segment : segments){
             SDMapperTask task = new SDMapperTask(jobUnit.getID(), segment);
@@ -51,11 +67,12 @@ public class SDJobInitializationUnit implements Runnable {
                 Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "No available task tracker");
                 throw new Exception("No available task tracker");
             }
-            task.setTaskTracker(o);
-            task.setTaskStatus(SDTaskStatus.PENDING);
 
             // read class into byte array, and store array into task.
-
+            task.setTaskTracker(o);
+            task.setTaskStatus(SDTaskStatus.PENDING);
+            task.setMrClass(classBytes);
+            task.setMrClassName(jobUnit.getJobConfig().getClassName());
 
             jobUnit.addMapperTask(task);
         }

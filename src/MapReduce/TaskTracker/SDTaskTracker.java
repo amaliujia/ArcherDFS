@@ -42,7 +42,10 @@ public class SDTaskTracker {
     }
 
     public void runMapperTask(SDMapperTask task){
+        SDClassLoader classLoader = new SDClassLoader();
+        Class<?> mapClass =  classLoader.findClass(task.getMrClassName(), task.getMrClass());
 
+        //ready to run
     }
 
     public int getNumMapperTasks(){

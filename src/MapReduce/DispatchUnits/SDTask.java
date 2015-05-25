@@ -45,8 +45,15 @@ public abstract class SDTask implements Serializable, Comparable<SDTask> {
         this.mrClassName = className;
     }
 
-    public void setMrClass(String classpath){
-
+    public void setMrClass(byte[] bytes){
+        mrClass = bytes;
     }
 
+    public byte[] getMrClass() {
+        return mrClass;
+    }
+
+    public String getMrClassName() {
+        return mrClassName;
+    }
 }

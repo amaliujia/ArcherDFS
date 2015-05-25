@@ -65,4 +65,13 @@ public class SDUtil {
 
         return primitives;
     }
+
+    public static byte[] toPrimitivesByte(Byte... objects) {
+
+        byte[] primitives = new byte[objects.length];
+        for (int i = 0; i < objects.length; i++)
+            primitives[i] = objects[i];
+
+        return primitives;
+    }
 }
