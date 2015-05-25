@@ -1,6 +1,3 @@
-
-*.xml
-
 *.iml
 
 .idea/.name
@@ -12,3 +9,31 @@
 Data/Inputfile.txt
 
 Resources/ArcherDFS.log
+
+.idea/compiler.xml
+
+.idea/copyright/profiles_settings.xml
+
+.idea/libraries/Maven__com_beust_jcommander_1_30.xml
+
+.idea/libraries/Maven__junit_junit_4_12.xml
+
+.idea/libraries/Maven__log4j_log4j_1_2_17.xml
+
+.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/uiDesigner.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
+
+archerdfs.xml
+
+build.xml
+
+module_archerdfs.xml
