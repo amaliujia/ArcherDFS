@@ -9,6 +9,7 @@ import MapReduce.TaskTracker.SDRemoteTaskObject;
 public class SDMapperTask extends SDTask{
     private int jobID;
     private SDFileSegment segment;
+    private String outputDir;
 
     public SDMapperTask(int id, SDFileSegment s){
         jobID = id;
@@ -17,5 +18,13 @@ public class SDMapperTask extends SDTask{
 
     public SDRemoteTaskObject getTaskTracker(){
         return taskTracker;
+    }
+
+    public void setOutputDir(String dir){
+        outputDir = dir;
+    }
+
+    public SDFileSegment getSegment(){
+        return segment;
     }
 }

@@ -7,6 +7,7 @@ import FileSystem.Master.SDDFSChunkTransfer;
 import FileSystem.Util.SDDFSConstants;
 import Logging.SDLogOperation;
 import Logging.SDLogger;
+import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
 
@@ -325,5 +326,21 @@ public class SDDFSIndex {
         }
     }
 
+    /**
+     * Given filename, offset of file and size of data, return data blocks
+     * that describe where the data is.
+     * @param filename
+     * @param size
+     * @param offset
+     * @return
+     */
+    public SDDFSDataBlock[] getBlocks(String filename, int size, long offset){
+        SDDFSFile file = getFile(filename);
+        if(file == null){
+            return null;
+        }
+
+        return null;
+    }
     //TODO: log recover
 }

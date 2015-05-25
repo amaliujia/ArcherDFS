@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by amaliujia on 15-5-12.
+ * @author amaliujia
  */
 public class SDSplitAgent {
     private String host;

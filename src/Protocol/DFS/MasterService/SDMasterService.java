@@ -1,6 +1,7 @@
 package Protocol.DFS.MasterService;
 
 import FileSystem.Base.SDDFSFile;
+import MapReduce.MapReduceIO.SDDFSDataBlock;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -39,5 +40,8 @@ public interface SDMasterService extends Remote {
 
     //split file into lines
     long[] splitFile(String filename) throws RemoteException;
+
+    //get data block.
+    SDDFSDataBlock[] getBlocks(String filename, int size, long offset);
 }
 

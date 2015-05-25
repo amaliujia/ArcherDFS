@@ -141,4 +141,8 @@ public class SDDFSController {
         }
         return results;
     }
+
+    public SDDFSDataBlock[] getBlocks(String filename, int size, long offset){
+        return client.getBlocks(filename, size, offset);
+    }
 }

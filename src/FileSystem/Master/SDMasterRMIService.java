@@ -2,6 +2,7 @@ package FileSystem.Master;
 
 import FileSystem.Base.SDDFSFile;
 import FileSystem.Index.SDDFSIndex;
+import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Protocol.DFS.MasterService.SDMasterService;
 
 import java.rmi.RemoteException;
@@ -179,4 +180,10 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
     public long[] splitFile(String filename) throws RemoteException {
         return new long[0];
     }
+
+    public SDDFSDataBlock[] getBlocks(String filename, int size, long offset) {
+        return index.getBlocks(filename, size, offset);
+    }
+
+
 }

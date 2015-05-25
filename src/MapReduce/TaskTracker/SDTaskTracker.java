@@ -2,6 +2,7 @@ package MapReduce.TaskTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.JobTracker.SDJobTracker;
+import MapReduce.Util.SDMapReduceConstant;
 import Protocol.MapReduce.SDJobService;
 import Protocol.MapReduce.SDTaskService;
 import Util.SDUtil;
@@ -10,6 +11,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +26,7 @@ public class SDTaskTracker {
     private Registry registry;
     private int numMapperTasks;
     private int numReducerTasks;
+    private ExecutorService threadPool;
 
     public void startService() throws RemoteException, NotBoundException {
 
@@ -39,13 +42,15 @@ public class SDTaskTracker {
         heartbeatService = Executors.newScheduledThreadPool(10);
         heartbeatService.scheduleAtFixedRate(new SDTaskHeartbeatJob(registry, this),
                 0, 1000, TimeUnit.SECONDS);
+
+        threadPool = Executors.newScheduledThreadPool(12);
     }
 
     public void runMapperTask(SDMapperTask task){
-        SDClassLoader classLoader = new SDClassLoader();
-        Class<?> mapClass =  classLoader.findClass(task.getMrClassName(), task.getMrClass());
+        task.setOutputDir(SDMapReduceConstant.MAP_OUTPUT_DIR);
 
         //ready to run
+        threadPool.execute(new SDTaskExecuteWorker(this, task));
     }
 
     public int getNumMapperTasks(){

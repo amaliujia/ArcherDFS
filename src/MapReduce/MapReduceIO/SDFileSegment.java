@@ -1,7 +1,7 @@
 package MapReduce.MapReduceIO;
 
 /**
- * Created by amaliujia on 15-5-12.
+ * @author amaliujia
  */
 public class SDFileSegment {
     private String filename;
@@ -12,5 +12,17 @@ public class SDFileSegment {
         filename = name;
         size = s;
         offset = o;
+    }
+
+    public String getFilename(){
+        return filename;
+    }
+
+    public int getSize(){
+        return size;
+    }
+
+    public long getOffset(){
+        return offset;
     }
 }

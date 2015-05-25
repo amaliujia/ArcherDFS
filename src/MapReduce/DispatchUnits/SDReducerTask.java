@@ -1,7 +1,5 @@
 package MapReduce.DispatchUnits;
 
-import MapReduce.TaskTracker.SDRemoteTaskObject;
-
 /**
  * @author amaliujia
  */
