@@ -12,17 +12,17 @@ import java.util.TreeSet;
  *
  * @author amaliujia
  */
-public class SDOutputCollector<K, V> implements Serializable{
-    private PriorityQueue<Pair<K, V>> priorityQueue;
-    private Set<K> keys;
+public class SDOutputCollector implements Serializable{
+    private PriorityQueue<Pair<String, String>> priorityQueue;
+    private Set<String> keys;
 
     public SDOutputCollector(){
-        priorityQueue = new PriorityQueue<Pair<K, V>>();
-        keys = new TreeSet<K>();
+        priorityQueue = new PriorityQueue<Pair<String, String>>();
+        keys = new TreeSet<String>();
     }
 
-    public void collect(K key, V value){
-        priorityQueue.add(new Pair<K, V>(key, value));
+    public void collect(String key, String value){
+        priorityQueue.add(new Pair<String, String>(key, value));
         keys.add(key);
     }
 }

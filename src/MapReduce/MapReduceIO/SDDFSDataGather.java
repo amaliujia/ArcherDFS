@@ -21,6 +21,7 @@ import java.util.Arrays;
 public class SDDFSDataGather {
     private SDFileSegment segment;
     private byte[] dataBuffer;
+    private int count;
 
     public SDDFSDataGather(SDFileSegment segment){
         this.segment = segment;
@@ -58,9 +59,24 @@ public class SDDFSDataGather {
         Byte[] temp = new Byte[buffer.size()];
         buffer.toArray(temp);
         dataBuffer = SDUtil.toPrimitivesByte(temp);
+        count = 0;
     }
 
     public String readLine(){
-        return null;
+        if(dataBuffer == null || dataBuffer.length == 0 || count == dataBuffer.length){
+            return null;
+        }
+
+        StringBuffer stringBuffer = new StringBuffer();
+        char ch;
+        while ((ch = (char) dataBuffer[count++]) != '\n'){
+            stringBuffer.append(ch);
+        }
+        String s = stringBuffer.toString();
+        if(s.length() == 0){
+            return null;
+        }else{
+            return s;
+        }
     }
 }

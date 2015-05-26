@@ -39,18 +39,19 @@ public class SDTaskTracker {
         registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
         jobService = (SDJobService) registry.lookup(SDJobTracker.class.getCanonicalName());
 
-        heartbeatService = Executors.newScheduledThreadPool(10);
+        heartbeatService = Executors.newScheduledThreadPool(1);
         heartbeatService.scheduleAtFixedRate(new SDTaskHeartbeatJob(registry, this),
                 0, 1000, TimeUnit.SECONDS);
 
-        threadPool = Executors.newScheduledThreadPool(12);
+        // TODO:: number of threads in pool needs tuning.
+        threadPool = Executors.newScheduledThreadPool(5);
     }
 
     public void runMapperTask(SDMapperTask task){
         task.setOutputDir(SDMapReduceConstant.MAP_OUTPUT_DIR);
 
         //ready to run
-        threadPool.execute(new SDTaskExecuteWorker(this, task));
+        threadPool.execute(new SDTaskExecuteMapperWorker(this, task));
     }
 
     public int getNumMapperTasks(){

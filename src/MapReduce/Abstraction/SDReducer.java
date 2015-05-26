@@ -7,8 +7,8 @@ import java.util.Iterator;
  *
  * @author amaliujia
  */
-public interface SDReducer<K2, V2, K3, V3> {
-    void reduce(K2 key, Iterator<V2> values, SDOutputCollector<K3, V3> output);
+public interface SDReducer {
+    void reduce(String key, Iterator<String> values, SDOutputCollector output);
 
 }
 

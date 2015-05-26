@@ -21,9 +21,9 @@ public abstract class SDMapReduce implements SDMapper, SDReducer, Serializable {
 
     private static Logger logger = Logger.getLogger(SDMapReduce.class);
 
-    public abstract void map(Object key, Object value, SDOutputCollector output);
+    public abstract void map(String value, SDOutputCollector output);
 
-    public abstract void reduce(Object key, Iterator values, SDOutputCollector output);
+    public abstract void reduce(String key, Iterator values, SDOutputCollector output);
 
     /**
      * Entrance for execute user-defined map reduce.
