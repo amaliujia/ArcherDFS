@@ -9,6 +9,7 @@ import Logging.SDLogOperation;
 import Logging.SDLogger;
 import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Util.SDUtil;
+import javafx.util.Pair;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;
@@ -327,7 +328,7 @@ public class SDDFSIndex {
     }
 
     /**
-     * Given filename, offset of file and size of data, return data blocks
+     * Given filename, offset of file and size of data, return data blocks.
      * that describe where the data is.
      * @param filename
      * @param size
@@ -340,7 +341,47 @@ public class SDDFSIndex {
             return null;
         }
 
-        return null;
+        ArrayList<SDDFSDataBlock> blocks = new ArrayList();
+        int fileoff = 0;
+        int end = (int) (offset + size - 1);
+        int start = (int) offset;
+        for (SDFileChunk chunk : file.getChunks()) {
+            if ((chunk.getSize() + fileoff - 1) < offset) {
+                fileoff += chunk.getSize();
+                continue;
+            } else if (fileoff >= (offset + size)) {
+                break;
+            } else if ((fileoff < start) && (fileoff + chunk.getSize()) > end) {
+                blocks.add(new SDDFSDataBlock(chunk.getId(),
+                        chunk.getChunkNodesInArray(), start - fileoff,
+                        end - start + 1));
+                fileoff += (end - start + 1);
+            } else if ((fileoff < start) && ((fileoff + chunk.getSize()) >= start)) {
+                blocks.add(new SDDFSDataBlock(chunk.getId(),
+                        chunk.getChunkNodesInArray(), start - fileoff,
+                        chunk.getSize() - start + fileoff));
+                fileoff += (chunk.getSize() - start + fileoff);
+            } else if ((fileoff <= end) && ((fileoff + chunk.getSize()) > end)) {
+                blocks.add(new SDDFSDataBlock(chunk.getId(),
+                        chunk.getChunkNodesInArray(), 0,
+                        end - fileoff + 1));
+                fileoff += (end - fileoff + 1);
+            } else {
+                blocks.add(new SDDFSDataBlock(chunk.getId(),
+                        chunk.getChunkNodesInArray(), 0,
+                        chunk.getSize()));
+                fileoff += chunk.getSize();
+
+            }
+        }
+        if (blocks.size() == 0){
+            return  null;
+        }else{
+            SDDFSDataBlock[] result = new SDDFSDataBlock[blocks.size()];
+            blocks.toArray(result);
+            return result;
+        }
     }
+
     //TODO: log recover
 }
