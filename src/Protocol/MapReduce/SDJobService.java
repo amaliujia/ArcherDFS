@@ -16,7 +16,6 @@ public interface SDJobService extends Remote{
 
      void mapperTaskSucceed(SDMapperTask task) throws RemoteException;
 
-
      void reducerTaskSucceed(SDReducerTask task) throws RemoteException;
 
      void mapperTaskFailed(SDMapperTask task) throws RemoteException;

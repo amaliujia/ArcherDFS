@@ -9,7 +9,6 @@ import Logging.SDLogOperation;
 import Logging.SDLogger;
 import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Util.SDUtil;
-import javafx.util.Pair;
 import org.apache.log4j.Logger;
 
 import java.io.FileNotFoundException;

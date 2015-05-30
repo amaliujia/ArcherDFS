@@ -1,5 +1,6 @@
 package MapReduce.TaskTracker;
 
+import MapReduce.Abstraction.SDMapReduce;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.JobTracker.SDJobTracker;
 import MapReduce.Util.SDMapReduceConstant;
@@ -60,5 +61,23 @@ public class SDTaskTracker {
 
     public int getNumReducerTasks(){
         return numReducerTasks;
+    }
+
+    public void mapreduceTaskSucceed(SDMapperTask task){
+        try {
+            jobService.mapperTaskSucceed(task);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        numMapperTasks--;
+    }
+
+    public void mapreduceTaskFail(SDMapperTask task){
+        try {
+            jobService.mapperTaskFailed(task);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        numMapperTasks--;
     }
 }

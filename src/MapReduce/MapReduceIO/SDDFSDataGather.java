@@ -1,19 +1,14 @@
 package MapReduce.MapReduceIO;
 
 import FileSystem.Base.SDDFSNode;
-import Protocol.DFS.MasterService.SDMasterService;
 import Protocol.DFS.SlaveService.SDSlaveService;
 import Util.SDUtil;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by amaliujia on 15-5-25.

@@ -1,13 +1,17 @@
 package MapReduce.DispatchUnits;
 
 import MapReduce.TaskTracker.SDRemoteTaskObject;
+import com.sun.javafx.tk.Toolkit;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author amaliujia
  */
 public abstract class SDTask implements Serializable, Comparable<SDTask> {
+    private static AtomicInteger maxId = new AtomicInteger(0);
+
     protected int taskID;
     protected SDTaskType taskType;
     protected String mrClassName;
@@ -23,6 +27,10 @@ public abstract class SDTask implements Serializable, Comparable<SDTask> {
         }else{
             return 0;
         }
+    }
+
+    public SDTask(){
+        taskID = maxId.getAndIncrement();
     }
 
     public int getTaskID(){

@@ -3,9 +3,7 @@ package MapReduce.Abstraction;
 import javafx.util.Pair;
 
 import java.io.Serializable;
-import java.util.PriorityQueue;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Output collector for map function.
@@ -24,5 +22,20 @@ public class SDOutputCollector implements Serializable{
     public void collect(String key, String value){
         priorityQueue.add(new Pair<String, String>(key, value));
         keys.add(key);
+    }
+
+    public TreeMap<String, List<String>> sortedMap(){
+        TreeMap<String, List<String>> map = new TreeMap<String, List<String>>();
+
+        for(Pair<String, String> pair : priorityQueue){
+            if(map.containsKey(pair.getKey())){
+                map.get(pair.getKey()).add(pair.getValue());
+            }else{
+                List<String> postingList = new ArrayList<String>();
+                postingList.add(pair.getValue());
+                map.put(pair.getKey(), postingList);
+            }
+        }
+        return map;
     }
 }

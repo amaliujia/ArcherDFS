@@ -10,8 +10,11 @@ public class SDMapperTask extends SDTask{
     private int jobID;
     private SDFileSegment segment;
     private String outputDir;
+    private int numOutputShards;
 
+    //TODO:: set shards num here.
     public SDMapperTask(int id, SDFileSegment s){
+        super();
         jobID = id;
         s = segment;
     }
@@ -27,4 +30,13 @@ public class SDMapperTask extends SDTask{
     public SDFileSegment getSegment(){
         return segment;
     }
+
+    public String getOutputDir(){
+        return outputDir;
+    }
+
+    public int getNumOutputShards(){
+        return numOutputShards;
+    }
 }
+
