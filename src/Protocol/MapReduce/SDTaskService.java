@@ -15,5 +15,5 @@ public interface SDTaskService extends Remote {
 
     public void runMapperTask(SDMapperTask task) throws RemoteException;
 
-    public void runReducerTask(SDMapperTask mapperTask, List<SDReducerTask> reducerTasks) throws RemoteException;
+    public void runReducerTask(SDMapperTask mapperTask, SDReducerTask reducerTasks) throws RemoteException;
 }

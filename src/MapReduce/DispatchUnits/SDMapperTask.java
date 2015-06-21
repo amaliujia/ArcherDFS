@@ -19,10 +19,6 @@ public class SDMapperTask extends SDTask{
         s = segment;
     }
 
-    public SDRemoteTaskObject getTaskTracker(){
-        return taskTracker;
-    }
-
     public void setOutputDir(String dir){
         outputDir = dir;
     }

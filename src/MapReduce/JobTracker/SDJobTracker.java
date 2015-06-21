@@ -1,18 +1,20 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.DispatchUnits.SDTaskStatus;
 import MapReduce.TaskTracker.SDRemoteTaskObject;
 import MapReduce.Util.SDMapReduceConstant;
 import Protocol.Client.SDMapReduceClientService;
 import Protocol.MapReduce.SDJobService;
+import Protocol.MapReduce.SDTaskService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Iterator;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -169,10 +171,46 @@ public class SDJobTracker {
         log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE + "Mapper Task finished");
         SDMapperTask t = curJob.getMapperTask(task.getTaskID());
         t.setTaskStatus(SDTaskStatus.SUCCESS);
+
         //schedule reducer task.
+        /****************************************************************************************
+         * For now, the basic MapReducer Job schedule policy is, when a mapper task finishes,
+         * a bunch of reducer tasks will be launched, based on specified reducer amount, and each
+         * reducer task is in charge of reading a output sharding of a mapper task, handling this
+         * sharding ,and writing final result to distributed file system.
+         *
+         * Cons: Simplicity. This idea is really easy to implement.
+         *
+         * Pros: It would create many java threads, may result in inefficiency, and slow the whole
+         * system.
+         ****************************************************************************************/
+        runReducerTasksForMapperTask(curJob, task);
+    }
+
+    private void runReducerTasksForMapperTask(SDJobUnit unit, SDMapperTask task){
+        List<SDReducerTask> reducerTasks = unit.getReducerTasksInArray();
+        for (SDReducerTask t : reducerTasks) {
+          launchSingleReducer(t, task);
+        }
+    }
+
+    private void launchSingleReducer(SDReducerTask reducerTask, SDMapperTask mapperTask){
+        SDRemoteTaskObject taskObject = reducerTask.getTaskTracker();
+        try {
+            Registry registry = LocateRegistry.getRegistry(taskObject.getHostname(), taskObject.getHostport());
+            //if service name is ok?
+            SDTaskService service = (SDTaskService)registry.lookup(SDTaskService.class.getCanonicalName());
+            service.runReducerTask(mapperTask, reducerTask);
+        } catch (Exception e) {
+            reducerTaskFailed(reducerTask);
+        }
     }
 
     public void mapperTaskFailed(SDMapperTask task){
+
+    }
+
+    public void reducerTaskFailed(SDReducerTask task){
 
     }
 }

@@ -6,6 +6,8 @@ import MapReduce.DispatchUnits.SDJobStatus;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -66,6 +68,15 @@ public class SDJobUnit {
     public void addReducerTask(SDReducerTask task){
         reducerTaskMap.put(task.getTaskID(), task);
     }
+
+    public List<SDReducerTask> getReducerTasksInArray(){
+        return new ArrayList<SDReducerTask>(reducerTaskMap.values());
+    }
+
+    public List<SDMapperTask> getMapperTasksInArray(){
+        return new ArrayList<SDMapperTask>(mapperTaskMap.values());
+    }
+
 
     public Map<Integer, SDReducerTask> getReducerTaskMap(){
         return reducerTaskMap;

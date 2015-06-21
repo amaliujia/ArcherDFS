@@ -1,6 +1,7 @@
 package MapReduce.TaskTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.JobTracker.SDJobTracker;
 import MapReduce.Util.SDMapReduceConstant;
 import Protocol.MapReduce.SDJobService;
@@ -11,10 +12,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @author amaliujia
@@ -27,6 +25,7 @@ public class SDTaskTracker {
     private int numMapperTasks;
     private int numReducerTasks;
     private ExecutorService threadPool;
+    private ConcurrentHashMap<Integer, SDTaskExecuteReducerWorker> reducerTaskWorkers;
 
     public void startService() throws RemoteException, NotBoundException {
 
@@ -45,6 +44,8 @@ public class SDTaskTracker {
 
         // TODO:: number of threads in pool needs tuning.
         threadPool = Executors.newScheduledThreadPool(5);
+
+        reducerTaskWorkers = new ConcurrentHashMap<Integer, SDTaskExecuteReducerWorker>();
     }
 
     public void runMapperTask(SDMapperTask task){
@@ -78,5 +79,9 @@ public class SDTaskTracker {
             e.printStackTrace();
         }
         numMapperTasks--;
+    }
+
+    public void runReducerTask(SDReducerTask reducerTask, SDMapperTask mapperTask){
+        //SDTaskExecuteReducerWorker curWorker = new
     }
 }

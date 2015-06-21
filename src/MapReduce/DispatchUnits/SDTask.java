@@ -85,4 +85,8 @@ public abstract class SDTask implements Serializable, Comparable<SDTask> {
     public void setRetryCount(int count){
         retryCount = count;
     }
+
+    public SDRemoteTaskObject getTaskTracker(){
+        return taskTracker;
+    }
 }

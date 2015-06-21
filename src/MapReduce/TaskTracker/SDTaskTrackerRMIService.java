@@ -25,9 +25,9 @@ public class SDTaskTrackerRMIService extends UnicastRemoteObject implements SDTa
     }
 
     public void runReducerTask(SDMapperTask mapperTask,
-                               List<SDReducerTask> reducerTasks)
+                               SDReducerTask reducerTasks)
                                 throws RemoteException
     {
-
+        taskTracker.runReducerTask(reducerTasks, mapperTask);
     }
 }

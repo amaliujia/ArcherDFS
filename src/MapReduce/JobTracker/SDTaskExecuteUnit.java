@@ -30,6 +30,7 @@ public class SDTaskExecuteUnit implements Runnable {
                 service.runMapperTask(mapperTask);
             } catch (Exception e) {
                 //Add to fail
+                jobTracker.mapperTaskFailed(mapperTask);
             }
         }
     }
