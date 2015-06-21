@@ -1,6 +1,7 @@
 package MapReduce.JobTracker;
 
 import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDTaskStatus;
 import MapReduce.TaskTracker.SDRemoteTaskObject;
 import MapReduce.Util.SDMapReduceConstant;
 import Protocol.Client.SDMapReduceClientService;
@@ -164,7 +165,11 @@ public class SDJobTracker {
     }
 
     public void mapperTaskSucceed(SDMapperTask task){
-
+        SDJobUnit curJob = jobs.get(task.getJobID());
+        log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE + "Mapper Task finished");
+        SDMapperTask t = curJob.getMapperTask(task.getTaskID());
+        t.setTaskStatus(SDTaskStatus.SUCCESS);
+        //schedule reducer task.
     }
 
     public void mapperTaskFailed(SDMapperTask task){

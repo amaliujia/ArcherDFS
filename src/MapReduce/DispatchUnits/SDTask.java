@@ -34,6 +34,10 @@ public abstract class SDTask implements Serializable, Comparable<SDTask> {
         this.jobID = id;
     }
 
+    public int getJobID(){
+        return this.jobID;
+    }
+
     public SDTask(){
         taskID = maxId.getAndIncrement();
     }
