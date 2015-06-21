@@ -34,7 +34,7 @@ public class SDJobTrackerRMIService extends UnicastRemoteObject implements SDJob
     }
 
     public void mapperTaskSucceed(SDMapperTask task) throws RemoteException {
-
+        jobTracker.mapperTaskSucceed(task);
     }
 
     public void reducerTaskSucceed(SDReducerTask task) throws RemoteException {
@@ -42,7 +42,7 @@ public class SDJobTrackerRMIService extends UnicastRemoteObject implements SDJob
     }
 
     public void mapperTaskFailed(SDMapperTask task) throws RemoteException {
-
+        jobTracker.mapperTaskFailed(task);
     }
 
     public void reducerTaskFailed(SDReducerTask task) throws RemoteException {

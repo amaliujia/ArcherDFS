@@ -101,11 +101,36 @@ public class SDJobTracker {
     }
 
     public SDRemoteTaskObject getMapperTaskTracker(){
+        String s  = taskTackers.keySet().iterator().next();
         SDRemoteTaskObject result = null;
+        if(s != null){
+            result = taskTackers.get(s);
+        }else {
+            return result;
+        }
+
         Iterator<SDRemoteTaskObject> iterator = taskTackers.values().iterator();
         while (iterator.hasNext()){
             SDRemoteTaskObject o = iterator.next();
             if(o.isValid() && (o.getMapperTaskNumber() < result.getMapperTaskNumber())){
+                result = o;
+            }
+        }
+        return result;
+    }
+
+    public SDRemoteTaskObject getReducerTaskTracker(){
+        String s  = taskTackers.keySet().iterator().next();
+        SDRemoteTaskObject result = null;
+        if(s != null){
+            result = taskTackers.get(s);
+        }else {
+            return result;
+        }
+        Iterator<SDRemoteTaskObject> iterator = taskTackers.values().iterator();
+        while (iterator.hasNext()){
+            SDRemoteTaskObject o = iterator.next();
+            if (o.isValid() && (o.getReduceTaskNumber() < result.getReduceTaskNumber())){
                 result = o;
             }
         }
@@ -136,5 +161,13 @@ public class SDJobTracker {
     public void updateTaskTracker(SDRemoteTaskObject object){
         object.setTimestamp();
         taskTackers.put(object.getHostname(), object);
+    }
+
+    public void mapperTaskSucceed(SDMapperTask task){
+
+    }
+
+    public void mapperTaskFailed(SDMapperTask task){
+
     }
 }

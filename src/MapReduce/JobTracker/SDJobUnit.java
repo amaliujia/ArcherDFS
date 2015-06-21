@@ -1,5 +1,6 @@
 package MapReduce.JobTracker;
 
+import MapReduce.Abstraction.SDReducer;
 import MapReduce.DispatchUnits.SDJobStatus;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
@@ -55,5 +56,13 @@ public class SDJobUnit {
 
     public Map<Integer, SDMapperTask> getMapperTaskMap(){
         return mapperTaskMap;
+    }
+
+    public void addReducerTask(SDReducerTask task){
+        reducerTaskMap.put(task.getTaskID(), task);
+    }
+
+    public Map<Integer, SDReducerTask> getReducerTaskMap(){
+        return reducerTaskMap;
     }
 }

@@ -1,7 +1,9 @@
 package MapReduce.JobTracker;
 
+import MapReduce.Abstraction.SDReducer;
 import MapReduce.DispatchUnits.SDJobStatus;
 import MapReduce.DispatchUnits.SDMapperTask;
+import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.DispatchUnits.SDTaskStatus;
 import MapReduce.MapReduceIO.SDFileSegment;
 import MapReduce.MapReduceIO.SDSplitAgent;
@@ -11,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +48,6 @@ public class SDJobInitializationUnit implements Runnable {
             throw new Exception("Split fail");
         }
 
-
         File file = new File(jobUnit.getJobConfig().getClassName());
         FileInputStream in = new FileInputStream(file);
         ArrayList<Byte> bytes = new ArrayList<Byte>();
@@ -64,8 +66,8 @@ public class SDJobInitializationUnit implements Runnable {
             //init
             SDRemoteTaskObject o = jobTracker.getMapperTaskTracker();
             if(o == null){
-                Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "No available task tracker");
-                throw new Exception("No available task tracker");
+                Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "No available task tracker for mapper.");
+                throw new Exception("No available task tracker for mapper.");
             }
 
             // read class into byte array, and store array into task.
@@ -81,7 +83,32 @@ public class SDJobInitializationUnit implements Runnable {
     private void  setupReducerTask() throws Exception {
         Log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE +  jobUnit.getJobConfig().getJobName() + ", set up reducer task");
         int reducerNum = jobUnit.getJobConfig().getNumReducer();
+        for(int i = 0; i < reducerNum; i++){
+            // TODO: should I set unique ids for mapper tasks and reducer tasks.
+            SDReducerTask task = new SDReducerTask(jobUnit.getID());
+            SDRemoteTaskObject o = jobTracker.getReducerTaskTracker();
+            if(o == null){
+                Log4jLogger.error(SDUtil.LOG4JERROR_MAPREDUCE + "No available task tracker for reducer.");
+                throw new Exception("No available task tracker for reducer.");
+            }
+            task.setTaskTracker(o);
+            task.setTaskStatus(SDTaskStatus.PENDING);
+            task.setMrClassName(jobUnit.getJobConfig().getClassName());
 
+            File file = new File(jobUnit.getJobConfig().getClassName());
+            FileInputStream in = new FileInputStream(file);
+            ArrayList<Byte> bytes = new ArrayList<Byte>();
+            byte ch;
+            while ((ch = (byte) in.read()) != -1) {
+                bytes.add(ch);
+            }
+            Byte[] intermediate = new Byte[bytes.size()];
+            bytes.toArray(intermediate);
+            byte[] classBytes = SDUtil.toPrimitivesByte(intermediate);
+            task.setMrClass(classBytes);
+
+            jobUnit.addReducerTask(task);
+        }
     }
 
     private void dispatchTasks(){
@@ -97,14 +124,13 @@ public class SDJobInitializationUnit implements Runnable {
         jobUnit.setJobStatus(SDJobStatus.SETUP);
         try {
             setupMapperTask();
-
         } catch (Exception e) {
             jobUnit.setJobStatus(SDJobStatus.FAIL);
             return;
         }
 
         try {
-            setupMapperTask();
+            setupReducerTask();
         } catch (Exception e) {
             jobUnit.setJobStatus(SDJobStatus.FAIL);
             return;
