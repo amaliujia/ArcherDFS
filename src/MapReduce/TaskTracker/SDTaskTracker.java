@@ -26,6 +26,7 @@ public class SDTaskTracker {
     private int numReducerTasks;
     private ExecutorService threadPool;
     private ConcurrentHashMap<Integer, SDTaskExecuteReducerWorker> reducerTaskWorkers;
+    private String lock = "counterlock";
 
     public void startService() throws RemoteException, NotBoundException {
 
@@ -50,7 +51,7 @@ public class SDTaskTracker {
 
     public void runMapperTask(SDMapperTask task){
         task.setOutputDir(SDMapReduceConstant.MAP_OUTPUT_DIR);
-
+        increaseNumOfMapper();
         //ready to run
         threadPool.execute(new SDTaskExecuteMapperWorker(this, task));
     }
@@ -69,7 +70,7 @@ public class SDTaskTracker {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        numMapperTasks--;
+        decreaseNumOfMapper();
     }
 
     public void mapreduceTaskFail(SDMapperTask task){
@@ -78,10 +79,44 @@ public class SDTaskTracker {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        numMapperTasks--;
+        decreaseNumOfMapper();
+    }
+
+    private void decreaseNumOfMapper(){
+        synchronized (lock){
+            numMapperTasks--;
+        }
+    }
+
+    private void increaseNumOfMapper(){
+        synchronized (lock){
+            numMapperTasks++;
+        }
+    }
+
+    private void decreaseNumofReducer(){
+        synchronized (lock){
+            numReducerTasks--;
+        }
+    }
+
+    private void increaseNumOfReducer(){
+        synchronized (lock){
+            numReducerTasks++;
+        }
     }
 
     public void runReducerTask(SDReducerTask reducerTask, SDMapperTask mapperTask){
-        //SDTaskExecuteReducerWorker curWorker = new
+        increaseNumOfReducer();
+        SDTaskExecuteReducerWorker worker = null;
+        if(reducerTaskWorkers.containsKey(reducerTask.getTaskID())){
+            worker = reducerTaskWorkers.get(reducerTask.getTaskID());
+            worker.addMapperTask(mapperTask);
+        }else{
+            worker = new SDTaskExecuteReducerWorker(reducerTask, this);
+            worker.addMapperTask(mapperTask);
+            reducerTaskWorkers.put(reducerTask.getTaskID(), worker);
+            threadPool.execute(worker);
+        }
     }
 }

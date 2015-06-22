@@ -7,7 +7,7 @@ public class SDJobConfig {
     public String jobName; //name of job.
     public String className;   // class of job.
     public String inputFile;   // inputfile, which should be stored into DFS already.
-    public String outputFile;  // outputfile, which should be stored into local fs.
+    public String outputFilePrefix;  // outputfile, which should be stored into local fs.
     public int numMapper; // how many machines run mapper.
     public int numReducer; // how many machines run reducer.
     public Class<?> mapreduceclass;
@@ -17,7 +17,7 @@ public class SDJobConfig {
         jobName = jobn;
         className = cn;
         inputFile = ifile;
-        outputFile = ofile;
+        outputFilePrefix = ofile;
         numMapper = nMapper;
         numReducer = nReduce;
         mapreduceclass = cl;
@@ -36,7 +36,7 @@ public class SDJobConfig {
     }
 
     public String getOutputFile(){
-        return outputFile;
+        return outputFilePrefix;
     }
 
     public int getNumMapper(){

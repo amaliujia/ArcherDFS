@@ -84,7 +84,6 @@ public class SDJobInitializationUnit implements Runnable {
         Log4jLogger.info(SDUtil.LOG4JINFO_MAPREDUCE +  jobUnit.getJobConfig().getJobName() + ", set up reducer task");
         int reducerNum = jobUnit.getJobConfig().getNumReducer();
         for(int i = 0; i < reducerNum; i++){
-            // TODO: should I set unique ids for mapper tasks and reducer tasks.
             SDReducerTask task = new SDReducerTask(jobUnit.getID());
             SDRemoteTaskObject o = jobTracker.getReducerTaskTracker();
             if(o == null){
@@ -94,6 +93,8 @@ public class SDJobInitializationUnit implements Runnable {
             task.setTaskTracker(o);
             task.setTaskStatus(SDTaskStatus.PENDING);
             task.setMrClassName(jobUnit.getJobConfig().getClassName());
+            task.SetOutputFilePrefix(jobUnit.getJobConfig().getOutputFile());
+            task.setNumShards(i);
 
             File file = new File(jobUnit.getJobConfig().getClassName());
             FileInputStream in = new FileInputStream(file);

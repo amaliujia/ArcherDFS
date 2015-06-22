@@ -42,7 +42,7 @@ public class SDJobUnit {
     }
 
     public int getID(){
-        return  unitID;
+        return unitID;
     }
 
     public void setJobStatus(SDJobStatus s){
