@@ -108,6 +108,7 @@ public class SDTaskTracker {
 
     public void runReducerTask(SDReducerTask reducerTask, SDMapperTask mapperTask){
         increaseNumOfReducer();
+        // how to make it work here?
         SDTaskExecuteReducerWorker worker = null;
         if(reducerTaskWorkers.containsKey(reducerTask.getTaskID())){
             worker = reducerTaskWorkers.get(reducerTask.getTaskID());

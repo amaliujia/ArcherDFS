@@ -95,6 +95,7 @@ public class SDJobInitializationUnit implements Runnable {
             task.setMrClassName(jobUnit.getJobConfig().getClassName());
             task.SetOutputFilePrefix(jobUnit.getJobConfig().getOutputFile());
             task.setNumShards(i);
+            task.setNumMappers(jobUnit.getJobConfig().getNumMapper());
 
             File file = new File(jobUnit.getJobConfig().getClassName());
             FileInputStream in = new FileInputStream(file);

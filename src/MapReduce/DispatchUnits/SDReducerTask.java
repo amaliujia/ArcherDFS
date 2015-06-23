@@ -9,6 +9,8 @@ public class SDReducerTask extends SDTask {
 
     private int numShards;
 
+    private int numMappers;
+
     public SDReducerTask(int id){
         jobID = id;
     }
@@ -23,6 +25,14 @@ public class SDReducerTask extends SDTask {
 
     public void setNumShards(int n){
         this.numShards = n;
+    }
+
+    public void setNumMappers(int n){
+        this.numMappers = n;
+    }
+
+    public int getNumMappers(){
+        return this.numMappers;
     }
 
     public void SetOutputFilePrefix(String outputFilePrefix){
