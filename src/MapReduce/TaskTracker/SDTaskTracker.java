@@ -1,5 +1,6 @@
 package MapReduce.TaskTracker;
 
+import MapReduce.Abstraction.SDReducer;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.JobTracker.SDJobTracker;
@@ -8,10 +9,15 @@ import Protocol.MapReduce.SDJobService;
 import Protocol.MapReduce.SDTaskService;
 import Util.SDUtil;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Arrays;
 import java.util.concurrent.*;
 
 /**
@@ -73,13 +79,22 @@ public class SDTaskTracker {
         decreaseNumOfMapper();
     }
 
-    public void mapreduceTaskFail(SDMapperTask task){
+    public void mapperTaskFail(SDMapperTask task){
         try {
             jobService.mapperTaskFailed(task);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         decreaseNumOfMapper();
+    }
+
+    public void reducerTaskFail(SDReducerTask task){
+        try {
+            jobService.reducerTaskFailed(task);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        decreaseNumofReducer();
     }
 
     private void decreaseNumOfMapper(){
@@ -119,5 +134,28 @@ public class SDTaskTracker {
             reducerTaskWorkers.put(reducerTask.getTaskID(), worker);
             threadPool.execute(worker);
         }
+    }
+
+    public byte[] getsShards(String filename) throws RemoteException{
+        File file = new File(filename);
+        if(file.exists()){
+            try {
+                RandomAccessFile rFile = new RandomAccessFile(file, "r");
+                int size = (int) rFile.length();
+                byte[] readBuffer = new byte[size];
+                int len = rFile.read(readBuffer, 0, size);
+                if (len > 0) {
+                    byte[] data = Arrays.copyOf(readBuffer, len);
+                    rFile.close();
+                    return data;
+                } else {
+                    return null;
+                }
+            } catch (Exception e){
+                throw new RemoteException();
+            }
+        }
+        return null;
+
     }
 }

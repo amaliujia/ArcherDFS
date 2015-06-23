@@ -53,7 +53,7 @@ public class SDTaskExecuteMapperWorker implements Runnable {
             saveAsFile(collector);
         } catch (Exception e) {
             //notify task tracker, this one fail.
-            taskTracker.mapreduceTaskFail(task);
+            taskTracker.mapperTaskFail(task);
         }
         taskTracker.mapreduceTaskSucceed(task);
     }
