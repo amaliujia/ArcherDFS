@@ -50,7 +50,7 @@ public class SDTaskExecuteMapperWorker implements Runnable {
         try {
             gather.get();
             SDOutputCollector collector = executeMapper(gather);
-            saveAsFile(collector);
+            saveAsLocalFile(collector);
         } catch (Exception e) {
             //notify task tracker, this one fail.
             taskTracker.mapperTaskFail(task);
@@ -58,7 +58,7 @@ public class SDTaskExecuteMapperWorker implements Runnable {
         taskTracker.mapreduceTaskSucceed(task);
     }
 
-    private void saveAsFile(SDOutputCollector collector) throws IOException {
+    private void saveAsLocalFile(SDOutputCollector collector) throws IOException {
         String outputDir = task.getOutputDir() + "/" + task.getTaskID() +  "/";
         File[] mapperShards = new File[task.getNumOutputShards()];
         BufferedWriter[] writes = new BufferedWriter[task.getNumOutputShards()];
