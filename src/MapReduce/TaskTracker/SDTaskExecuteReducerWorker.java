@@ -141,9 +141,28 @@ public class SDTaskExecuteReducerWorker implements Runnable {
             a.remove(0);
             mapReduce.reduce(key, a.iterator(), outputCollector);
         }
-
         //TODO: save reduce output to DFS.
+        saveAsLocalFile(outputCollector);
+        taskTracker.reducerTaskSucceed(reducerTask);
     }
+
+    private void saveAsLocalFile(SDOutputCollector collector) throws IOException {
+        String outputDir = reducerTask.getOutputFilePrefix() + "/" + reducerTask.getTaskID() +  "/";
+        File reducerShard = new File(outputDir);
+        BufferedWriter write = new BufferedWriter(new FileWriter(reducerShard));
+
+
+        TreeMap<String, List<String>> sortedMap = collector.sortedMap();
+        Iterator<String> iterator = sortedMap.keySet().iterator();
+        String key;
+        while (iterator.hasNext()){
+            key = iterator.next();
+            List<String> values = sortedMap.get(key);
+            write.write(values.get(0) + "\n");
+        }
+    }
+
+
     private String readLine(){
         if(dataBuffer == null || dataBuffer.length == 0 || count == dataBuffer.length){
             return null;

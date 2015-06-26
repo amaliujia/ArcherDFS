@@ -97,6 +97,15 @@ public class SDTaskTracker {
         decreaseNumofReducer();
     }
 
+    public void reducerTaskSucceed(SDReducerTask task){
+        try {
+            jobService.reducerTaskSucceed(task);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        decreaseNumofReducer();
+    }
+
     private void decreaseNumOfMapper(){
         synchronized (lock){
             numMapperTasks--;
