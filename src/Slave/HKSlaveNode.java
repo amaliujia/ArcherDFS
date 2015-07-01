@@ -6,7 +6,7 @@ import Heartbeats.HKSlaveHeartbeats;
 import java.io.*;
 import java.net.Socket;
 /**
- * Created by kanghuang on 12/20/14.
+ * @author kanghuang
  */
 public class HKSlaveNode implements Runnable{
     private PrintWriter pw;
