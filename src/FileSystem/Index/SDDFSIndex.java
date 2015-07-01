@@ -17,7 +17,7 @@ import java.io.RandomAccessFile;
 import java.util.*;
 
 /**
- * Created by amaliujia on 14-12-28.
+ * @author amaliujia
  */
 public class SDDFSIndex {
     private static Logger Log4jlogger = Logger.getLogger(SDDFSIndex.class);

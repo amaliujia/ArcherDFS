@@ -3,7 +3,7 @@ package ArcherException;
 import java.io.IOException;
 
 /**
- * Created by amaliujia on 14-12-24.
+ * @author amaliujia
  */
 public class SDRemoteReferenceObjectException extends IOException {
 

@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
+ * The "master" for mapreduce job.
+ *
  * @author amaliujia
  */
 public class SDJobTracker {

@@ -1,7 +1,7 @@
 package ArcherException;
 
 /**
- * Created by amaliujia on 14-12-24.
+ * @author amaliujia
  */
 public class SDServiceNotExist extends Exception {
     public SDServiceNotExist(){

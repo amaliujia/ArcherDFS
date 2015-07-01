@@ -1,7 +1,7 @@
 package ArcherException;
 
 /**
- * Created by amaliujia on 14-12-23.
+ * @author amaliujia
  */
 public class SDMarshallingException extends SDConnectionException {
 

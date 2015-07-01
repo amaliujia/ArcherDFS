@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by amaliujia on 14-12-28.
+ * @author amaliujia
  */
 public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterService{
 

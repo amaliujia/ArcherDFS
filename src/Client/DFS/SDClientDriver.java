@@ -9,7 +9,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 /**
- * Created by amaliujia on 15-1-3.
+ * @author amaliujia
  */
 public class SDClientDriver {
 

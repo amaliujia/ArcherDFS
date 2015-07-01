@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 
 /**
- * Created by amaliujia on 15-1-2.
+ * @author amaliujia
  */
 public class SDSlaveHeartbreatsJob implements Runnable{
 

@@ -3,7 +3,10 @@ package MapReduce.MapReduceIO;
 import FileSystem.Base.SDDFSNode;
 
 /**
- * Created by amaliujia on 15-5-25.
+ * This is MapReduce level abstraction for data. Each SDDFSDataBlock
+ * saves information about the size, offset, chunk node id, etc.
+ *
+ * @author amaliujia
  */
 public class SDDFSDataBlock {
     private long chunkID;

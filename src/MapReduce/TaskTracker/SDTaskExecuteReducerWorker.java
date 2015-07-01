@@ -12,7 +12,7 @@ import java.rmi.registry.Registry;
 import java.util.*;
 
 /**
- * Created by amaliujia on 15-6-21.
+ * @author amaliujia
  */
 public class SDTaskExecuteReducerWorker implements Runnable {
 

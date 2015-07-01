@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by amaliujia on 14-12-29.
+ * @author amaliujia
  */
 public class SDSlaveIO {
     public static Logger Log4jLogger = Logger.getLogger(SDSlaveIO.class);

@@ -11,13 +11,30 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class SDTask implements Serializable, Comparable<SDTask> {
     private static AtomicInteger maxId = new AtomicInteger(0);
 
+    // Current mapreduce job id.
     protected int jobID;
+
+    // Current mapper/reducer task id.
+    // This task is belonging to job whose id is listed above.
     protected int taskID;
+
+    // Mapper task or reducer task.
     protected SDTaskType taskType;
+
+    // Compiled class name
     protected String mrClassName;
+
+    // Bytes of compiled class.
     protected byte[] mrClass;
+
+    // SDTask status.
     protected SDTaskStatus taskStatus;
+
+    // RemoteTaskTracker
     protected SDRemoteTaskObject taskTracker;
+
+    // Fault tolerance. Retry count is a num used for indicating how many time
+    // task can be retry after failure.
     protected int retryCount = 3;
 
     public int compareTo(SDTask o) {

@@ -3,9 +3,8 @@ package ArcherException;
 
 import java.io.IOException;
 
-
 /**
- * Created by amaliujia on 14-12-23.
+ * @author amaliujia
  */
 public class SDConnectionException extends IOException {
     public Throwable detail;

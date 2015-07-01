@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Created by amaliujia on 15-1-4.
+ * @author amaliujia
  */
 public class SDDFSChunkTransfer {
 

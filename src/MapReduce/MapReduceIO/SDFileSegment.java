@@ -1,6 +1,9 @@
 package MapReduce.MapReduceIO;
 
 /**
+ * SDFileSegment is a MapReduce level abstraction. This class is used to
+ * save data info for each mapper task.
+ *
  * @author amaliujia
  */
 public class SDFileSegment {

@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 /**
- * Created by amaliujia on 15-5-25.
+ * @author amaliujia
  */
 public class SDDFSDataGather {
     private SDFileSegment segment;

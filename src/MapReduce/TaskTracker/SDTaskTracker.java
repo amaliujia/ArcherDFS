@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.concurrent.*;
 
 /**
+ * The "slave" for MapReduce.
+ *
  * @author amaliujia
  */
 public class SDTaskTracker {

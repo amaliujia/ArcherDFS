@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by amaliujia on 15-1-3.
+ * @author amaliujia
  */
 
 public class SDClient {

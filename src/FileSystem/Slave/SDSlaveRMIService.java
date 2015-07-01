@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by amaliujia on 14-12-29.
+ * @author amaliujia
  */
 public class SDSlaveRMIService extends UnicastRemoteObject implements SDSlaveService {
     private SDSlaveNode slave;

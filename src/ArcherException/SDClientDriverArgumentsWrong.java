@@ -1,7 +1,7 @@
 package ArcherException;
 
 /**
- * Created by amaliujia on 15-1-4.
+ * @author amaliujia
  */
 public class SDClientDriverArgumentsWrong extends Exception {
     public SDClientDriverArgumentsWrong(){

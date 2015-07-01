@@ -9,7 +9,10 @@ public class SDJobConfig {
     public String inputFile;   // inputfile, which should be stored into DFS already.
     public String outputFilePrefix;  // outputfile, which should be stored into local fs.
     public int numMapper; // how many machines run mapper.
-    public int numReducer; // how many machines run reducer.
+
+    // How many machines run reducer. This num is actual the output shards for MapReduce job.
+    public int numReducer;
+
     public Class<?> mapreduceclass;
 
     public SDJobConfig(String jobn, String cn, String ifile, String ofile, int nMapper, int nReduce,

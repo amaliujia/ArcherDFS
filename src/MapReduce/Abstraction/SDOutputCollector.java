@@ -19,6 +19,13 @@ public class SDOutputCollector implements Serializable{
         keys = new TreeSet<String>();
     }
 
+    /**
+     * Interface provided to users. Accept user's map/reduce output.
+     * @param key
+     *          key for < key, value > pair.
+     * @param value
+     *          value for < key, value > pair.
+     */
     public void collect(String key, String value){
         priorityQueue.add(new Pair<String, String>(key, value));
         keys.add(key);

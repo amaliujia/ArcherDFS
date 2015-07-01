@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Created by amaliujia on 14-12-27.
+ * @author amaliujia
  */
 public class SDDFSFile implements Serializable{
     public static AtomicLong maxId = new AtomicLong(0);

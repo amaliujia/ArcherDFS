@@ -3,7 +3,7 @@ package FileSystem.Base;
 import java.io.Serializable;
 
 /**
- * Created by amaliujia on 14-12-27.
+ * @author amaliujia
  */
 public class SDDFSNode implements Serializable, Comparable<SDDFSNode>{
 

@@ -7,7 +7,7 @@ import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Created by amaliujia on 14-12-27.
+ * @author amaliujia
  */
 public class SDFileChunk implements Serializable, Comparable<SDFileChunk> {
     // ID producer

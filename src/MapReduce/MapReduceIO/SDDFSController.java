@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is a singleton. DFSController is designed as an abstraction, for communicating with
- * DFS.
+ * This is a singleton. DFSController is designed as an abstraction, to communicate with DFS.
+ *
  * @author amaliujia
  */
 public class SDDFSController {
