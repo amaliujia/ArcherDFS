@@ -1,6 +1,5 @@
 package MapReduce.JobTracker;
 
-import MapReduce.Abstraction.SDReducer;
 import MapReduce.DispatchUnits.SDJobStatus;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
@@ -13,7 +12,6 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;

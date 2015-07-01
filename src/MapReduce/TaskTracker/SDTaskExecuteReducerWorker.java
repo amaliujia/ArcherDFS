@@ -1,7 +1,6 @@
 package MapReduce.TaskTracker;
 
 import MapReduce.Abstraction.SDMapReduce;
-import MapReduce.Abstraction.SDMapper;
 import MapReduce.Abstraction.SDOutputCollector;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
@@ -11,7 +10,6 @@ import java.io.*;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by amaliujia on 15-6-21.
@@ -125,7 +123,6 @@ public class SDTaskExecuteReducerWorker implements Runnable {
     }
 
     private void reduce(String reducerShard) throws IllegalAccessException, InstantiationException, IOException {
-
         SDClassLoader classLoader = new SDClassLoader();
         Class<?> mapClass =  classLoader.findClass(reducerTask.getMrClassName(), reducerTask.getMrClass());
         SDMapReduce mapReduce = null;
@@ -159,25 +156,6 @@ public class SDTaskExecuteReducerWorker implements Runnable {
             key = iterator.next();
             List<String> values = sortedMap.get(key);
             write.write(values.get(0) + "\n");
-        }
-    }
-
-
-    private String readLine(){
-        if(dataBuffer == null || dataBuffer.length == 0 || count == dataBuffer.length){
-            return null;
-        }
-
-        StringBuffer stringBuffer = new StringBuffer();
-        char ch;
-        while ((ch = (char) dataBuffer[count++]) != '\n'){
-            stringBuffer.append(ch);
-        }
-        String s = stringBuffer.toString();
-        if(s.length() == 0){
-            return null;
-        }else{
-            return s;
         }
     }
 }

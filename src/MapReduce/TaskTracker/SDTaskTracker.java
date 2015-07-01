@@ -1,6 +1,5 @@
 package MapReduce.TaskTracker;
 
-import MapReduce.Abstraction.SDReducer;
 import MapReduce.DispatchUnits.SDMapperTask;
 import MapReduce.DispatchUnits.SDReducerTask;
 import MapReduce.JobTracker.SDJobTracker;
@@ -10,8 +9,6 @@ import Protocol.MapReduce.SDTaskService;
 import Util.SDUtil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
