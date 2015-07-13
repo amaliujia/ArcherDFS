@@ -16,7 +16,7 @@ import java.util.TreeMap;
 /**
  * @author amaliujia
  */
-public class SDTaskExecuteMapperWorker implements Runnable {
+public class SDTaskExecuteMapperWorker extends SDTaskExecuteWorker {
 
     private SDTaskTracker taskTracker;
 

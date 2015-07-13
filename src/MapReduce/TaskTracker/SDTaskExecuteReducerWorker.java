@@ -14,7 +14,7 @@ import java.util.*;
 /**
  * @author amaliujia
  */
-public class SDTaskExecuteReducerWorker implements Runnable {
+public class SDTaskExecuteReducerWorker extends SDTaskExecuteWorker{
 
     private SDReducerTask reducerTask;
     private SDTaskTracker taskTracker;
@@ -64,7 +64,7 @@ public class SDTaskExecuteReducerWorker implements Runnable {
                     RandomAccessFile file = new RandomAccessFile(localPath, "w");
                     file.write(dataBuffer, 0, dataBuffer.length);
                     file.close();
-                    shuffle(mapperShards);
+                    inmemoryShuffle(mapperShards);
                     reduce(reducerShard);
                 } catch (Exception e) {
                     //TODO: More detail on these errors;
@@ -75,7 +75,18 @@ public class SDTaskExecuteReducerWorker implements Runnable {
         }
     }
 
-    private void shuffle(List<String> files) throws IOException {
+    //TODO:: ondiskShufle
+    private void ondiskShuffle(List<String> files) throws IOException {
+        File[] openFiles = new File[files.size()];
+        for(int i = 0; i < files.size(); i++){
+            openFiles[i] = new File(files.get(i));
+        }
+
+        File target = new File(reducerShard);
+        mergeFiles(openFiles, target);
+    }
+
+    private void inmemoryShuffle(List<String> files) throws IOException {
         TreeMap<String, String> inmemoryMap = new TreeMap<String, String>();
         for (String file : files) {
             BufferedReader reader = new BufferedReader(new FileReader(new File(file)));
@@ -158,4 +169,50 @@ public class SDTaskExecuteReducerWorker implements Runnable {
             write.write(values.get(0) + "\n");
         }
     }
+
+    //TODO:: saveAsDFSFile
+    //TODO:: private void saveAsLocalFile(SDOutputCollector collector) throws IOException;
+
+
+    private void mergeFiles(File[] files, File mergedFile) {
+
+        FileWriter fstream = null;
+        BufferedWriter out = null;
+        try {
+            fstream = new FileWriter(mergedFile, true);
+            out = new BufferedWriter(fstream);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+
+        for (File f : files) {
+            System.out.println("merging: " + f.getName());
+            FileInputStream fis;
+            try {
+                fis = new FileInputStream(f);
+                BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+                String aLine;
+                while ((aLine = in.readLine()) != null) {
+                    out.write(aLine);
+                    out.newLine();
+                }
+
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void onDiskSort(String largefile){
+
+    }
+
 }
