@@ -2,13 +2,15 @@ package MapReduce.MapReduceIO;
 
 import FileSystem.Base.SDDFSNode;
 
+import java.io.Serializable;
+
 /**
  * This is MapReduce level abstraction for data. Each SDDFSDataBlock
  * saves information about the size, offset, chunk node id, etc.
  *
  * @author amaliujia
  */
-public class SDDFSDataBlock {
+public class SDDFSDataBlock implements Serializable {
     private long chunkID;
     private SDDFSNode[] nodes;
     private long offset;

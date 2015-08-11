@@ -46,7 +46,7 @@ public class SDJobTrackerRMIService extends UnicastRemoteObject implements SDJob
     }
 
     public void reducerTaskFailed(SDReducerTask task) throws RemoteException {
-
+        jobTracker.reducerTaskFailed(task);
     }
 
     public void reducerTaskFailedOnMapperTask(SDReducerTask reducerTask,

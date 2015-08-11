@@ -3,6 +3,7 @@ package Master;
 import FileSystem.Index.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
 import Logging.SDLogger;
+import MapReduce.JobTracker.SDJobTracker;
 import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
@@ -55,18 +56,16 @@ public class SDMasterNode {
     }
 
     public void startService() throws RemoteException, UnknownHostException {
+        sdLogger = new SDLogger(SDUtil.LOGPATH);
 
         //start dfs master service
         String serviceName = SDMasterService.class.getCanonicalName();
-        sdLogger = new SDLogger(SDUtil.LOGPATH);
         sddfsIndex = new SDDFSIndex(sdLogger);
         sdMasterRMIService = new SDMasterRMIService(sddfsIndex);
         registry = LocateRegistry.createRegistry(SDUtil.MASTER_RMIRegistry_PORT);
         registry.rebind(SDMasterService.class.getCanonicalName(), sdMasterRMIService);
 
-        //TODO: should start map reduce master service
-
-        log4jLogger.info("Master node starts running");
+        log4jLogger.info("DFS Master node starts running");
     }
 
     /**

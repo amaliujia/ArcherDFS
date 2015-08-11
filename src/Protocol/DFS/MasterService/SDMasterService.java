@@ -13,6 +13,7 @@ public interface SDMasterService extends Remote {
 
     public void heartbeat(String serviceName, String registryHost, int registryPort, int chunkNumber, boolean logable)
                                         throws RemoteException;
+
     //create or update nodes, actually it is a kind of heartbeats
     public void updateDataNode(String serviceName, String registryHost, int registryPort,
                                int chunkNumber, long timestamp, boolean logable) throws RemoteException;
@@ -42,6 +43,6 @@ public interface SDMasterService extends Remote {
     long[] splitFile(String filename) throws RemoteException;
 
     //get data block.
-    SDDFSDataBlock[] getBlocks(String filename, int size, long offset);
+    SDDFSDataBlock[] getBlocks(String filename, int size, long offset) throws RemoteException;
 }
 

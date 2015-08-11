@@ -12,7 +12,7 @@ import java.rmi.RemoteException;
  */
 public interface SDJobService extends Remote{
 
-    public void heartbeat(SDRemoteTaskObject taskObject) throws RemoteException;
+     void heartbeat(SDRemoteTaskObject taskObject) throws RemoteException;
 
      void mapperTaskSucceed(SDMapperTask task) throws RemoteException;
 

@@ -4,6 +4,7 @@ import FileSystem.Base.SDDFSFile;
 import FileSystem.Index.SDDFSIndex;
 import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Protocol.DFS.MasterService.SDMasterService;
+import com.sun.xml.internal.ws.model.RuntimeModelerException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -181,7 +182,7 @@ public class SDMasterRMIService extends UnicastRemoteObject implements SDMasterS
         return new long[0];
     }
 
-    public SDDFSDataBlock[] getBlocks(String filename, int size, long offset) {
+    public SDDFSDataBlock[] getBlocks(String filename, int size, long offset) throws RemoteException{
         return index.getBlocks(filename, size, offset);
     }
 

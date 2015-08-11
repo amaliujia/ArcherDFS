@@ -68,10 +68,9 @@ public class SDJobTracker {
      * Init thread pool for handling
      */
     private void initThreads(){
-        //threadsTasksQueue = new LinkedBlockingDeque<Runnable>();
+        taskTackers = new ConcurrentHashMap<String, SDRemoteTaskObject>();
         jobExecutor = new ThreadPoolExecutor(4, 6, 1000, TimeUnit.MILLISECONDS, new LinkedBlockingDeque<Runnable>());
         jobs = new ConcurrentHashMap<Integer, SDJobUnit>();
-        //mapperTasks = new ConcurrentLinkedQueue<SDMapperTask>();
         mapperTasks = new PriorityBlockingQueue<SDMapperTask>();
 
         //start scheduler
@@ -167,6 +166,7 @@ public class SDJobTracker {
     public void updateTaskTracker(SDRemoteTaskObject object){
         object.setTimestamp();
         taskTackers.put(object.getHostname(), object);
+        log4jLogger.debug(SDUtil.LOG4JDEBUG_MAPREDUCE + "heart beat from " + object.toString());
     }
 
     public void mapperTaskSucceed(SDMapperTask task){

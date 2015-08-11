@@ -42,15 +42,13 @@ public class SDSlaveNode {
             registry.rebind(SDSlaveService.class.getCanonicalName(), slaveService);
             registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
             masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
-            heartbeatService = Executors.newScheduledThreadPool(10);
+            heartbeatService = Executors.newScheduledThreadPool(3);
             heartbeatService.scheduleAtFixedRate(new SDSlaveHeartbreatsJob(this.slaveIO, registry),
-                    0, 1000, TimeUnit.SECONDS);
+                    0, 5, TimeUnit.SECONDS);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {
             e.printStackTrace();
         }
-
-        //TODO: should start map reduce service.
     }
 }

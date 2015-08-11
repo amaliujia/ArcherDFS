@@ -1,12 +1,14 @@
 package MapReduce.MapReduceIO;
 
+import java.io.Serializable;
+
 /**
  * SDFileSegment is a MapReduce level abstraction. This class is used to
  * save data info for each mapper task.
  *
  * @author amaliujia
  */
-public class SDFileSegment {
+public class SDFileSegment implements Serializable {
     private String filename;
     private int size;
     private long offset;

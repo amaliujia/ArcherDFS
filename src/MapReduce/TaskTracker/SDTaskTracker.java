@@ -42,11 +42,11 @@ public class SDTaskTracker {
         taskService = new SDTaskTrackerRMIService(this);
         registry.rebind(SDTaskTracker.class.getCanonicalName(), taskService);
         registry = LocateRegistry.getRegistry(SDUtil.masterAddress, SDUtil.MASTER_RMIRegistry_PORT);
-        jobService = (SDJobService) registry.lookup(SDJobTracker.class.getCanonicalName());
+        jobService = (SDJobService) registry.lookup(SDJobService.class.getCanonicalName());
 
-        heartbeatService = Executors.newScheduledThreadPool(1);
-        heartbeatService.scheduleAtFixedRate(new SDTaskHeartbeatJob(registry, this),
-                0, 1000, TimeUnit.SECONDS);
+        heartbeatService = Executors.newScheduledThreadPool(3);
+        heartbeatService.scheduleAtFixedRate(new SDTaskHeartbeatJob(jobService, this),
+                0, 5, TimeUnit.SECONDS);
 
         // TODO:: number of threads in pool needs tuning.
         threadPool = Executors.newScheduledThreadPool(5);
