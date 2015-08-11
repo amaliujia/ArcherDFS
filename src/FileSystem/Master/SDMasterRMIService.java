@@ -4,7 +4,6 @@ import FileSystem.Base.SDDFSFile;
 import FileSystem.Index.SDDFSIndex;
 import MapReduce.MapReduceIO.SDDFSDataBlock;
 import Protocol.DFS.MasterService.SDMasterService;
-import com.sun.xml.internal.ws.model.RuntimeModelerException;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

@@ -1,14 +1,11 @@
 package MapReduce.TaskTracker;
 
-import MapReduce.JobTracker.SDTaskScheduler;
 import Protocol.MapReduce.SDJobService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
 
 import java.net.UnknownHostException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 
 /**
  * Created by amaliujia on 15-5-13.

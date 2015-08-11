@@ -3,7 +3,6 @@ package Master;
 import FileSystem.Index.SDDFSIndex;
 import FileSystem.Master.SDMasterRMIService;
 import Logging.SDLogger;
-import MapReduce.JobTracker.SDJobTracker;
 import Protocol.DFS.MasterService.SDMasterService;
 import Util.SDUtil;
 import org.apache.log4j.Logger;
