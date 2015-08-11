@@ -24,8 +24,8 @@ public class SDArcherMain {
             SDJobTracker jobTracker = new SDJobTracker();
             jobTracker.startService();
         }else if(args[0].equals("slave")){
-//            SDSlaveNode slave = new SDSlaveNode();
-//            slave.startService();
+            SDSlaveNode slave = new SDSlaveNode();
+            slave.startService();
 
             SDTaskTracker taskTracker = new SDTaskTracker();
             taskTracker.startService();

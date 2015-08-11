@@ -44,7 +44,7 @@ public class SDSlaveNode {
             masterService = (SDMasterService) registry.lookup(SDMasterService.class.getCanonicalName());
             heartbeatService = Executors.newScheduledThreadPool(3);
             heartbeatService.scheduleAtFixedRate(new SDSlaveHeartbreatsJob(this.slaveIO, registry),
-                    0, 5, TimeUnit.SECONDS);
+                    0, SDUtil.HEARTBEAT_PERIOD_SEC, TimeUnit.SECONDS);
         } catch (RemoteException e) {
             e.printStackTrace();
         } catch (NotBoundException e) {

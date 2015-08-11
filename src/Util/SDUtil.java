@@ -25,6 +25,7 @@ public class SDUtil {
     public static final int REGISTRY_OBJID = 0x0;
 
     public static final int POOLSIZE = 10;
+    public static final int HEARTBEAT_PERIOD_SEC = 1000;
 
     public static final String LOGPATH = "/Users/amaliujia/Documents/github/ArcherDFS/Resources/ArcherDFS.log";
     public static final int DEFAULT_REPLICATION = 1;
