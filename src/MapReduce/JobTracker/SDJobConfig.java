@@ -1,9 +1,11 @@
 package MapReduce.JobTracker;
 
+import java.io.Serializable;
+
 /**
  * @author amaliujia
  */
-public class SDJobConfig {
+public class SDJobConfig implements Serializable{
     public String jobName; //name of job.
     public String className;   // class of job.
     public String inputFile;   // inputfile, which should be stored into DFS already.

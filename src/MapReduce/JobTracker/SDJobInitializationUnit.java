@@ -124,12 +124,6 @@ public class SDJobInitializationUnit implements Runnable {
         jobUnit.setJobStatus(SDJobStatus.SETUP);
         try {
             setupMapperTask();
-        } catch (Exception e) {
-            jobUnit.setJobStatus(SDJobStatus.FAIL);
-            return;
-        }
-
-        try {
             setupReducerTask();
         } catch (Exception e) {
             jobUnit.setJobStatus(SDJobStatus.FAIL);

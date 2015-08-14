@@ -28,7 +28,18 @@ public class WordCount extends SDMapReduce {
         }
         output.collect(key, String.valueOf(count));
     }
+    /**
+     * Entrance for execute user-defined map reduce.
+     * @param args
+     *         args[0] jobName
+     *         args[1] user-defined class name
+     *         args[2] user inputfile
+     *         args[3] uesr outputfile
+     *         args[4] mapper number
+     *         args[5] reducer number
+     */
     public static void main(String[] args) {
+        org.apache.log4j.BasicConfigurator.configure();
         new WordCount().run(args);
     }
 }

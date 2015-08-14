@@ -29,7 +29,6 @@ public class SDArcherMain {
 
             SDTaskTracker taskTracker = new SDTaskTracker();
             taskTracker.startService();
-
         }else if(args[0].equals("RMIServer")){
             //TODO: start rmiserver
         }else if(args[0].equals("Registry")){
