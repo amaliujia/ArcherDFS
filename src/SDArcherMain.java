@@ -21,14 +21,14 @@ public class SDArcherMain {
             master.startService();
 
             //start map reduce jobtracker service
-            SDJobTracker jobTracker = new SDJobTracker();
-            jobTracker.startService();
+            // SDJobTracker jobTracker = new SDJobTracker();
+            // jobTracker.startService();
         }else if(args[0].equals("slave")){
             SDSlaveNode slave = new SDSlaveNode();
             slave.startService();
 
-            SDTaskTracker taskTracker = new SDTaskTracker();
-            taskTracker.startService();
+            // SDTaskTracker taskTracker = new SDTaskTracker();
+            // taskTracker.startService();
         }else if(args[0].equals("RMIServer")){
             //TODO: start rmiserver
         }else if(args[0].equals("Registry")){

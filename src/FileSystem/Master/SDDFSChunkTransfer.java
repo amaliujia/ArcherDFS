@@ -45,11 +45,14 @@ public class SDDFSChunkTransfer {
             Iterator<SDDFSNode> iterator = chunkNodes.iterator();
             while(iterator.hasNext()){
                 SDDFSNode node = iterator.next();
+
                 try {
-                    Registry registry = LocateRegistry.getRegistry(node.getRegistryHost(), node.getRegistryPort());
+                    //Registry registry = LocateRegistry.getRegistry(node.getRegistryHost(), node.getRegistryPort());
+                    Registry registry = LocateRegistry.getRegistry("localhost", node.getRegistryPort());
+
                     SDSlaveService slaveService = (SDSlaveService)registry.lookup(SDSlaveService.class.getCanonicalName());
                     slaveService.append(chunk.getId(), chunk.getSize(), getChunkData(chunk));
-                    slaveService.write(chunk.getId(), chunk.getOffset(), chunk.getSize(), getChunkData(chunk));
+                    slaveService.write(chunk.getId(), 0, chunk.getSize(), getChunkData(chunk));
                 } catch (RemoteException e) {
                     System.err.println("Cannot get registry from " + node.toString() );
                     continue;

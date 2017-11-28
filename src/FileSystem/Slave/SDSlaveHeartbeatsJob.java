@@ -2,6 +2,7 @@ package FileSystem.Slave;
 
 import FileSystem.Util.SDDFSConstants;
 import Protocol.DFS.MasterService.SDMasterService;
+import Util.SDUtil;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -26,7 +27,7 @@ public class SDSlaveHeartbeatsJob implements Runnable{
         try {
             SDMasterService masterService = (SDMasterService)
                     registry.lookup(SDMasterService.class.getCanonicalName());
-            masterService.heartbeat("slave", "localhost", SDDFSConstants.DEFAULT_SLAVE_REGISTRY_PORT,
+            masterService.heartbeat("slave", "localhost", SDUtil.SALVE_RMIREGISTRY_PORT,
                                     slaveIO.getChunkNumber(), true);
         } catch (RemoteException e) {
             System.err.println("master node error");

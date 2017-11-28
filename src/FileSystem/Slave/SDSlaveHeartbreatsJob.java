@@ -29,14 +29,12 @@ public class SDSlaveHeartbreatsJob implements Runnable{
             String serviceName = SDSlaveService.class.getCanonicalName();
             SDMasterService masterService = (SDMasterService)
                     registry.lookup(SDMasterService.class.getCanonicalName());
-            masterService.heartbeat(serviceName, SDUtil.getlocalHost(), SDDFSConstants.DEFAULT_SLAVE_REGISTRY_PORT,
+            masterService.heartbeat(serviceName, "localhost", SDUtil.SALVE_RMIREGISTRY_PORT,
                                     slaveIO.getChunkNumber(), true);
         } catch (RemoteException e) {
             System.err.println("master node error");
         } catch (NotBoundException e) {
             System.err.println("master service not found");
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
         }
     }
 }
